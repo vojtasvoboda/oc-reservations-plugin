@@ -80,10 +80,19 @@ class ReservationsFacade
 
     /**
      * Get all reserved dates, according to reservation length.
+     *
+     * @return array
      */
     public function getReservedDates()
     {
+        $reservations = $this->reservations->notCancelled()->get();
 
+        $dates = [];
+        foreach($reservations as $reservation) {
+            $dates[] = $reservation->date;
+        }
+
+        return $dates;
     }
 
     /**

@@ -40,6 +40,9 @@ Main facade provide this methods:
 
 ## TODO
 
+- [ ] Assets minification and concatenation!
+- [ ] Load assets by Bower (http://amsul.ca/pickadate.js/time/)!
+- [ ] Checkbox for disable injecting assets.
 - [ ] Make translations.
 - [ ] When changing reservation from cancelled back, check date availability.
 - [ ] Automatically load statuses for reservations listing/filtration.
