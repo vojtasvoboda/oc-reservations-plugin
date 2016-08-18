@@ -1,0 +1,15 @@
+title: Statuses
+modelClass: VojtaSvoboda\Reservations\Models\Status
+list: $/vojtasvoboda/reservations/models/status/columns.yaml
+recordUrl: 'vojtasvoboda/reservations/statuses/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+showSorting: 1
+defaultSort:
+    column: sort_order
+    direction: asc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

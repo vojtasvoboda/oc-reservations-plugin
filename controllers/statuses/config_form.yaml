@@ -1,0 +1,11 @@
+name: Statuses
+modelClass: VojtaSvoboda\Reservations\Models\Status
+form: $/vojtasvoboda/reservations/models/status/fields.yaml
+defaultRedirect: vojtasvoboda/reservations/statuses
+create:
+    redirect: 'vojtasvoboda/reservations/statuses/update/:id'
+    redirectClose: vojtasvoboda/reservations/statuses
+update:
+    redirect: vojtasvoboda/reservations/statuses
+    redirectClose: vojtasvoboda/reservations/statuses
+preview: {  }

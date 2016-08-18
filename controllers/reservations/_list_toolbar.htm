@@ -1,0 +1,48 @@
+<div data-control="toolbar">
+    <div class="btn-group">
+        <a href="<?= Backend::url('vojtasvoboda/reservations/reservations/create') ?>" class="btn btn-primary oc-icon-plus">
+            <?= e(trans('backend::lang.form.create')) ?>
+        </a>
+    </div>
+    <div class="btn-group dropdown dropdown-fixed" data-control="bulk-actions">
+        <button
+            data-primary-button
+            type="button"
+            class="btn btn-default"
+            data-request="onBulkAction"
+            data-trigger-action="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-request-success="$(this).prop('disabled', true).next().prop('disabled', true)"
+            data-stripe-load-indicator>
+            Bulk actions
+        </button>
+        <button
+            type="button"
+            class="btn btn-default dropdown-toggle"
+            data-trigger-action="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" data-dropdown-title="Bulk actions">
+            <li>
+                <a href="javascript:;" class="oc-icon-check" data-action="approved" data-confirm="Are you sure to switch reservations to Approved?">Schválená</a>
+            </li>
+            <li>
+                <a href="javascript:;" class="oc-icon-home" data-action="closed" data-confirm="Are you sure to switch reservations to Closed?">Uzavřená</a>
+            </li>
+            <li>
+                <a href="javascript:;" class="oc-icon-spinner" data-action="received" data-confirm="Are you sure to switch reservations to Received?">Nová</a>
+            </li>
+            <li>
+                <a href="javascript:;" class="oc-icon-times" data-action="cancelled" data-confirm="Are you sure to switch reservations to Cancelled?">Zrušená</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li>
+                <a href="javascript:;" class="oc-icon-trash" data-action="delete" data-confirm="Are you sure to delete selected reservations?">Smazat</a>
+            </li>
+        </ul>
+    </div>
+</div>

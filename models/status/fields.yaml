@@ -1,0 +1,24 @@
+fields:
+    name:
+        label: Name
+        span: full
+        disabled: 0
+        required: 1
+        type: text
+    ident:
+        label: Ident
+        span: full
+        required: 1
+        context:
+            - create
+        preset:
+            field: name
+            type: slug
+        type: text
+    color:
+        label: Color
+        type: colorpicker
+    enabled:
+        label: Enabled
+        span: full
+        type: checkbox

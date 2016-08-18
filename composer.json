@@ -1,0 +1,23 @@
+{
+    "name": "vojtasvoboda/oc-reservations-plugin",
+    "type": "october-plugin",
+    "extra": {
+        "installer-name": "reservations"
+    },
+    "description": "Reservations plugin for OctoberCMS",
+    "homepage": "https://github.com/vojtasvoboda/oc-reservations-plugin",
+    "keywords": ["october", "plugin", "reservations"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vojta Svoboda",
+            "email": "vojtasvoboda.cz@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "composer/installers": "~1.0"
+    },
+    "minimum-stability": "dev"
+}

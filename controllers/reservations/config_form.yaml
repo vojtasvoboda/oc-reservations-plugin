@@ -1,0 +1,11 @@
+name: Reservation
+modelClass: VojtaSvoboda\Reservations\Models\Reservation
+form: $/vojtasvoboda/reservations/models/reservation/fields.yaml
+defaultRedirect: vojtasvoboda/reservations/reservations
+create:
+    redirect: 'vojtasvoboda/reservations/reservations/update/:id'
+    redirectClose: vojtasvoboda/reservations/reservations
+update:
+    redirect: vojtasvoboda/reservations/reservations
+    redirectClose: vojtasvoboda/reservations/reservations
+preview: {  }

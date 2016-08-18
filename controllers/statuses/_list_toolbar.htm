@@ -1,0 +1,23 @@
+<div data-control="toolbar">
+    <div class="btn-group">
+        <a href="<?= Backend::url('vojtasvoboda/reservations/statuses/create') ?>" class="btn btn-primary oc-icon-plus"><?= e(trans('backend::lang.form.create')) ?></a>
+        <a href="<?= Backend::url('vojtasvoboda/reservations/statuses/reorder') ?>" class="btn btn-default oc-icon-list-ol">
+            Změnit pořadí
+        </a>
+        <button
+            class="btn btn-default oc-icon-trash-o"
+            disabled="disabled"
+            onclick="$(this).data('request-data', {
+                checked: $('.control-list').listWidget('getChecked')
+            })"
+            data-request="onDelete"
+            data-request-confirm="Opravdu chcete smazat vybrané položky?"
+            data-trigger-action="enable"
+            data-trigger=".control-list input[type=checkbox]"
+            data-trigger-condition="checked"
+            data-request-success="$(this).prop('disabled', true)"
+            data-stripe-load-indicator>
+            <?= e(trans('backend::lang.list.delete_selected')) ?>
+        </button>
+    </div>
+</div>

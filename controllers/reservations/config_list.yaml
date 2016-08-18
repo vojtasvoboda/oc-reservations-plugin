@@ -1,0 +1,17 @@
+title: Reservation
+modelClass: VojtaSvoboda\Reservations\Models\Reservation
+list: $/vojtasvoboda/reservations/models/reservation/columns.yaml
+filter: config_filter.yaml
+recordUrl: 'vojtasvoboda/reservations/reservations/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 200
+showSetup: true
+showCheckboxes: true
+showSorting: 1
+defaultSort:
+    column: id
+    direction: desc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

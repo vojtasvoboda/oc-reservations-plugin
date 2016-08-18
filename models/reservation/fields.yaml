@@ -1,0 +1,35 @@
+fields:
+    date:
+        label: Datum
+        span: left
+        type: datepicker
+        mode: datetime
+        required: true
+        minDate: 2016-08-01
+    status:
+        label: Status
+        nameFrom: name
+        descriptionFrom: description
+        span: right
+        type: relation
+        required: true
+    name:
+        label: Jméno
+        span: left
+        type: text
+    street:
+        label: Adresa/číslo letu
+        span: right
+        type: text
+    email:
+        label: E-mail
+        span: left
+        type: text
+    phone:
+        label: Telefon
+        span: right
+        type: text
+    message:
+        label: Zpráva
+        type: text
+        span: full

@@ -1,0 +1,34 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: Vytvořeno
+        type: datetime
+        searchable: true
+        sortable: true
+        format: d.m.Y H:i:s
+    status_id:
+        label: Status
+        relation: status
+        select: name
+        span: full
+        required: true
+    email:
+        label: E-mail
+        span: full
+        type: text
+    phone:
+        label: Telefon
+        span: full
+        type: text
+    name:
+        label: Jméno
+        span: full
+        type: text
+    street:
+        label: Ulice
+        span: full
+        type: text

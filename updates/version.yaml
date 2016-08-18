@@ -1,0 +1,5 @@
+1.0.1:
+    - First version of Reservations
+    - create_statuses_table.php
+    - create_reservations_table.php
+    - seed_statuses_table.php

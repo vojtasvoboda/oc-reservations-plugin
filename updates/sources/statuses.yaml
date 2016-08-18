@@ -1,0 +1,17 @@
+# NOTE: This file can be easily overwritten, see README
+-
+    name: Received
+    ident: received
+    color: "#3498db"
+-
+    name: Approved
+    ident: approved
+    color: "#27ae60"
+-
+    name: Closed
+    ident: closed
+    color: '#8e44ad'
+-
+    name: Cancelled
+    ident: cancelled
+    color: "#bdc3c7"

@@ -1,0 +1,18 @@
+tabs:
+    fields:
+
+        status_enabled:
+            label: Filter by status
+            type: checkbox
+            default: false
+            tab: Status
+        status_id:
+            label: Status
+            span: full
+            type: dropdown
+            required: true
+            tab: Status
+            trigger:
+                action: show
+                field: status_enabled
+                condition: checked

@@ -1,0 +1,5 @@
+title: Statuses
+modelClass: VojtaSvoboda\Reservations\Models\Status
+nameFrom: name
+toolbar:
+    buttons: reorder_toolbar

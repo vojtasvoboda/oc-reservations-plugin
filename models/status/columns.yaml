@@ -1,0 +1,31 @@
+columns:
+    name:
+        label: Název
+        type: text
+        searchable: true
+        sortable: true
+    color:
+        label: Barva
+        type: text
+    ident:
+        label: Ident
+        type: text
+        searchable: true
+        sortable: true
+    sort_order:
+        label: Pořadí
+        type: number
+        searchable: false
+        sortable: true
+    enabled:
+        label: Aktivní
+        type: switch
+        sortable: true
+    created_at:
+        label: Vytvořeno
+        type: datetime
+        sortable: true
+    updated_at:
+        label: Upraveno
+        type: datetime
+        sortable: true

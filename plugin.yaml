@@ -1,0 +1,15 @@
+plugin:
+    name: 'Rezervace'
+    description: 'Quick reservations plugin.'
+    author: 'Vojta Svoboda'
+    icon: icon-calendar-o
+permissions:
+    vojtasvoboda.reservations.reservations:
+        tab: Reservations
+        label: 'Reservations management'
+    vojtasvoboda.reservations.statuses:
+        tab: Reservations
+        label: 'Statuses management'
+    vojtasvoboda.reservations.export:
+        tab: Reservations
+        label: 'Reservations export'

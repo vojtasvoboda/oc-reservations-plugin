@@ -1,0 +1,29 @@
+<div id="result">
+    {% flash %}
+    <p class="alert alert-success">{{ message }}</p>
+    {% endflash %}
+
+    {% if error %}
+    <p class="alert alert-danger">{{ error }}</p>
+    {% endif %}
+</div>
+
+<form
+    method="post"
+    data-request="{{ __SELF__ }}::onSubmit"
+    data-request-update="'{{ __SELF__ }}::success': '#result'"
+    data-request-success="$('#{{ __SELF__ }} input[type=text], #{{ __SELF__ }} textarea').val('');"
+    id="{{__SELF__}}"{% if sent %} class="sent"{% endif %}>
+
+<input id="date" name="date" class="datepicker" type="text" placeholder="Date" />
+<input id="time" name="time" type="text" placeholder="Hour" />
+<input id="address" name="address" type="text" placeholder="Address" />
+<input id="name" name="name" type="text" placeholder="Name" />
+<input id="email" name="email" type="text" placeholder="Email" />
+<input id="phone" name="phone" type="text" placeholder="Phone" />
+<textarea id="message" name="message" placeholder="Your message"></textarea>
+
+{{ form_token() }}
+<input type="submit" name="submit" id="submit" value="Submit" />
+
+</form>
