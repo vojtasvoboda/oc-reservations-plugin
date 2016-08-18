@@ -43,6 +43,8 @@ class ReservationsFacade
      *
      * @param array $data
      *
+     * @return Reservation $reservation
+     *
      * @throws ApplicationException
      * @throws ValidationException
      */
@@ -54,7 +56,7 @@ class ReservationsFacade
         }
 
         // add default status
-        $statusIdent = Config::get('vojtasvoboda.reservations::reservation.statuses.received', 'received');
+        $statusIdent = Config::get('vojtasvoboda.reservations::config.statuses.received', 'received');
         $status = $this->statuses->where('ident', $statusIdent)->first();
         $data['status'] = $status;
 
@@ -76,6 +78,8 @@ class ReservationsFacade
 
         // send reservation confirmation
         ReservationMailer::send($reservation);
+
+        return $reservation;
     }
 
     /**

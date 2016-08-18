@@ -2,50 +2,50 @@
 
 return [
 
-    'reservation' => [
-
-        'time' => [
-
-            /**
-             * Interval between two dates.
-             */
-            'interval' => 15,
-
-            /**
-             * Capacity of one date.
-             */
-            'capacity' => 1,
-        ],
+    /**
+     * Set reservation times.
+     */
+    'time' => [
 
         /**
-         * Reservation random number. For disable generating this number, just
-         * set min to 0.
+         * Interval between two dates.
          */
-        'number' => [
-            'min' => 123456,
-            'max' => 999999,
-        ],
+        'interval' => 15,
 
         /**
-         * Reservation random hash. For disable set to 0.
+         * Capacity of one date.
          */
-        'hash' => 32,
+        'capacity' => 1,
+    ],
+
+    /**
+     * Reservation statuses config.
+     */
+    'statuses' => [
 
         /**
-         * Reservation statuses config.
+         * Reservation status after create.
          */
-        'statuses' => [
+        'received' => 'received',
 
-            /**
-             * Reservation status after create.
-             */
-            'received' => 'received',
+        /**
+         * List of cancelled reservation statuses that doesn't blocks terms for booking.
+         */
+        'cancelled' => ['cancelled'],
+    ],
 
-            /**
-             * List of invalid reservation statuses - this reservations doesn't
-             * block terms for booking.
-             */
-            'invalid' => ['cancelled'],
-        ]
+    /**
+     * Reservation random number. For disable, just set min to 0.
+     */
+    'number' => [
+        'min' => 123456,
+        'max' => 999999,
+    ],
+
+    /**
+     * Reservation random hash. For disable set to 0.
+     */
+    'hash' => [
+        'length' => 32
     ],
 ];

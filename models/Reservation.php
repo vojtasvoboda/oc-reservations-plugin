@@ -1,11 +1,12 @@
 <?php namespace VojtaSvoboda\Reservations\Models;
 
+use Carbon\Carbon;
 use Config;
 use Model;
 use October\Rain\Database\Traits\SoftDelete as SoftDeleteTrait;
 use October\Rain\Database\Traits\Validation as ValidationTrait;
-use Str;
 use Request;
+use Str;
 
 class Reservation extends Model
 {
@@ -55,14 +56,17 @@ class Reservation extends Model
 
     /**
      * Scope for getting non cancelled reservations.
+     *
      * @param $query
      *
      * @return mixed
      */
     public function scopeNotCancelled($query)
     {
-        return $query->whereHas('status', function($query) {
-            $query->whereIn('ident', ['received', 'approved']);
+        $cancelledStatuses = Config::get('vojtasvoboda.reservations::config.statuses.cancelled', ['cancelled']);
+
+        return $query->whereHas('status', function($query) use ($cancelledStatuses) {
+            $query->whereNotIn('ident', $cancelledStatuses);
         });
     }
 
@@ -89,13 +93,12 @@ class Reservation extends Model
      */
     public function isExistInLastTime()
     {
-        // time
-        $now = new \DateTime();
-        $now->modify('-30 seconds');
-        $now_sql_formated = $now->format('Y-m-d H:i:s');
+        // protection time
+        $time = Config::get('vojtasvoboda.reservations::config.protection_time', '-30 seconds');
+        $timeLimit = Carbon::parse($time)->toDateTimeString();
 
         // try to find some message
-        $item = self::machine()->where('created_at', '>', $now_sql_formated)->first();
+        $item = self::machine()->where('created_at', '>', $timeLimit)->first();
 
         return $item !== null;
     }
@@ -107,7 +110,7 @@ class Reservation extends Model
      */
     public function getUniqueHash()
     {
-        $length = Config::get('vojtasvoboda.reservations::config.reservation.hash', 32);
+        $length = Config::get('vojtasvoboda.reservations::config.hash', 32);
         if ($length == 0) {
             return null;
         }
@@ -125,14 +128,14 @@ class Reservation extends Model
     {
         $number = null;
         $count = 0;
-        $min = Config::get('vojtasvoboda.reservations::config.reservation.number.min', 123456);
-        $max = Config::get('vojtasvoboda.reservations::config.reservation.number.max', 999999);
+        $min = Config::get('vojtasvoboda.reservations::config.number.min', 123456);
+        $max = Config::get('vojtasvoboda.reservations::config.number.max', 999999);
         if ($min == 0 || $max == 0) {
             return $number;
         }
 
         do {
-            $number = rand($min, $max);
+            $number = mt_rand($min, $max);
 
         } while ((self::where('number', $number)->count() > 0) && (++$count < 1000));
 
