@@ -41,6 +41,7 @@ Main facade provide this methods:
 ## TODO
 
 - [ ] Make translations.
+- [ ] When changing reservation from cancelled back, check date availability.
 - [ ] Automatically load statuses for reservations listing/filtration.
 - [ ] Log history of status changes.
 - [ ] Make bulk reservation status change in one SQL request.

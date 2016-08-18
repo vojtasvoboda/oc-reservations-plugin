@@ -50,17 +50,14 @@ class ReservationsFacade
      */
     public function storeReservation($data)
     {
+        // transform date and time to Carbon
+        $data['date'] = $this->transformDateTime($data);
+
         // check date availability
         $this->checkDate($data);
 
         // add default status
         $data['status'] = $this->getDefaultState();
-
-        // date and time together
-        if (!empty($data['date'])) {
-            $date = Carbon::createFromFormat('d/m/Y H:i', $data['date'] . ' ' . $data['time']);
-            $data['date'] = $date->toDateTimeString();
-        }
 
         // create reservation
         $reservation = $this->reservations->create($data);
@@ -148,6 +145,28 @@ class ReservationsFacade
     }
 
     /**
+     * Transform date and time to DateTime string.
+     *
+     * @param $data
+     *
+     * @return Carbon
+     *
+     * @throws ApplicationException
+     */
+    private function transformDateTime($data)
+    {
+        // validate date and time
+        if (empty($data['date'])) {
+            throw new ApplicationException('You have to select pickup date!');
+
+        } elseif (empty($data['time'])) {
+            throw new ApplicationException('You have to select pickup hour!');
+        }
+
+        return Carbon::createFromFormat('d/m/Y H:i', trim($data['date'] . ' ' . $data['time']));
+    }
+
+    /**
      * Check gived date and time.
      *
      * @param array $data
@@ -156,30 +175,44 @@ class ReservationsFacade
      */
     private function checkDate($data)
     {
-        // validate date
-        if (empty($data['date'])) {
-            throw new ApplicationException('You have to select pickup date!');
-        }
-
-        // validate time
-        if (!empty($data['date']) && empty($data['time'])) {
-            throw new ApplicationException('You have to select pickup hour!');
-        }
-
         // check reservation sent limit
         if ($this->isSomeReservationExistsInLastTime()) {
             throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
         }
 
         // check date availability
-        if (!$this->isDateAvailable($data['date'], $data['time'])) {
-            throw new ApplicationException('This date and time is already booked.');
+        if (!$this->isDateAvailable($data['date'])) {
+            throw new ApplicationException($data['date']->format('d.m.Y H:i') . ' is already booked.');
         }
     }
 
-    public function isDateAvailable($date, $time)
+    /**
+     * Returns if date is available to book.
+     *
+     * @param Carbon $date
+     *
+     * @return bool
+     */
+    public function isDateAvailable(Carbon $date)
     {
-        return true;
+        // get config
+        $capacity = Config::get('vojtasvoboda.reservations::config.reservation.capacity', 1);
+        $length = Config::get('vojtasvoboda.reservations::config.reservation.length', '2 hours');
+
+        // check time slot before
+        $startDatetime = clone $date;
+        $startDatetime->modify('-' . $length);
+        $startDatetime->modify('+1 second');
+
+        // check time slot after
+        $endDatetime = clone $date;
+        $endDatetime->modify('+' . $length);
+        $endDatetime->modify('-1 second');
+
+        // get all reservations in this date
+        $reservations = $this->reservations->notCancelled()->whereBetween('date', [$startDatetime, $endDatetime])->get();
+
+        return $reservations->count() < $capacity;
     }
 
     /**

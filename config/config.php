@@ -3,19 +3,24 @@
 return [
 
     /**
-     * Set reservation times.
+     * Set reservations.
      */
-    'time' => [
+    'reservation' => [
 
         /**
-         * Interval between two dates.
+         * Interval between two reservations.
          */
         'interval' => 15,
 
         /**
-         * Capacity of one date.
+         * Capacity of one reservation.
          */
         'capacity' => 1,
+
+        /**
+         * Length of one reservation.
+         */
+        'length' => '2 hours',
     ],
 
     /**
@@ -45,7 +50,5 @@ return [
     /**
      * Reservation random hash. For disable set to 0.
      */
-    'hash' => [
-        'length' => 32
-    ],
+    'hash' => 32,
 ];
