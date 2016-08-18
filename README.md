@@ -44,6 +44,7 @@ Main facade provide this methods:
 - [ ] Load assets by Bower (http://amsul.ca/pickadate.js/time/)!
 - [ ] Checkbox for disable injecting assets.
 - [ ] Make translations.
+- [ ] Add capacity parameter. Each time slot could have some capacity (number of tables, cars, etc.)
 - [ ] When changing reservation from cancelled back, check date availability.
 - [ ] Automatically load statuses for reservations listing/filtration.
 - [ ] Log history of status changes.

@@ -7,6 +7,7 @@ use Event;
 use Illuminate\Database\Eloquent\Collection;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
+use VojtaSvoboda\Reservations\Classes\DatesResolver;
 use VojtaSvoboda\Reservations\Mailers\ReservationMailer;
 use VojtaSvoboda\Reservations\Models\Reservation;
 use VojtaSvoboda\Reservations\Models\Status;
@@ -26,16 +27,21 @@ class ReservationsFacade
     /** @var Status $statuses */
     private $statuses;
 
+    /** @var DatesResolver $datesResolver */
+    private $datesResolver;
+
     /**
      * ReservationsFacade constructor.
      *
      * @param Reservation $reservations
      * @param Status $statuses
+     * @param DatesResolver $resolver
      */
-    public function __construct(Reservation $reservations, Status $statuses)
+    public function __construct(Reservation $reservations, Status $statuses, DatesResolver $resolver)
     {
         $this->reservations = $reservations;
         $this->statuses = $statuses;
+        $this->datesResolver = $resolver;
     }
 
     /**
@@ -79,23 +85,6 @@ class ReservationsFacade
     }
 
     /**
-     * Get all reserved dates, according to reservation length.
-     *
-     * @return array
-     */
-    public function getReservedDates()
-    {
-        $reservations = $this->reservations->notCancelled()->get();
-
-        $dates = [];
-        foreach($reservations as $reservation) {
-            $dates[] = $reservation->date;
-        }
-
-        return $dates;
-    }
-
-    /**
      * Get default reservation state.
      *
      * @return Status
@@ -105,6 +94,18 @@ class ReservationsFacade
         $statusIdent = Config::get('vojtasvoboda.reservations::config.statuses.received', 'received');
 
         return $this->statuses->where('ident', $statusIdent)->first();
+    }
+
+    /**
+     * Get all reserved dates and times, according to reservation length.
+     *
+     * @return array
+     */
+    public function getReservedDates()
+    {
+        $reservations = $this->reservations->notCancelled()->get();
+
+        return $this->datesResolver->getDatesFromReservations($reservations);
     }
 
     /**
@@ -205,7 +206,6 @@ class ReservationsFacade
     public function isDateAvailable(Carbon $date)
     {
         // get config
-        $capacity = Config::get('vojtasvoboda.reservations::config.reservation.capacity', 1);
         $length = Config::get('vojtasvoboda.reservations::config.reservation.length', '2 hours');
 
         // check time slot before
@@ -221,7 +221,7 @@ class ReservationsFacade
         // get all reservations in this date
         $reservations = $this->reservations->notCancelled()->whereBetween('date', [$startDatetime, $endDatetime])->get();
 
-        return $reservations->count() < $capacity;
+        return $reservations->count() == 0;
     }
 
     /**

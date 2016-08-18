@@ -13,11 +13,6 @@ return [
         'interval' => 15,
 
         /**
-         * Capacity of one reservation.
-         */
-        'capacity' => 1,
-
-        /**
          * Length of one reservation.
          */
         'length' => '2 hours',
@@ -37,6 +32,18 @@ return [
          * List of cancelled reservation statuses that doesn't blocks terms for booking.
          */
         'cancelled' => ['cancelled'],
+    ],
+
+    /**
+     * Datetime formats.
+     */
+    'formats' => [
+
+        'datetime' => 'd/m/Y H:i',
+
+        'date' => 'd/m/Y',
+
+        'time' => 'H:i',
     ],
 
     /**

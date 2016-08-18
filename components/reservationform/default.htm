@@ -8,6 +8,10 @@
     {% endif %}
 </div>
 
+<script type="text/javascript">
+    var booked = JSON.parse('{{ dates | raw }}');
+</script>
+
 <form
     method="post"
     data-request="{{ __SELF__ }}::onSubmit"
@@ -15,15 +19,15 @@
     data-request-success="$('#{{ __SELF__ }} input[type=text], #{{ __SELF__ }} textarea').val('');"
     id="{{__SELF__}}"{% if sent %} class="sent"{% endif %}>
 
-<input id="date" name="date" class="datepicker" type="text" placeholder="Date" />
-<input id="time" name="time" type="text" placeholder="Hour" />
-<input id="address" name="address" type="text" placeholder="Address" />
-<input id="name" name="name" type="text" placeholder="Name" />
-<input id="email" name="email" type="text" placeholder="Email" />
-<input id="phone" name="phone" type="text" placeholder="Phone" />
-<textarea id="message" name="message" placeholder="Your message"></textarea>
+    <input id="date" name="date" class="datepicker" type="text" placeholder="Date" value="{{ post.date }}" />
+    <input id="time" name="time" type="text" placeholder="Hour" value="{{ post.time }}" />
+    <input id="address" name="address" type="text" placeholder="Address" value="{{ post.address }}" />
+    <input id="name" name="name" type="text" placeholder="Name" value="{{ post.name }}" />
+    <input id="email" name="email" type="text" placeholder="Email" value="{{ post.email }}" />
+    <input id="phone" name="phone" type="text" placeholder="Phone" value="{{ post.phone }}" />
+    <textarea id="message" name="message" placeholder="Your message">{{ post.message }}</textarea>
 
-{{ form_token() }}
-<input type="submit" name="submit" id="submit" value="Submit" />
+    {{ form_token() }}
+    <input type="submit" name="submit" id="submit" value="Submit" />
 
 </form>
