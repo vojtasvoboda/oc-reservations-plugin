@@ -41,6 +41,7 @@ Main facade provide this methods:
 ## TODO
 
 - [ ] Assets minification and concatenation!
+- [ ] Load datetime format from config!
 - [ ] Load assets by Bower (http://amsul.ca/pickadate.js/time/)!
 - [ ] Checkbox for disable injecting assets.
 - [ ] Make translations.

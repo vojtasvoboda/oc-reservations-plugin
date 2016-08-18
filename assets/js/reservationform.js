@@ -1,3 +1,8 @@
+/**
+ * Reservation form.
+ *
+ * @param $
+ */
 var reservationform = function($) {
 
     $('#date').pickadate({
@@ -16,6 +21,9 @@ var reservationform = function($) {
     disableAllTimes();
 };
 
+/**
+ * Disable all timepicker dates.
+ */
 function disableAllTimes()
 {
     var $input = $('#time').pickatime();
@@ -26,10 +34,18 @@ function disableAllTimes()
     }]);
 }
 
+/**
+ * Load booked times for given date and disable them in timepicker.
+ *
+ * @param date
+ */
 function loadBookedTimes(date)
 {
-    var month = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
-    var selectedDate = date.getDate() + '/' + month + '/' + date.getFullYear();
+    var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? '0' : '') + month;
+    var selectedDate = day + '/' + month + '/' + date.getFullYear();
+    console.log(selectedDate);
 
     var $input = $('#time').pickatime();
     var picker = $input.pickatime('picker');
