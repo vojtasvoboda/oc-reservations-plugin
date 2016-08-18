@@ -1,5 +1,6 @@
 <?php namespace VojtaSvoboda\Reservations\Models;
 
+use App;
 use Carbon\Carbon;
 use Config;
 use Model;
@@ -48,6 +49,8 @@ class Reservation extends Model
     {
         $this->hash = $this->getUniqueHash();
         $this->number = $this->getUniqueNumber();
+
+        $this->locale = App::getLocale();
 
         $this->ip = Request::server('REMOTE_ADDR');
         $this->ip_forwarded = Request::server('HTTP_X_FORWARDED_FOR');

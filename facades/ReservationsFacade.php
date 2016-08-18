@@ -1,10 +1,10 @@
 <?php namespace VojtaSvoboda\Reservations\Facades;
 
-use App;
 use Auth;
 use Carbon\Carbon;
 use Config;
 use Event;
+use Illuminate\Database\Eloquent\Collection;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
 use VojtaSvoboda\Reservations\Mailers\ReservationMailer;
@@ -50,23 +50,11 @@ class ReservationsFacade
      */
     public function storeReservation($data)
     {
-        // check reservation sent limit
-        if ($this->isSomeReservationExistsInLastTime()) {
-            throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
-        }
+        // check date availability
+        $this->checkDate($data);
 
         // add default status
-        $statusIdent = Config::get('vojtasvoboda.reservations::config.statuses.received', 'received');
-        $status = $this->statuses->where('ident', $statusIdent)->first();
-        $data['status'] = $status;
-
-        // add locale
-        $data['locale'] = App::getLocale();
-
-        // validate time
-        if (!empty($data['date']) && empty($data['time'])) {
-            throw new ApplicationException('You have to select pickup hour!');
-        }
+        $data['status'] = $this->getDefaultState();
 
         // date and time together
         if (!empty($data['date'])) {
@@ -74,6 +62,7 @@ class ReservationsFacade
             $data['date'] = $date->toDateTimeString();
         }
 
+        // create reservation
         $reservation = $this->reservations->create($data);
 
         // send reservation confirmation
@@ -85,7 +74,7 @@ class ReservationsFacade
     /**
      * Get all reservations.
      *
-     * @return mixed
+     * @return Collection
      */
     public function getReservations()
     {
@@ -101,10 +90,22 @@ class ReservationsFacade
     }
 
     /**
+     * Get default reservation state.
+     *
+     * @return Status
+     */
+    private function getDefaultState()
+    {
+        $statusIdent = Config::get('vojtasvoboda.reservations::config.statuses.received', 'received');
+
+        return $this->statuses->where('ident', $statusIdent)->first();
+    }
+
+    /**
      * Bulk reservation state change.
      *
-     * @param $ids
-     * @param $ident
+     * @param array $ids
+     * @param string $ident
      */
     public function bulkStateChange($ids, $ident)
     {
@@ -130,7 +131,7 @@ class ReservationsFacade
     /**
      * Bulk reservations delete.
      *
-     * @param $ids
+     * @param array $ids
      */
     public function bulkDelete($ids)
     {
@@ -144,6 +145,41 @@ class ReservationsFacade
 
             $reservation->delete();
         }
+    }
+
+    /**
+     * Check gived date and time.
+     *
+     * @param array $data
+     *
+     * @throws ApplicationException
+     */
+    private function checkDate($data)
+    {
+        // validate date
+        if (empty($data['date'])) {
+            throw new ApplicationException('You have to select pickup date!');
+        }
+
+        // validate time
+        if (!empty($data['date']) && empty($data['time'])) {
+            throw new ApplicationException('You have to select pickup hour!');
+        }
+
+        // check reservation sent limit
+        if ($this->isSomeReservationExistsInLastTime()) {
+            throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
+        }
+
+        // check date availability
+        if (!$this->isDateAvailable($data['date'], $data['time'])) {
+            throw new ApplicationException('This date and time is already booked.');
+        }
+    }
+
+    public function isDateAvailable($date, $time)
+    {
+        return true;
     }
 
     /**

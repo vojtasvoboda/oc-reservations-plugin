@@ -22,7 +22,7 @@ class ReservationsFacadeTest extends PluginTestCase
     {
         $model = $this->getModel();
 
-        $this->setExpectedException('October\Rain\Database\ModelException', 'The date field is required.');
+        $this->setExpectedException('October\Rain\Exception\ApplicationException');
         $model->storeReservation([]);
     }
 
