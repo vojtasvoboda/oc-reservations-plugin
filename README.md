@@ -42,19 +42,18 @@ Main facade provide this methods:
 
 ## TODO
 
-- [ ] Assets minification and concatenation!
-- [ ] Load datetime format from config!
-- [ ] Checkbox for disable injecting assets.
+**Feel free to send pullrequest!**
+
 - [ ] Make translations.
+- [ ] Checkbox for disable injecting assets with components.
 - [ ] Add capacity parameter. Each time slot could have some capacity (number of tables, cars, etc.)
 - [ ] When changing reservation from cancelled status back to available, check date availability.
 - [ ] Create calendar report widget for showing taken dates.
 - [ ] Create pie report widget for showing reservations by status.
 - [ ] Automatically load statuses for reservations listing/filtration.
+- [ ] Assets concatenation.
 - [ ] Log history of status changes.
 - [ ] Make bulk reservation status change in one SQL request.
-
-**Feel free to send pullrequest!**
 
 ## Contributing
 

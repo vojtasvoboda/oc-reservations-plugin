@@ -24,13 +24,17 @@ class DatesResolver
         $interval = $this->getInterval();
         $length = $this->getLength();
 
+        // date and time formats
+        $dateFormat = Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y');
+        $timeFormat = Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i');
+
         // sort reservations by date and count time slots before reservation and during the reservation
         $dates = [];
         foreach ($reservations as $reservation)
         {
             /** @var Carbon $date */
             $date = Carbon::parse($reservation->date);
-            $reservationDay = $date->format('d/m/Y');
+            $reservationDay = $date->format($dateFormat);
 
             // reservation end date
             $endTime = clone $date;
@@ -40,7 +44,7 @@ class DatesResolver
             $date->modify('-' . $length);
             $date->modify('+' . $interval . ' minutes');
             while ($date < $endTime) {
-                $time = $date->format('H:i');
+                $time = $date->format($timeFormat);
                 $dates[$reservationDay][$time] = $time;
                 $date->modify('+' . $interval . ' minutes');
             }
