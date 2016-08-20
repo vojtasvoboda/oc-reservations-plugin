@@ -46,7 +46,9 @@ Main facade provide this methods:
 - [ ] Checkbox for disable injecting assets.
 - [ ] Make translations.
 - [ ] Add capacity parameter. Each time slot could have some capacity (number of tables, cars, etc.)
-- [ ] When changing reservation from cancelled back, check date availability.
+- [ ] When changing reservation from cancelled status back to available, check date availability.
+- [ ] Create calendar report widget for showing taken dates.
+- [ ] Create pie report widget for showing reservations by status.
 - [ ] Automatically load statuses for reservations listing/filtration.
 - [ ] Log history of status changes.
 - [ ] Make bulk reservation status change in one SQL request.

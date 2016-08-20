@@ -52,4 +52,14 @@ class Plugin extends PluginBase
             'VojtaSvoboda\Reservations\Components\ReservationForm' => 'reservationForm',
         ];
     }
+
+    public function registerReportWidgets()
+    {
+        return [
+            'VojtaSvoboda\Reservations\ReportWidgets\Reservations' => [
+                'label'   => 'Reservations',
+                'context' => 'dashboard',
+            ],
+        ];
+    }
 }
