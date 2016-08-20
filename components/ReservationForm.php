@@ -94,12 +94,12 @@ class ReservationForm extends ComponentBase
      */
 	private function injectAssets()
     {
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.css');
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.date.css');
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.time.css');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.date.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.time.js');
+        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.css');
+        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.date.css');
+        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.time.css');
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.js');
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.date.js');
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.time.js');
         $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
     }
 }

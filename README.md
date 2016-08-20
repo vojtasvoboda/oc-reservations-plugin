@@ -9,6 +9,7 @@ Provide quick reservation form.
 ## Installation
 
 1. Install plugin [VojtaSvoboda.Reservations](http://octobercms.com/plugin/vojtasvoboda-reservations)
+2. Insert reservation form to your page. Be sure you have jQuery loaded!
 
 ## Override configurations
 
@@ -43,7 +44,6 @@ Main facade provide this methods:
 
 - [ ] Assets minification and concatenation!
 - [ ] Load datetime format from config!
-- [ ] Load assets by Bower (http://amsul.ca/pickadate.js/time/)!
 - [ ] Checkbox for disable injecting assets.
 - [ ] Make translations.
 - [ ] Add capacity parameter. Each time slot could have some capacity (number of tables, cars, etc.)
