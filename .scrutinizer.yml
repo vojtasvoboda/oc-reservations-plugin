@@ -1,0 +1,20 @@
+build:
+    environment:
+        php:
+            version: 5.5.25
+    dependencies:
+        before:
+            - find . -delete
+            - git clone https://github.com/octobercms/october.git .
+            - composer install --no-interaction --prefer-source
+            - mkdir -p ./plugins/vojtasvoboda/reservations
+            - cd plugins/vojtasvoboda/reservations
+            - git clone https://github.com/vojtasvoboda/oc-reservations-plugin.git .
+            - composer install
+    tests:
+        override:
+            -
+                command: 'phpunit plugins/vojtasvoboda/reservations/tests --coverage-clover=coverage'
+                coverage:
+                    file: 'coverage'
+                    format: 'php-clover'
