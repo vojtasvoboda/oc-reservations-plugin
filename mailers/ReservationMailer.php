@@ -30,7 +30,6 @@ class ReservationMailer
             'locale' => $locale,
         ];
 
-        /*
         Mail::send($template, $templateParameters, function($message) use ($recipients)
         {
             $message->to($recipients['email'], $recipients['name']);
@@ -39,7 +38,6 @@ class ReservationMailer
                 $message->bcc($recipients['bcc_email'], $recipients['bcc_name']);
             }
         });
-        */
     }
 
     /**

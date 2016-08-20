@@ -30,7 +30,8 @@ class Reservations extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('VojtaSvoboda.Reservations', 'reservations', $this->action == 'export' ? 'export' : 'reservations');
+        $action = $this->action == 'export' ? 'export' : 'reservations';
+        BackendMenu::setContext('VojtaSvoboda.Reservations', 'reservations', $action);
     }
 
     public function index()
@@ -78,9 +79,9 @@ class Reservations extends Controller
             } else {
                 $facade->bulkStateChange($checkedIds, $bulkAction);
             }
-        }
 
-        Flash::success('Reservation states has been successfully changed.');
+            Flash::success('Reservation states has been successfully changed.');
+        }
 
         return $this->listRefresh();
     }

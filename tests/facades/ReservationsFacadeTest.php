@@ -56,6 +56,20 @@ class ReservationsFacadeTest extends PluginTestCase
         $this->assertEquals($dateTime, $reservation->date);
     }
 
+    public function testTransformDateTime()
+    {
+        $model = $this->getModel();
+
+        $data = [
+            'date' => '08/10/2016',
+            'time' => '15:45',
+        ];
+        $date = $model->transformDateTime($data);
+
+        $this->assertInstanceOf('Carbon\Carbon', $date);
+        $this->assertEquals('2016-10-08 15:45:00', $date->format('Y-m-d H:i:s'));
+    }
+
     public function testIsDateAvailableFailing()
     {
         $model = $this->getModel();

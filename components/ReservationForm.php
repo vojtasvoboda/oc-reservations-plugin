@@ -77,13 +77,7 @@ class ReservationForm extends ComponentBase
 		}
 
 		// inject assets
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.css');
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.date.css');
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.time.css');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.date.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.time.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
+        $this->injectAssets();
 
 		// load booked dates
         $dates = $facade->getReservedDates();
@@ -94,4 +88,18 @@ class ReservationForm extends ComponentBase
 		$this->page['error'] = $error;
         $this->page['dates'] = json_encode($dates);
 	}
+
+    /**
+     * Inject components assets.
+     */
+	private function injectAssets()
+    {
+        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.css');
+        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.date.css');
+        $this->addCss('/plugins/vojtasvoboda/reservations/assets/css/classic.time.css');
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.js');
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.date.js');
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/picker.time.js');
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
+    }
 }

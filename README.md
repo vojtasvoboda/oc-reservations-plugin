@@ -4,6 +4,7 @@ Provide quick reservation form.
 
 - no plugin dependencies
 - covered by unit tests
+- permission management for each functionality
 
 ## Installation
 

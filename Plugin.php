@@ -21,25 +21,25 @@ class Plugin extends PluginBase
                 'order'       => 500,
                 'sideMenu' => [
                     'reservations' => [
-                        'label' => 'Rezervace',
-                        'url' => Backend::url('vojtasvoboda/reservations/reservations'),
-                        'icon' => 'icon-calendar-o',
+                        'label'       => 'Rezervace',
+                        'url'         => Backend::url('vojtasvoboda/reservations/reservations'),
+                        'icon'        => 'icon-calendar-o',
                         'permissions' => ['vojtasvoboda.reservations.reservations'],
-                        'order' => 100,
+                        'order'       => 100,
                     ],
                     'statuses' => [
-                        'label' => 'Statusy',
-                        'icon' => 'icon-star',
-                        'url' => Backend::url('vojtasvoboda/reservations/statuses'),
+                        'label'       => 'Statusy',
+                        'icon'        => 'icon-star',
+                        'url'         => Backend::url('vojtasvoboda/reservations/statuses'),
                         'permissions' => ['vojtasvoboda.reservations.statuses'],
-                        'order' => 200,
+                        'order'       => 200,
                     ],
                     'export' => [
-                        'label' => 'Export',
-                        'icon' => 'icon-sign-out',
-                        'url' => Backend::url('vojtasvoboda/reservations/reservations/export'),
+                        'label'       => 'Export',
+                        'icon'        => 'icon-sign-out',
+                        'url'         => Backend::url('vojtasvoboda/reservations/reservations/export'),
                         'permissions' => ['vojtasvoboda.reservations.export'],
-                        'order' => 300,
+                        'order'       => 300,
                     ],
                 ],
             ],
@@ -60,6 +60,14 @@ class Plugin extends PluginBase
                 'label'   => 'Reservations',
                 'context' => 'dashboard',
             ],
+        ];
+    }
+
+    public function registerMailTemplates()
+    {
+        return [
+            'vojtasvoboda.reservations::mail.reservation-cs' => 'Reservation confirmation CS',
+            'vojtasvoboda.reservations::mail.reservation-en' => 'Reservation confirmation EN',
         ];
     }
 }

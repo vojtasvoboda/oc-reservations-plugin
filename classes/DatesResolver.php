@@ -5,7 +5,7 @@ use Config;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class DatesResolver transform reservations to booked time slots grouped by date.
+ * Class DatesResolver transform reservations to booked time slots, grouped by date.
  *
  * @package VojtaSvoboda\Reservations\Classes
  */

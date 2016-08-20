@@ -1,6 +1,21 @@
 subject = "Vaše rezervace termínu"
-layout = "reservations"
+layout = "default"
 ==
 <p>
-    Text
+    Dobrý den,<br />
+    <br />
+    děkujeme za vaší rezervaci. Níže posíláme potvrzení vámi zadaných údajů:<br />
+    <br />
+    Datum vyzvednutí: {{ reservation.date | date("d.m.Y H:i") }}<br />
+    <br />
+    Adresa/číslo letu: {{ reservation.street }}<br />
+    Jméno: {{ reservation.name }} {{ reservation.name }}<br />
+    E-mail: {{ reservation.email }}<br />
+    Telefon: {{ reservation.phone }}<br />
+    <br />
+    Vaše zpráva: {{ reservation.message }}<br />
+    <br />
+    Vaši rezervací jsme přijali {{ reservation.created_at | date("d.m.Y H:i") }} a co nejdříve vám jí potvrdíme.<br />
+    <br />
+    Děkujeme za využití našich služeb
 </p>

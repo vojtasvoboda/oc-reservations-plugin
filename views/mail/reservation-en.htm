@@ -1,6 +1,21 @@
 subject = "Your reservation"
-layout = "reservations"
+layout = "default"
 ==
 <p>
-    Text
+    Hello,<br />
+    <br />
+    thank you for your reservation. Below you can find reservation summery:<br />
+    <br />
+    Date and time: {{ reservation.date | date("d.m.Y H:i") }}<br />
+    <br />
+    Address/flight number: {{ reservation.street }}<br />
+    Name: {{ reservation.name }} {{ reservation.name }}<br />
+    Email: {{ reservation.email }}<br />
+    Phone: {{ reservation.phone }}<br />
+    <br />
+    Your message: {{ reservation.message }}<br />
+    <br />
+    We accept your reservation at {{ reservation.created_at | date("d.m.Y H:i") }} and send you confirmation as soon as possible.<br />
+    <br />
+    Thank you for using our services
 </p>

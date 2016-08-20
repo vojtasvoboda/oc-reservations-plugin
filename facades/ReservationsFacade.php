@@ -163,7 +163,7 @@ class ReservationsFacade
      *
      * @throws ApplicationException
      */
-    private function transformDateTime($data)
+    public function transformDateTime($data)
     {
         // validate date and time
         if (empty($data['date'])) {
@@ -173,7 +173,9 @@ class ReservationsFacade
             throw new ApplicationException('You have to select pickup hour!');
         }
 
-        return Carbon::createFromFormat('d/m/Y H:i', trim($data['date'] . ' ' . $data['time']));
+        $format = Config::get('vojtasvoboda.reservations::config.formats.datetime', 'd/m/Y H:i');
+
+        return Carbon::createFromFormat($format, trim($data['date'] . ' ' . $data['time']));
     }
 
     /**
@@ -183,7 +185,7 @@ class ReservationsFacade
      *
      * @throws ApplicationException
      */
-    private function checkDate($data)
+    public function checkDate($data)
     {
         // check reservation sent limit
         if ($this->isSomeReservationExistsInLastTime()) {
@@ -229,7 +231,7 @@ class ReservationsFacade
      *
      * @return boolean
      */
-    private function isSomeReservationExistsInLastTime()
+    public function isSomeReservationExistsInLastTime()
     {
         return $this->reservations->isExistInLastTime();
     }
