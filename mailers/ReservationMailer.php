@@ -17,6 +17,10 @@ class ReservationMailer
      */
     public static function send(Reservation $reservation)
     {
+        if (App::environment() !== 'production') {
+            return;
+        }
+
         $locale = App::getLocale();
         $appUrl = Request::url();
         $recipients['email'] = $reservation->email;
@@ -45,7 +49,7 @@ class ReservationMailer
      *
      * @return string
      */
-    private static function getTemplateIdent()
+    public static function getTemplateIdent()
     {
         $locale = App::getLocale();
         $identBase = 'vojtasvoboda.reservations::mail.reservation-';
