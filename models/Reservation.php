@@ -55,6 +55,10 @@ class Reservation extends Model
         $this->ip = Request::server('REMOTE_ADDR');
         $this->ip_forwarded = Request::server('HTTP_X_FORWARDED_FOR');
         $this->user_agent = Request::server('HTTP_USER_AGENT');
+
+        if ($this->status === null) {
+            $this->status = $this->getDefaultStatus();
+        }
     }
 
     /**
@@ -107,6 +111,18 @@ class Reservation extends Model
     }
 
     /**
+     * Get default reservation status.
+     *
+     * @return Status
+     */
+    public function getDefaultStatus()
+    {
+        $statusIdent = Config::get('vojtasvoboda.reservations::config.statuses.received', 'received');
+
+        return Status::where('ident', $statusIdent)->first();
+    }
+
+    /**
      * Generate unique hash for each reservation.
      *
      * @return string|null
@@ -129,14 +145,16 @@ class Reservation extends Model
      */
     public function getUniqueNumber()
     {
-        $number = null;
-        $count = 0;
+    	// init
         $min = Config::get('vojtasvoboda.reservations::config.number.min', 123456);
         $max = Config::get('vojtasvoboda.reservations::config.number.max', 999999);
         if ($min == 0 || $max == 0) {
             return $number;
         }
 
+        // generate random number
+        $number = null;
+        $count = 0;
         do {
             $number = mt_rand($min, $max);
 

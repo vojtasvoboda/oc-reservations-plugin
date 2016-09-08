@@ -45,6 +45,7 @@ Main facade provide this methods:
 **Feel free to send pullrequest!**
 
 - [ ] Make translations.
+- [ ] Move date validation to Reservation model, because we need validation also when creating reservation from backend.
 - [ ] Checkbox for disable injecting assets with components.
 - [ ] Add capacity parameter. Each time slot could have some capacity (number of tables, cars, etc.)
 - [ ] When changing reservation from cancelled status back to available, check date availability.

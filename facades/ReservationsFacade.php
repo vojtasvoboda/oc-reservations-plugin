@@ -62,9 +62,6 @@ class ReservationsFacade
         // check date availability
         $this->checkDate($data);
 
-        // add default status
-        $data['status'] = $this->getDefaultState();
-
         // create reservation
         $reservation = $this->reservations->create($data);
 
@@ -82,18 +79,6 @@ class ReservationsFacade
     public function getReservations()
     {
         return $this->reservations->all();
-    }
-
-    /**
-     * Get default reservation state.
-     *
-     * @return Status
-     */
-    private function getDefaultState()
-    {
-        $statusIdent = Config::get('vojtasvoboda.reservations::config.statuses.received', 'received');
-
-        return $this->statuses->where('ident', $statusIdent)->first();
     }
 
     /**
