@@ -7,7 +7,7 @@ class Plugin extends PluginBase
 {
     public function boot()
     {
-        $this->app->bind('reservations', 'VojtaSvoboda\Reservations\Facades\ReservationsFacade');
+        $this->app->bind('vojtasvoboda.reservations.facade', 'VojtaSvoboda\Reservations\Facades\ReservationsFacade');
     }
 
     public function registerNavigation()

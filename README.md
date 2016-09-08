@@ -19,6 +19,18 @@ Provide quick reservation form.
 
 ...
 
+## Plugin facade
+
+You can use public facade `vojtasvoboda.reservations.facade` with some public methods:
+
+```
+$facade = App::make('vojtasvoboda.reservations.facade');
+$facade->storeReservation(array $data);
+$facade->getReservations();
+$facade->getReservedDates();
+$facade->isDateAvailable(Carbon $date);
+```
+
 ## Unit tests
 
 Just run `phpunit` in plugin directory. For running plugin unit tests with other tests,
@@ -31,14 +43,6 @@ add this to your project phpunit.xml file:
     </testsuite>
 </testsuites>
 ```
-
-## Reservation Facade
-
-Main facade provide this methods:
-
-- storeReservation(array $data)
-- getAllReservations()
-- getReservedTimes()
 
 ## TODO
 
@@ -53,7 +57,7 @@ Main facade provide this methods:
 - [ ] Create pie report widget for showing reservations by status.
 - [ ] Automatically load statuses for reservations listing/filtration.
 - [ ] Assets concatenation.
-- [ ] Log history of status changes.
+- [ ] Log history of reservation changes.
 - [ ] Make bulk reservation status change in one SQL request.
 
 ## Contributing

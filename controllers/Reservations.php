@@ -72,7 +72,7 @@ class Reservations extends Controller
         if (($bulkAction = post('action')) && ($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds))
         {
             /** @var ReservationsFacade $facade */
-            $facade = App::make('reservations');
+            $facade = App::make('vojtasvoboda.reservations.facade');
 
             if ($bulkAction == 'delete') {
                 $facade->bulkDelete($checkedIds);

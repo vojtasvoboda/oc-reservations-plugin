@@ -33,7 +33,7 @@ class ReservationForm extends ComponentBase
         }
 
         /** @var ReservationsFacade $facade */
-        $facade = App::make('reservations');
+        $facade = App::make('vojtasvoboda.reservations.facade');
         $data = Input::all();
         $facade->storeReservation($data);
     }
@@ -46,7 +46,7 @@ class ReservationForm extends ComponentBase
 	public function onRun()
 	{
         /** @var ReservationsFacade $facade */
-        $facade = App::make('reservations');
+        $facade = App::make('vojtasvoboda.reservations.facade');
 
 		$error = false;
 		if (Input::get('submit')) {
