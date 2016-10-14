@@ -5,6 +5,11 @@ use October\Rain\Database\Traits\SoftDelete as SoftDeletingTrait;
 use October\Rain\Database\Traits\Sortable as SortableTrait;
 use October\Rain\Database\Traits\Validation as ValidationTrait;
 
+/**
+ * Status class.
+ *
+ * @package VojtaSvoboda\Reservations\Models
+ */
 class Status extends Model
 {
     use SoftDeletingTrait;
@@ -32,6 +37,13 @@ class Status extends Model
         'reservations' => ['VojtaSvoboda\Reservations\Models\Reservation'],
     ];
 
+    /**
+     * Is enabled scope for filering only enabled statuses.
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
     public function scopeIsEnabled($query)
     {
         return $query->where('enabled', true);

@@ -13,7 +13,7 @@ class Seeder extends BaseSeeder
     private $cache;
 
     /**
-     * Return dummy seed or resources seed
+     * Return dummy seed or resources seed.
      *
      * @param $defaultPath
      *
@@ -25,12 +25,12 @@ class Seeder extends BaseSeeder
     {
         // if dummy file is overwritten
         $overwritterPath = $this->getOverwrittenFilePath($defaultPath);
-        if ( file_exists($overwritterPath) ) {
+        if (file_exists($overwritterPath)) {
             return $overwritterPath;
         }
 
         // otherwise return dummy data
-        if ( file_exists($defaultPath) ) {
+        if (file_exists($defaultPath)) {
             return $defaultPath;
         }
 
@@ -38,11 +38,12 @@ class Seeder extends BaseSeeder
     }
 
     /**
-     * Get item from cache or from $object reference
+     * Get item from cache or from $object reference.
      *
-     * @param $object
-     * @param $key
-     * @param $value
+     * @param string $object
+     * @param string $key
+     * @param string $value
+     * @param bool $createIfNotExists
      *
      * @return mixed
      */
@@ -50,7 +51,7 @@ class Seeder extends BaseSeeder
     {
         $namespace = get_class($object);
         $cache = $this->cache;
-        if ( isset($cache[$namespace][$key][$value]) ) {
+        if (isset($cache[$namespace][$key][$value])) {
             return $cache[$namespace][$key][$value];
         }
 
@@ -59,7 +60,6 @@ class Seeder extends BaseSeeder
 
         // if not exists, create
         if ($createIfNotExists) {
-            // TODO
             throw new \BadMethodCallException('createIfNotExists parameter is not implemented');
         }
 
@@ -67,12 +67,12 @@ class Seeder extends BaseSeeder
     }
 
     /**
-     * Get folder, where seed can be overwritten
+     * Get folder, where seed can be overwritten.
      *
      * - default folder e.g. /plugins/vojtasvoboda/reservations/updates/sources/products.yaml
      * - overwritten e.g.  /resources/vojtasvoboda/reservations/updates/sources/products.yaml
      *
-     * @param $defaultPath
+     * @param string $defaultPath Default folder path.
      *
      * @return string
      */
@@ -84,8 +84,8 @@ class Seeder extends BaseSeeder
     /**
      * Create file from path, save it and return File object
      *
-     * @param $path
-     * @param $public
+     * @param string $path File path.
+     * @param bool $public Should be file public or not?
      *
      * @return File
      */

@@ -1,35 +1,35 @@
 fields:
     date:
-        label: Datum
+        label: vojtasvoboda.reservations::lang.reservation.date
         span: left
         type: datepicker
         mode: datetime
         required: true
         minDate: 2016-08-01
     status:
-        label: Status
+        label: vojtasvoboda.reservations::lang.reservation.status
         nameFrom: name
         descriptionFrom: description
         span: right
         type: relation
         required: true
     name:
-        label: Jméno
+        label: vojtasvoboda.reservations::lang.reservation.name
         span: left
         type: text
     street:
-        label: Adresa/číslo letu
+        label: vojtasvoboda.reservations::lang.reservation.street
         span: right
         type: text
     email:
-        label: E-mail
+        label: vojtasvoboda.reservations::lang.reservation.email
         span: left
         type: text
     phone:
-        label: Telefon
+        label: vojtasvoboda.reservations::lang.reservation.phone
         span: right
         type: text
     message:
-        label: Zpráva
+        label: vojtasvoboda.reservations::lang.reservation.message
         type: text
         span: full

@@ -2,16 +2,16 @@ tabs:
     fields:
 
         status_enabled:
-            label: Filter by status
+            label: vojtasvoboda.reservations::lang.export.status_filter
             type: checkbox
             default: false
-            tab: Status
+            tab: vojtasvoboda.reservations::lang.export.status_filter_tab
         status_id:
-            label: Status
+            label: vojtasvoboda.reservations::lang.export.status_filter_label
             span: full
             type: dropdown
             required: true
-            tab: Status
+            tab: vojtasvoboda.reservations::lang.export.status_filter_tab
             trigger:
                 action: show
                 field: status_enabled

@@ -13,21 +13,43 @@
 </script>
 
 <form
+    class="reservationform form"
     method="post"
     data-request="{{ __SELF__ }}::onSubmit"
     data-request-update="'{{ __SELF__ }}::success': '#result'"
     data-request-success="$('#{{ __SELF__ }} input[type=text], #{{ __SELF__ }} textarea').val('');"
     id="{{__SELF__}}"{% if sent %} class="sent"{% endif %}>
 
-    <input id="date" name="date" class="datepicker" type="text" placeholder="Date" value="{{ post.date }}" />
-    <input id="time" name="time" type="text" placeholder="Hour" value="{{ post.time }}" />
-    <input id="address" name="address" type="text" placeholder="Address" value="{{ post.address }}" />
-    <input id="name" name="name" type="text" placeholder="Name" value="{{ post.name }}" />
-    <input id="email" name="email" type="text" placeholder="Email" value="{{ post.email }}" />
-    <input id="phone" name="phone" type="text" placeholder="Phone" value="{{ post.phone }}" />
-    <textarea id="message" name="message" placeholder="Your message">{{ post.message }}</textarea>
+    <div class="form-group">
+        <label for="date">Date</label>
+        <input id="date" name="date" class="form-control datepicker" type="text" value="{{ post.date }}" />
+    </div>
+    <div class="form-group">
+        <label for="time">Time</label>
+        <input id="time" name="time" class="form-control" type="text" value="{{ post.time }}" />
+    </div>
+    <div class="form-group">
+        <label for="time">Email</label>
+        <input id="email" name="email" class="form-control" type="text" placeholder="Email" value="{{ post.email }}" />
+    </div>
+    <div class="form-group">
+        <label for="time">Name</label>
+        <input id="name" name="name" class="form-control" type="text" placeholder="Name" value="{{ post.name }}" />
+    </div>
+    <div class="form-group">
+        <label for="time">Address / street</label>
+        <input id="street" name="street" class="form-control" type="text" placeholder="Street" value="{{ post.street }}" />
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" class="form-control" type="text" placeholder="Phone" value="{{ post.phone }}" />
+    </div>
+    <div class="form-group">
+        <label for="message">Your message</label>
+        <textarea id="message" name="message" class="form-control" placeholder="Your message">{{ post.message }}</textarea>
+    </div>
 
     {{ form_token() }}
-    <input type="submit" name="submit" id="submit" value="Submit" />
+    <button type="submit" name="submit" class="btn btn-success" value="1" id="submit">Submit</button>
 
 </form>

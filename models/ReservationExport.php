@@ -4,6 +4,11 @@ use Backend\Facades\BackendAuth;
 use Backend\Models\ExportModel;
 use Config;
 
+/**
+ * Reservation's export.
+ *
+ * @package VojtaSvoboda\Reservations\Models
+ */
 class ReservationExport extends ExportModel
 {
     public $table = 'vojtasvoboda_reservations_reservations';
@@ -18,6 +23,14 @@ class ReservationExport extends ExportModel
         'status_enabled', 'status',
     ];
 
+    /**
+     * Prepare data for export.
+     *
+     * @param $columns
+     * @param $sessionKey
+     *
+     * @return array
+     */
     public function exportData($columns, $sessionKey = null)
     {
         $query = Reservation::query();
@@ -38,6 +51,11 @@ class ReservationExport extends ExportModel
         return $reservations->toArray();
     }
 
+    /**
+     * Get all available statuses.
+     *
+     * @return mixed
+     */
     public static function getStatusIdOptions()
     {
         return Status::orderBy('sort_order')->lists('name', 'id');

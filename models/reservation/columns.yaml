@@ -5,32 +5,32 @@ columns:
         searchable: true
         sortable: true
     date:
-        label: Datum
+        label: vojtasvoboda.reservations::lang.reservation.date
         type: datetime
         sortable: true
         format: d.m.Y H:i:s
     name:
-        label: Jméno
+        label: vojtasvoboda.reservations::lang.reservation.name
         type: text
         searchable: true
         sortable: true
     email:
-        label: E-mail
+        label: vojtasvoboda.reservations::lang.reservation.email
         type: text
         searchable: true
         sortable: true
     phone:
-        label: Telefon
+        label: vojtasvoboda.reservations::lang.reservation.phone
         type: text
         searchable: true
         sortable: true
     status_id:
-        label: Status
+        label: vojtasvoboda.reservations::lang.reservation.status
         sortable: true
         relation: status
         select: ident
     created_at:
-        label: Vytvořeno
+        label: vojtasvoboda.reservations::lang.reservation.created_at
         type: datetime
         searchable: true
         sortable: true

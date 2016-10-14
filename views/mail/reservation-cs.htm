@@ -8,8 +8,8 @@ layout = "default"
     <br />
     Datum vyzvednutí: {{ reservation.date | date("d.m.Y H:i") }}<br />
     <br />
-    Adresa/číslo letu: {{ reservation.street }}<br />
-    Jméno: {{ reservation.name }} {{ reservation.name }}<br />
+    Adresa: {{ reservation.street }}<br />
+    Jméno: {{ reservation.name }} {{ reservation.lastname }}<br />
     E-mail: {{ reservation.email }}<br />
     Telefon: {{ reservation.phone }}<br />
     <br />

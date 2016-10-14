@@ -2,7 +2,7 @@
     <div class="btn-group">
         <a href="<?= Backend::url('vojtasvoboda/reservations/statuses/create') ?>" class="btn btn-primary oc-icon-plus"><?= e(trans('backend::lang.form.create')) ?></a>
         <a href="<?= Backend::url('vojtasvoboda/reservations/statuses/reorder') ?>" class="btn btn-default oc-icon-list-ol">
-            Change order
+            <?= e(trans('vojtasvoboda.reservations::lang.statuses.change_order')) ?>
         </a>
         <button
             class="btn btn-default oc-icon-trash-o"

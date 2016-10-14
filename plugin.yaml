@@ -1,15 +1,15 @@
 plugin:
-    name: 'Rezervace'
-    description: 'Quick reservations plugin.'
+    name: 'vojtasvoboda.reservations::lang.plugin.name'
+    description: 'vojtasvoboda.reservations::lang.plugin.description'
     author: 'Vojta Svoboda'
     icon: icon-calendar-o
 permissions:
     vojtasvoboda.reservations.reservations:
-        tab: Reservations
-        label: 'Reservations management'
+        tab: vojtasvoboda.reservations::lang.permission.tab_label
+        label: vojtasvoboda.reservations::lang.permission.reservations
     vojtasvoboda.reservations.statuses:
-        tab: Reservations
-        label: 'Statuses management'
+        tab: vojtasvoboda.reservations::lang.permission.tab_label
+        label: vojtasvoboda.reservations::lang.permission.statuses
     vojtasvoboda.reservations.export:
-        tab: Reservations
-        label: 'Reservations export'
+        tab: vojtasvoboda.reservations::lang.permission.tab_label
+        label: vojtasvoboda.reservations::lang.permission.export

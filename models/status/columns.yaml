@@ -1,31 +1,33 @@
 columns:
     name:
-        label: Název
+        label: vojtasvoboda.reservations::lang.status.name
         type: text
         searchable: true
         sortable: true
     color:
-        label: Barva
+        label: vojtasvoboda.reservations::lang.status.color
         type: text
     ident:
-        label: Ident
+        label: vojtasvoboda.reservations::lang.status.ident
         type: text
         searchable: true
         sortable: true
     sort_order:
-        label: Pořadí
+        label: vojtasvoboda.reservations::lang.status.order
         type: number
         searchable: false
         sortable: true
     enabled:
-        label: Aktivní
+        label: vojtasvoboda.reservations::lang.status.enabled
         type: switch
         sortable: true
     created_at:
-        label: Vytvořeno
+        label: vojtasvoboda.reservations::lang.status.created
         type: datetime
         sortable: true
+        format: d.m.Y H:i:s
     updated_at:
-        label: Upraveno
+        label: vojtasvoboda.reservations::lang.status.updated
         type: datetime
         sortable: true
+        format: d.m.Y H:i:s

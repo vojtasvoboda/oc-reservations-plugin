@@ -14,28 +14,28 @@ class Plugin extends PluginBase
     {
         return [
             'reservations' => [
-                'label'       => 'Rezervace',
+                'label'       => 'vojtasvoboda.reservations::lang.plugin.menu_label',
                 'url'         => Backend::url('vojtasvoboda/reservations/reservations'),
                 'icon'        => 'icon-calendar-o',
                 'permissions' => ['vojtasvoboda.reservations.*'],
                 'order'       => 500,
                 'sideMenu' => [
                     'reservations' => [
-                        'label'       => 'Rezervace',
+                        'label'       => 'vojtasvoboda.reservations::lang.reservations.menu_label',
                         'url'         => Backend::url('vojtasvoboda/reservations/reservations'),
                         'icon'        => 'icon-calendar-o',
                         'permissions' => ['vojtasvoboda.reservations.reservations'],
                         'order'       => 100,
                     ],
                     'statuses' => [
-                        'label'       => 'Statusy',
+                        'label'       => 'vojtasvoboda.reservations::lang.statuses.menu_label',
                         'icon'        => 'icon-star',
                         'url'         => Backend::url('vojtasvoboda/reservations/statuses'),
                         'permissions' => ['vojtasvoboda.reservations.statuses'],
                         'order'       => 200,
                     ],
                     'export' => [
-                        'label'       => 'Export',
+                        'label'       => 'vojtasvoboda.reservations::lang.export.menu_label',
                         'icon'        => 'icon-sign-out',
                         'url'         => Backend::url('vojtasvoboda/reservations/reservations/export'),
                         'permissions' => ['vojtasvoboda.reservations.export'],
@@ -57,7 +57,7 @@ class Plugin extends PluginBase
     {
         return [
             'VojtaSvoboda\Reservations\ReportWidgets\Reservations' => [
-                'label'   => 'Reservations',
+                'label'   => 'vojtasvoboda.reservations::lang.reservations.widget_label',
                 'context' => 'dashboard',
             ],
         ];

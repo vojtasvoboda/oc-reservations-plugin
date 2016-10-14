@@ -9,6 +9,11 @@ use October\Rain\Database\Traits\Validation as ValidationTrait;
 use Request;
 use Str;
 
+/**
+ * Reservation class.
+ *
+ * @package VojtaSvoboda\Reservations\Models
+ */
 class Reservation extends Model
 {
     use SoftDeleteTrait;
@@ -149,11 +154,10 @@ class Reservation extends Model
         $min = Config::get('vojtasvoboda.reservations::config.number.min', 123456);
         $max = Config::get('vojtasvoboda.reservations::config.number.max', 999999);
         if ($min == 0 || $max == 0) {
-            return $number;
+            return null;
         }
 
         // generate random number
-        $number = null;
         $count = 0;
         do {
             $number = mt_rand($min, $max);

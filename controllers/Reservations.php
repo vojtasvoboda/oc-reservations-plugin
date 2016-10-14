@@ -4,6 +4,7 @@ use App;
 use Backend\Classes\Controller;
 use BackendMenu;
 use Flash;
+use Lang;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 use VojtaSvoboda\Reservations\Models\Status;
 
@@ -80,7 +81,8 @@ class Reservations extends Controller
                 $facade->bulkStateChange($checkedIds, $bulkAction);
             }
 
-            Flash::success('Reservation states has been successfully changed.');
+            $msg = Lang::get('vojtasvoboda.reservations::lang.reservations.change_status_success');
+            Flash::success($msg);
         }
 
         return $this->listRefresh();

@@ -13,9 +13,9 @@ use VojtaSvoboda\Reservations\Models\Reservation;
 use VojtaSvoboda\Reservations\Models\Status;
 
 /**
- * Main reservations facade. Public interface.
+ * Public reservations facade.
  *
- * Usage: App::make('reservations');
+ * Usage: App::make('vojtasvoboda.reservations.facade');
  *
  * @package VojtaSvoboda\Reservations\Facades
  */
@@ -82,13 +82,23 @@ class ReservationsFacade
     }
 
     /**
-     * Get all reserved dates and times, according to reservation length.
+     * Get all active (not cancelled) reservations.
+     *
+     * @return Collection
+     */
+    public function getActiveReservations()
+    {
+        return $this->reservations->notCancelled()->get();
+    }
+
+    /**
+     * Get all reserved time slots.
      *
      * @return array
      */
     public function getReservedDates()
     {
-        $reservations = $this->reservations->notCancelled()->get();
+        $reservations = $this->getActiveReservations();
 
         return $this->datesResolver->getDatesFromReservations($reservations);
     }

@@ -13,16 +13,21 @@ class SeedStatusesTable extends Seeder
 
     protected $mediaFolderPath = '/statuses';
 
+    /**
+     * Run seeding.
+     */
     public function run()
     {
+        // fetch data for seed
         $defaultSeed = __DIR__ . $this->seedDirPath . $this->seedFileName;
         $seedFile = $this->getSeedFile($defaultSeed);
         $seedMediaFolder = pathinfo($seedFile)['dirname'] . $this->mediaFolderPath;
         $items = Yaml::parse(File::get($seedFile));
 
+        // process each line
         foreach ($items as $key => $item)
         {
-            // create item
+            // create new Status
             $status = Status::create([
                 'name' => trim($item['name']),
                 'ident' => trim($item['ident']),

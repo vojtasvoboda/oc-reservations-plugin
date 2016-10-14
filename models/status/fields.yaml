@@ -1,12 +1,12 @@
 fields:
     name:
-        label: Name
+        label: vojtasvoboda.reservations::lang.status.name
         span: full
         disabled: 0
         required: 1
         type: text
     ident:
-        label: Ident
+        label: vojtasvoboda.reservations::lang.status.ident
         span: full
         required: 1
         context:
@@ -16,9 +16,9 @@ fields:
             type: slug
         type: text
     color:
-        label: Color
+        label: vojtasvoboda.reservations::lang.status.color
         type: colorpicker
     enabled:
-        label: Enabled
+        label: vojtasvoboda.reservations::lang.status.enabled
         span: full
         type: checkbox

@@ -1,7 +1,7 @@
 /**
  * Reservation form.
  *
- * @param $
+ * @param $ jQuery
  */
 var reservationform = function($) {
 
@@ -45,7 +45,6 @@ function loadBookedTimes(date)
     var month = date.getMonth() + 1;
     month = (month < 10 ? '0' : '') + month;
     var selectedDate = day + '/' + month + '/' + date.getFullYear();
-    console.log(selectedDate);
 
     var $input = $('#time').pickatime();
     var picker = $input.pickatime('picker');

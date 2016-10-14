@@ -6,28 +6,35 @@ use Config;
 use Exception;
 use Flash;
 use Illuminate\Support\Facades\Log;
-use Redirect;
 use Input;
-use Session;
+use Lang;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
+use Redirect;
+use Session;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 
+/**
+ * Reservation Form component.
+ *
+ * @package VojtaSvoboda\Reservations\Components
+ */
 class ReservationForm extends ComponentBase
 {
     public function componentDetails()
 	{
 		return [
-			'name' => 'Reservation form',
-			'description' => 'Form for taking reservations in specific date/time.',
+			'name' => 'vojtasvoboda.reservations::lang.reservationform.name',
+			'description' => 'vojtasvoboda.reservations::lang.reservationform.description',
 		];
 	}
 
     /**
-     * AJAX form submit by October JS Framework.
+     * AJAX form submit handler.
      */
     public function onSubmit()
     {
+        // check CSRF token
         if (Session::token() != Input::get('_token')) {
             throw new ApplicationException('Form session expired! Please refresh the page.');
         }
@@ -39,9 +46,7 @@ class ReservationForm extends ComponentBase
     }
 
     /**
-     * Fallback for classic non-ajax POST request.
-     *
-     * @return mixed
+     * Fallback for non-ajax POST request.
      */
 	public function onRun()
 	{
@@ -51,6 +56,7 @@ class ReservationForm extends ComponentBase
 		$error = false;
 		if (Input::get('submit')) {
 
+            // check CSRF token
             if (Session::token() != Input::get('_token')) {
                 $error = 'Form session expired! Please refresh the page.';
 
@@ -59,9 +65,10 @@ class ReservationForm extends ComponentBase
                 try {
                     $data = Input::all();
                     $facade->storeReservation($data);
-                    Flash::success('Reservation has been successfully sent!');
+                    $msg = Lang::get('vojtasvoboda.reservations::lang.reservationform.success');
+                    Flash::success($msg);
 
-                    return Redirect::to($this->page->url . '#form', 303);
+                    return Redirect::to($this->page->url . '#' . $this->alias, 303);
 
                 } catch(ValidationException $e) {
                     $error = $e->getMessage();

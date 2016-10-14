@@ -1,6 +1,7 @@
 <?php namespace VojtaSvoboda\Reservations\Mailers;
 
 use App;
+use Config;
 use Mail;
 use Request;
 use VojtaSvoboda\Reservations\Models\Reservation;
@@ -25,6 +26,8 @@ class ReservationMailer
         $appUrl = Request::url();
         $recipients['email'] = $reservation->email;
         $recipients['name'] = trim($reservation->name . ' ' . $reservation->lastname);
+        $recipients['bcc_email'] = Config::get('vojtasvoboda.reservations::config.mail.bcc_email');
+        $recipients['bcc_name'] = Config::get('vojtasvoboda.reservations::config.mail.bcc_name');
 
         $template = self::getTemplateIdent();
 
@@ -38,7 +41,7 @@ class ReservationMailer
         {
             $message->to($recipients['email'], $recipients['name']);
 
-            if (isset($recipients['bcc_email'], $recipients['bcc_name'])) {
+            if (!empty($recipients['bcc_email']) && !empty($recipients['bcc_name'])) {
                 $message->bcc($recipients['bcc_email'], $recipients['bcc_name']);
             }
         });
