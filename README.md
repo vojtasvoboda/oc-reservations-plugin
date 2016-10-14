@@ -1,5 +1,9 @@
 # Reservations plugin for OctoberCMS
 
+[![Build Status](https://travis-ci.org/vojtasvoboda/oc-reservations-plugin.svg?branch=master)](https://travis-ci.org/vojtasvoboda/oc-reservations-plugin)
+[![Codacy](https://img.shields.io/codacy/d46420185c9046db8208ab16d358a0d3.svg)](https://www.codacy.com/app/vojtasvoboda/oc-reservations-plugin)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vojtasvoboda/oc-reservations-plugin/blob/master/LICENSE)
+
 Provide reservation form with reservations management.
 
 Key features:
