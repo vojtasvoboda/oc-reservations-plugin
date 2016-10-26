@@ -19,5 +19,15 @@
         "php": ">=5.4",
         "composer/installers": "~1.0"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "scripts": {
+        "build": [
+            "@composer install --no-progress --no-interaction --no-suggest",
+            "@test"
+        ],
+        "test": [
+            "composer dumpautoload",
+            "phpunit"
+        ]
+    }
 }
