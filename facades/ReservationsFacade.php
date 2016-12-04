@@ -104,6 +104,19 @@ class ReservationsFacade
     }
 
     /**
+     * Get all reservations by given date interval.
+     *
+     * @param Carbon $since Date from.
+     * @param Carbon $till Date to.
+     *
+     * @return mixed
+     */
+    public function getReservationsByInterval(Carbon $since, Carbon $till)
+    {
+        return $this->reservations->whereBetween('date', [$since, $till])->get();
+    }
+
+    /**
      * Bulk reservation state change.
      *
      * @param array $ids

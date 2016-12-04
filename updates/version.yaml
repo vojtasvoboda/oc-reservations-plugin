@@ -3,3 +3,4 @@
     - create_statuses_table.php
     - create_reservations_table.php
     - seed_statuses_table.php
+1.0.2: Add method getReservationByInterval() to facade to better extensibility.

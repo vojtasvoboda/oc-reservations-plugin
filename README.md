@@ -37,6 +37,7 @@ $facade->storeReservation(array $data);
 $facade->getReservations();
 $facede->getActiveReservations();
 $facade->getReservedDates();
+$facade->getReservationsByInterval(\Carbon\Carbon $from, \Carbon\Carbon $to);
 $facade->isDateAvailable(\Carbon\Carbon $date);
 ```
 
