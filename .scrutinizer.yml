@@ -3,7 +3,7 @@ build:
         php:
             version: 5.5.25
     dependencies:
-        before:
+        override:
             - find . -delete
             - git clone https://github.com/octobercms/october.git .
             - composer install --no-interaction --prefer-source
