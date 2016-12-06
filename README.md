@@ -4,7 +4,7 @@
 [![Codacy](https://img.shields.io/codacy/d46420185c9046db8208ab16d358a0d3.svg)](https://www.codacy.com/app/vojtasvoboda/oc-reservations-plugin)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vojtasvoboda/oc-reservations-plugin/blob/master/LICENSE)
 
-Provide reservation form with reservations management.
+Provide reservation form with reservations management. You should also check related plugin: [backend calendar](http://octobercms.com/plugin/vojtasvoboda-reservationscalendar).
 
 Key features:
 
@@ -26,6 +26,10 @@ No other plugin dependencies.
 
 1. Install plugin [VojtaSvoboda.Reservations](http://octobercms.com/plugin/vojtasvoboda-reservations)
 2. Insert reservation form component to your page. Be sure you have jQuery loaded!
+
+## Backend calendar
+
+Looking for backend calendar to see your reservations visually? Take a look at [backend calendar](http://octobercms.com/plugin/vojtasvoboda-reservationscalendar) plugin.
 
 ## Public facade
 
