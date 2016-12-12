@@ -43,6 +43,8 @@ return [
         'created_at_format' => 'd.m.Y H:i:s',
         'street' => 'Address / street',
         'message' => 'Message',
+        'number' => 'Number',
+        'returning' => 'Returning',
     ],
 
     'statuses' => [
