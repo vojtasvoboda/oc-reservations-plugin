@@ -1,0 +1,26 @@
+subject = "Su reserva"
+layout = "default"
+==
+<p>
+    Hola,<br />
+    <br />
+    Muchas gracias por su reserva. A continuación puede revisar los datos de la misma:<br />
+    <br />
+    Fecha y hora: {{ reservation.date | date("d/m/Y H:i") }}<br />
+    <br />
+    Dirección: {{ reservation.street }}<br />
+    Nombre: {{ reservation.name }} {{ reservation.lastname }}<br />
+    Email: {{ reservation.email }}<br />
+    Teléfono: {{ reservation.phone }}<br />
+    <br />
+    Su mensaje: {{ reservation.message }}<br />
+    <br />
+    Registrada el {{ reservation.created_at | date("d/m/Y H:i") }}. Le enviaremos una confirmación con la mayor brevedad posible.<br />
+    <br />
+    {% if reservationsCount == 1 %}
+    ¡Esperamos que haya tenido una buena experiencia en su primera reserva!
+    <br />
+    {% endif %}
+    <br />
+    Gracias por usar nuestros servicios
+</p>
