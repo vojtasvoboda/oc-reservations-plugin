@@ -4,3 +4,4 @@
     - create_reservations_table.php
     - seed_statuses_table.php
 1.0.2: Add method getReservationByInterval() to facade to better extensibility.
+1.0.3: Count all reservations with same email and put it to the confirmation mail template.
