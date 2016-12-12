@@ -124,6 +124,20 @@ class ReservationsFacadeTest extends PluginTestCase
         $model->storeReservation($data);
     }
 
+    public function testGetReservationsWithSameEmailCount()
+    {
+        $model = $this->getModel();
+
+        // create one reservation with test@test.cz email
+        $model->storeReservation($this->getTestingReservationData());
+
+        $count = $model->getReservationsWithSameEmailCount('vojtasvoboda.cz@gmail.com');
+        $this->assertEquals(0, $count);
+
+        $count = $model->getReservationsWithSameEmailCount('test@test.cz');
+        $this->assertEquals(1, $count);
+    }
+
     private function getTestingReservationData()
     {
         return [

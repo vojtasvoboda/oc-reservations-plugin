@@ -17,5 +17,10 @@ layout = "default"
     <br />
     We accept your reservation at {{ reservation.created_at | date("d.m.Y H:i") }} and send you confirmation as soon as possible.<br />
     <br />
+    {% if reservationsCount == 1 %}
+    We hope that you enjoy your first experience!
+    <br />
+    {% endif %}
+    <br />
     Thank you for using our services
 </p>

@@ -17,5 +17,5 @@ layout = "default"
     <br />
     Vaši rezervací jsme přijali {{ reservation.created_at | date("d.m.Y H:i") }} a co nejdříve vám jí potvrdíme.<br />
     <br />
-    Děkujeme za využití našich služeb
+    Děkujeme za {% if reservationsCount > 1 %}opakované {% endif %}využití našich služeb
 </p>
