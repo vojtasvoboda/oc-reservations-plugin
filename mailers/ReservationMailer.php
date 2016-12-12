@@ -4,6 +4,7 @@ use App;
 use Config;
 use Mail;
 use Request;
+use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 use VojtaSvoboda\Reservations\Models\Reservation;
 
 class ReservationMailer
@@ -35,6 +36,7 @@ class ReservationMailer
             'site' => $appUrl,
             'reservation' => $reservation,
             'locale' => $locale,
+            'reservationsCount' => self::getReservationsCount($reservation->email),
         ];
 
         Mail::send($template, $templateParameters, function($message) use ($recipients)
@@ -63,5 +65,20 @@ class ReservationMailer
         }
 
         return $identBase . self::DEFAULT_TEMPLATE_LOCALE;
+    }
+
+    /**
+     * Get reservations count.
+     *
+     * @param $email
+     *
+     * @return int
+     */
+    public static function getReservationsCount($email)
+    {
+        /** @var ReservationsFacade $facade */
+        $facade = App::make('vojtasvoboda.reservations.facade');
+
+        return $facade->getReservationsWithSameEmailCount($email);
     }
 }

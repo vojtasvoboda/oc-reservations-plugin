@@ -117,6 +117,18 @@ class ReservationsFacade
     }
 
     /**
+     * Get reservations count by one email.
+     *
+     * @param $email
+     *
+     * @return int
+     */
+    public function getReservationsWithSameEmailCount($email)
+    {
+        return $this->reservations->where('email', $email)->notCancelled()->count();
+    }
+
+    /**
      * Bulk reservation state change.
      *
      * @param array $ids
