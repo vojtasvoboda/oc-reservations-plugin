@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/vojtasvoboda/oc-reservations-plugin.svg?branch=master)](https://travis-ci.org/vojtasvoboda/oc-reservations-plugin)
 [![Codacy](https://img.shields.io/codacy/d46420185c9046db8208ab16d358a0d3.svg)](https://www.codacy.com/app/vojtasvoboda/oc-reservations-plugin)
+[![Code Coverage](https://scrutinizer-ci.com/g/vojtasvoboda/oc-reservations-plugin/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/vojtasvoboda/oc-reservations-plugin/?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vojtasvoboda/oc-reservations-plugin/blob/master/LICENSE)
 
 Provide reservation form with reservations management. You should also check related plugin: [backend calendar](http://octobercms.com/plugin/vojtasvoboda-reservationscalendar).
