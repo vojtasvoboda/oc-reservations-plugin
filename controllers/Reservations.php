@@ -60,6 +60,9 @@ class Reservations extends Controller
             $name = $this->getStateName($record->status_id);
 
             return '<div><span style="' . $statusStyle . 'background-color:' . $color . '"></span> ' . $name . '</div>';
+
+        } elseif ($columnName == 'returning') {
+            return $this->isReturning($record->email) ? '<i class=" icon-star"></i>' : '';
         }
     }
 
@@ -86,6 +89,21 @@ class Reservations extends Controller
         }
 
         return $this->listRefresh();
+    }
+
+    /**
+     * Return if User is returning.
+     *
+     * @param string $email Users email
+     *
+     * @return bool
+     */
+    private function isReturning($email)
+    {
+        /** @var ReservationsFacade $facade */
+        $facade = App::make('vojtasvoboda.reservations.facade');
+
+        return $facade->isUserReturning($email);
     }
 
     /**

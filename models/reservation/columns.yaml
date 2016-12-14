@@ -4,6 +4,11 @@ columns:
         type: number
         searchable: true
         sortable: true
+    number:
+        label: vojtasvoboda.reservations::lang.reservation.number
+        type: text
+        invisible: true
+        sortable: true
     date:
         label: vojtasvoboda.reservations::lang.reservation.date
         type: datetime
@@ -29,6 +34,11 @@ columns:
         sortable: true
         relation: status
         select: ident
+    returning:
+        label: vojtasvoboda.reservations::lang.reservation.returning
+        type: text
+        invisible: true
+        sortable: true
     created_at:
         label: vojtasvoboda.reservations::lang.reservation.created_at
         type: datetime

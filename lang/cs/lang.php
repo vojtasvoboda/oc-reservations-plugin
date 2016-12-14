@@ -43,6 +43,8 @@ return [
         'created_at_format' => 'd.m.Y H:i:s',
         'street' => 'Adresa / ulice',
         'message' => 'Zpráva',
+        'number' => 'Číslo',
+        'returning' => 'Opakovaný',
     ],
 
     'statuses' => [

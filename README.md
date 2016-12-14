@@ -10,8 +10,9 @@ Key features:
 
 - reservations have **coloured statuses**, **bulk actions** and **fulltext search** to save your time
 - nice and clean **dashboard widget**
-- reservations **exporting** also with status filtering
+- reservations **export** with status filtering
 - reservation can be created directly from the backend
+- returning customers function
 
 Technical features:
 
@@ -26,6 +27,14 @@ No other plugin dependencies.
 
 1. Install plugin [VojtaSvoboda.Reservations](http://octobercms.com/plugin/vojtasvoboda-reservations)
 2. Insert reservation form component to your page. Be sure you have jQuery loaded!
+
+## Returning Customers
+
+Plugin allow you to mark returning customers:
+
+- set amount of previous reservations at **Backend > Settings > Misc > Reservations** 
+- at reservations listing, click at the list settings (the hamburger at the right corner) and check Returning
+- it shows star at customers with more then <your-threshold> non-canceled reservations
 
 ## Backend calendar
 

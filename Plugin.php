@@ -70,4 +70,17 @@ class Plugin extends PluginBase
             'vojtasvoboda.reservations::mail.reservation-en' => 'Reservation confirmation EN',
         ];
     }
+
+    public function registerSettings()
+    {
+        return [
+            'settings' => [
+                'label' => 'Reservations',
+                'description' => 'Manage Reservations settings.',
+                'icon' => 'icon-calendar-o',
+                'class' => 'VojtaSvoboda\Reservations\Models\Settings',
+                'order' => 100,
+            ],
+        ];
+    }
 }

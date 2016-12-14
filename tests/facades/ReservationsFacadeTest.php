@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use Config;
 use PluginTestCase;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
+use VojtaSvoboda\Reservations\Models\Settings;
 use VojtaSvoboda\Reservations\Models\Status;
 
 class ReservationsFacadeTest extends PluginTestCase
@@ -136,6 +137,29 @@ class ReservationsFacadeTest extends PluginTestCase
 
         $count = $model->getReservationsWithSameEmailCount('test@test.cz');
         $this->assertEquals(1, $count);
+    }
+
+    public function testIsUserReturning()
+    {
+        $model = $this->getModel();
+
+        // enable Returning Customers function
+        Settings::set('returning_mark', 1);
+
+        // is returning without any reservation?
+        $isReturning = $model->isUserReturning('test@test.cz');
+        $this->assertEquals(false, $isReturning, 'There is no reservation, so customer cant be returning.');
+
+        // create one reservation with test@test.cz email
+        $model->storeReservation($this->getTestingReservationData());
+
+        // is returning without any reservation?
+        $isReturning = $model->isUserReturning('vojtasvoboda.cz@gmail.com');
+        $this->assertEquals(false, $isReturning, 'Email vojtasvoboda.cz@gmail.com does not has any reservation, so it should not be marked as returning customer.');
+
+        // is returning with one reservation?
+        $isReturning = $model->isUserReturning('test@test.cz');
+        $this->assertEquals(true, $isReturning, 'Email test@test.cz has one reservation, so it should be marked as returning customer.');
     }
 
     private function getTestingReservationData()

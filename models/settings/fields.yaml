@@ -1,0 +1,5 @@
+fields:
+    returning_mark:
+        label: Mark returning customers
+        default: 0
+        comment: Mark customers with that number of reservations or more. Disable by value 0.

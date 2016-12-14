@@ -4,12 +4,13 @@ columns:
         label: Id
         type: number
         searchable: true
-        sortable: true
+    number:
+        label: vojtasvoboda.reservations::lang.reservation.number
+        type: text
     created_at:
         label: vojtasvoboda.reservations::lang.reservation.created_at
         type: datetime
         searchable: true
-        sortable: true
         format: d.m.Y H:i:s
     status_id:
         label: vojtasvoboda.reservations::lang.reservation.status

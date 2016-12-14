@@ -5,11 +5,13 @@ use Carbon\Carbon;
 use Config;
 use Event;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
 use VojtaSvoboda\Reservations\Classes\DatesResolver;
 use VojtaSvoboda\Reservations\Mailers\ReservationMailer;
 use VojtaSvoboda\Reservations\Models\Reservation;
+use VojtaSvoboda\Reservations\Models\Settings;
 use VojtaSvoboda\Reservations\Models\Status;
 
 /**
@@ -29,6 +31,9 @@ class ReservationsFacade
 
     /** @var DatesResolver $datesResolver */
     private $datesResolver;
+
+    /** @var array $returningUsersCache */
+    private $returningUsersCache;
 
     /**
      * ReservationsFacade constructor.
@@ -126,6 +131,40 @@ class ReservationsFacade
     public function getReservationsWithSameEmailCount($email)
     {
         return $this->reservations->where('email', $email)->notCancelled()->count();
+    }
+
+    /**
+     * Is user returning or not? You have to set this parameter at Backend Reservations setting.
+     *
+     * @param $email
+     *
+     * @return bool
+     */
+    public function isUserReturning($email)
+    {
+        // if disabled, return always false
+        $threshold = Settings::get('returning_mark', 0);
+        if ($threshold < 1) {
+            return false;
+        }
+
+        // load emails count
+        if ($this->returningUsersCache === null) {
+            $items = $this
+                ->reservations
+                ->select(DB::raw('email, count(*) as count'))
+                ->groupBy('email')
+                ->get();
+            // refactor to mapWithKeys after upgrade to Laravel 5.3.
+            foreach($items as $item) {
+                $this->returningUsersCache[$item['email']] = $item['count'];
+            }
+        }
+
+        $returning = $this->returningUsersCache;
+        $actual = isset($returning[$email]) ? $returning[$email] : 0;
+
+        return $threshold > 0 && $actual >= $threshold;
     }
 
     /**
