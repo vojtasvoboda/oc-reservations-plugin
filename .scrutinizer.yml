@@ -17,3 +17,7 @@ build:
                 coverage:
                     file: './plugins/vojtasvoboda/reservations/coverage'
                     format: 'php-clover'
+checks:
+    php:
+        code_rating: true
+        duplication: true
