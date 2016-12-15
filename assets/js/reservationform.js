@@ -5,20 +5,24 @@
  */
 var reservationform = function($) {
 
-    $('#date').pickadate({
-        format: 'dd/mm/yyyy',
-        min: '0',
-        onSet: function(context) {
-            loadBookedTimes(new Date(context.select));
-        }
-    });
+    if ($("#date").length > 0) {
+        $("#date").pickadate({
+            format: "dd/mm/yyyy",
+            min: "0",
+            onSet: function (context) {
+                loadBookedTimes(new Date(context.select));
+            }
+        });
+    }
 
-    $('#time').pickatime({
-        format: 'HH:i',
-        interval: 15
-    });
+    if ($("#time").length > 0) {
+        $("#time").pickatime({
+            format: "HH:i",
+            interval: 15
+        });
 
-    disableAllTimes();
+        disableAllTimes();
+    }
 };
 
 /**
@@ -26,9 +30,9 @@ var reservationform = function($) {
  */
 function disableAllTimes()
 {
-    var $input = $('#time').pickatime();
-    var picker = $input.pickatime('picker');
-    picker.set('disable', [{
+    var $input = $("#time").pickatime();
+    var picker = $input.pickatime("picker");
+    picker.set("disable", [{
         from: [0, 0],
         to: [23, 45]
     }]);
