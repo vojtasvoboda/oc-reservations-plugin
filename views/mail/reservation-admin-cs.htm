@@ -1,0 +1,19 @@
+subject = "Nová rezervace"
+layout = "default"
+==
+<p>
+    V systému je nová rezervace:<br />
+    <br />
+    Datum a čas: {{ reservation.date | date("d.m.Y H:i") }}<br />
+    <br />
+    Adresa: {{ reservation.street }}<br />
+    Jméno: {{ reservation.name }} {{ reservation.lastname }}<br />
+    E-mail: {{ reservation.email }}<br />
+    Telefon: {{ reservation.phone }}<br />
+    <br />
+    Zpráva: {{ reservation.message }}<br />
+    <br />
+    Vytvořeno: {{ reservation.created_at | date("d.m.Y H:i") }}<br />
+    <br />
+    Počet rezervací na stejný e-mail: {{ reservationsCount }}<br />
+</p>

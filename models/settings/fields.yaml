@@ -1,5 +1,25 @@
-fields:
-    returning_mark:
-        label: Mark returning customers
-        default: 0
-        comment: Mark customers with that number of reservations or more. Disable by value 0.
+tabs:
+    fields:
+        returning_mark:
+            tab: Returning customers
+            label: Mark returning customers
+            default: 0
+            comment: Mark customers with that number of reservations or more. Disable by value 0.
+        admin_confirmation_enable:
+            tab: Admin confirmation
+            label: Enable admin confirmation
+            type: switch
+            default: false
+        admin_confirmation_email:
+            tab: Admin confirmation
+            label: Admin email
+            comment: Admin email for sending confirmation.
+        admin_confirmation_name:
+            tab: Admin confirmation
+            label: Admin name
+            comment: Admin name for confirmation email.
+        admin_confirmation_locale:
+            tab: Admin confirmation
+            label: Admin confirmation locale
+            comment: Locale of confirmation email.
+            default: en

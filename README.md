@@ -33,9 +33,18 @@ No other plugin dependencies.
 
 Plugin allow you to mark returning customers:
 
-- set amount of previous reservations at **Backend > Settings > Misc > Reservations** 
+- set amount of previous reservations at **Backend > Settings > Reservations > Reservations** 
 - at reservations listing, click at the list settings (the hamburger at the right corner) and check Returning
 - it shows star at customers with more then <your-threshold> non-canceled reservations
+
+## Admin confirmation
+
+By default, plugin sends confirmation email to customer. But you can also turn on sending confirmation to different user 
+(your customer, system administrator, etc). Follow these steps to turn this feature on:
+
+- set admin email and name at **Backend > Settings > Reservations > Reservations** at **Admin confirmation** tab
+- turn the admin confirmation by switch
+- system will send special template 'reservation-admin', so feel free edit content of template at **Backend > Settings > Mail > Mail templates**
 
 ## Backend calendar
 

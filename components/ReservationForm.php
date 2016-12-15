@@ -54,7 +54,7 @@ class ReservationForm extends ComponentBase
         $facade = App::make('vojtasvoboda.reservations.facade');
 
 		$error = false;
-		if (Input::get('submit')) {
+		if (Input::get($this->alias . '-submit')) {
 
             // check CSRF token
             if (Session::token() != Input::get('_token')) {
@@ -78,7 +78,7 @@ class ReservationForm extends ComponentBase
 
                 } catch(Exception $e) {
                     Log::error($e->getMessage());
-                    $error = 'We\'re sorry, but something went wrong and the page cannot be displayed.';
+                    $error = 'We\'re sorry, but something went wrong and the form cannot be sent.';
                 }
             }
 		}

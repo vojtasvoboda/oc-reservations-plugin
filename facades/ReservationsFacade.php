@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
 use VojtaSvoboda\Reservations\Classes\DatesResolver;
+use VojtaSvoboda\Reservations\Mailers\ReservationAdminMailer;
 use VojtaSvoboda\Reservations\Mailers\ReservationMailer;
 use VojtaSvoboda\Reservations\Models\Reservation;
 use VojtaSvoboda\Reservations\Models\Settings;
@@ -70,8 +71,11 @@ class ReservationsFacade
         // create reservation
         $reservation = $this->reservations->create($data);
 
-        // send reservation confirmation
+        // send reservation confirmation to customer
         ReservationMailer::send($reservation);
+
+        // send reservation confirmation to admin
+        ReservationAdminMailer::send($reservation);
 
         return $reservation;
     }

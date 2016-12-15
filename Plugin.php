@@ -68,6 +68,9 @@ class Plugin extends PluginBase
         return [
             'vojtasvoboda.reservations::mail.reservation-cs' => 'Reservation confirmation CS',
             'vojtasvoboda.reservations::mail.reservation-en' => 'Reservation confirmation EN',
+            'vojtasvoboda.reservations::mail.reservation-es' => 'Reservation confirmation ES',
+            'vojtasvoboda.reservations::mail.reservation-admin-cs' => 'Reservation confirmation for admin CS',
+            'vojtasvoboda.reservations::mail.reservation-admin-en' => 'Reservation confirmation for admin EN',
         ];
     }
 
@@ -75,6 +78,7 @@ class Plugin extends PluginBase
     {
         return [
             'settings' => [
+                'category' => 'Reservations',
                 'label' => 'Reservations',
                 'description' => 'Manage Reservations settings.',
                 'icon' => 'icon-calendar-o',
