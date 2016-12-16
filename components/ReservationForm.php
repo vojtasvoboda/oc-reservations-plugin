@@ -2,7 +2,6 @@
 
 use App;
 use Cms\Classes\ComponentBase;
-use Config;
 use Exception;
 use Flash;
 use Illuminate\Support\Facades\Log;

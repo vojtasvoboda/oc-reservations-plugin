@@ -36,18 +36,30 @@ class ReservationsFacade
     /** @var array $returningUsersCache */
     private $returningUsersCache;
 
+    /** @var ReservationMailer $mailer */
+    private $mailer;
+
+    /** @var ReservationAdminMailer $adminMailer */
+    private $adminMailer;
+
     /**
      * ReservationsFacade constructor.
      *
      * @param Reservation $reservations
      * @param Status $statuses
      * @param DatesResolver $resolver
+     * @param ReservationMailer $mailer
+     * @param ReservationAdminMailer $adminMailer
      */
-    public function __construct(Reservation $reservations, Status $statuses, DatesResolver $resolver)
-    {
+    public function __construct(
+        Reservation $reservations, Status $statuses, DatesResolver $resolver,
+        ReservationMailer $mailer, ReservationAdminMailer $adminMailer
+    ) {
         $this->reservations = $reservations;
         $this->statuses = $statuses;
         $this->datesResolver = $resolver;
+        $this->mailer = $mailer;
+        $this->adminMailer = $adminMailer;
     }
 
     /**
@@ -71,11 +83,14 @@ class ReservationsFacade
         // create reservation
         $reservation = $this->reservations->create($data);
 
+        // calculate reservations by same email
+        $sameCount = $this->getReservationsWithSameEmailCount($reservation->email);
+
         // send reservation confirmation to customer
-        ReservationMailer::send($reservation);
+        $this->mailer->send($reservation, $sameCount);
 
         // send reservation confirmation to admin
-        ReservationAdminMailer::send($reservation);
+        $this->adminMailer->send($reservation, $sameCount);
 
         return $reservation;
     }
