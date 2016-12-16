@@ -15,7 +15,7 @@ class ReservationTest extends PluginTestCase
      */
     public function getModel()
     {
-        return App::make('VojtaSvoboda\Reservations\Models\Reservation');
+        return App::make(Reservation::class);
     }
 
     public function testGetHash()

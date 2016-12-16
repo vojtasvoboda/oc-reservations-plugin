@@ -17,7 +17,7 @@ class ReservationsFacadeTest extends PluginTestCase
      */
     public function getModel()
     {
-        return App::make('VojtaSvoboda\Reservations\Facades\ReservationsFacade');
+        return App::make(ReservationsFacade::class);
     }
 
     public function testStoreEmptyReservation()
