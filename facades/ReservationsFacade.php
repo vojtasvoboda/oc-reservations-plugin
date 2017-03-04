@@ -97,7 +97,7 @@ class ReservationsFacade
     public function sendMails($reservation)
     {
         // calculate reservations by same email
-        $sameCount = $this->getReservationsWithSameEmailCount($reservation->email);
+        $sameCount = $this->getReservationsCountByMail($reservation->email);
 
         // send reservation confirmation to customer
         $this->mailer->send($reservation, $sameCount);
@@ -158,7 +158,7 @@ class ReservationsFacade
      *
      * @return int
      */
-    public function getReservationsWithSameEmailCount($email)
+    public function getReservationsCountByMail($email)
     {
         return $this->reservations->where('email', $email)->notCancelled()->count();
     }
@@ -172,7 +172,7 @@ class ReservationsFacade
      */
     public function isUserReturning($email)
     {
-        // if disabled, return always false
+        // when disabled, user is never returning
         $threshold = Settings::get('returning_mark', 0);
         if ($threshold < 1) {
             return false;
