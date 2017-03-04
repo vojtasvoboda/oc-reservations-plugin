@@ -38,10 +38,8 @@ class ReservationForm extends ComponentBase
             throw new ApplicationException('Form session expired! Please refresh the page.');
         }
 
-        /** @var ReservationsFacade $facade */
-        $facade = App::make('vojtasvoboda.reservations.facade');
         $data = Input::all();
-        $facade->storeReservation($data);
+        $this->getFacade()->storeReservation($data);
     }
 
     /**
@@ -49,8 +47,7 @@ class ReservationForm extends ComponentBase
      */
 	public function onRun()
 	{
-        /** @var ReservationsFacade $facade */
-        $facade = App::make('vojtasvoboda.reservations.facade');
+        $facade = $this->getFacade();
 
 		$error = false;
 		if (Input::get($this->alias . '-submit')) {
@@ -96,9 +93,19 @@ class ReservationForm extends ComponentBase
 	}
 
     /**
+     * Get reservation facade.
+     *
+     * @return ReservationsFacade
+     */
+	protected function getFacade()
+    {
+        return App::make(ReservationsFacade::class);
+    }
+
+    /**
      * Inject components assets.
      */
-	private function injectAssets()
+    protected function injectAssets()
     {
         $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.css');
         $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.date.css');

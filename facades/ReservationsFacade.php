@@ -80,6 +80,9 @@ class ReservationsFacade
         // transform date and time to Carbon
         $data['date'] = $this->transformDateTime($data);
 
+        // place for extending
+        Event::fire('vojtasvoboda.reservations.beforeCreate', [$data]);
+
         // create reservation
         $reservation = $this->reservations->create($data);
 
