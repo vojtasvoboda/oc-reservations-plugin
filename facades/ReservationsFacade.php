@@ -83,6 +83,19 @@ class ReservationsFacade
         // create reservation
         $reservation = $this->reservations->create($data);
 
+        // send mails to client and admin
+        $this->sendMails($reservation);
+
+        return $reservation;
+    }
+
+    /**
+     * Send mail to client and admin.
+     *
+     * @param Reservation $reservation
+     */
+    public function sendMails($reservation)
+    {
         // calculate reservations by same email
         $sameCount = $this->getReservationsWithSameEmailCount($reservation->email);
 
@@ -91,8 +104,6 @@ class ReservationsFacade
 
         // send reservation confirmation to admin
         $this->adminMailer->send($reservation, $sameCount);
-
-        return $reservation;
     }
 
     /**
