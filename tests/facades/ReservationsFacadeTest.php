@@ -10,6 +10,13 @@ use VojtaSvoboda\Reservations\Models\Status;
 
 class ReservationsFacadeTest extends PluginTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->app->bind('vojtasvoboda.reservations.facade', ReservationsFacade::class);
+    }
+
     /**
      * Returns tested class.
      *
@@ -52,9 +59,20 @@ class ReservationsFacadeTest extends PluginTestCase
         $this->assertEquals($locale, $reservation->locale);
 
         // check date and time
-        $inputDate = $this->getTestingReservationData()['date'] . ' ' . $this->getTestingReservationData()['time'];
-        $dateTime = Carbon::createFromFormat('d/m/Y H:i', $inputDate)->toDateTimeString();
+        $testingData = $this->getTestingReservationData();
+        $inputDate = $testingData['date'] . ' ' . $testingData['time'];
+        $dateTime = Carbon::createFromFormat('d/m/Y H:i', $inputDate);
         $this->assertEquals($dateTime, $reservation->date);
+    }
+
+    public function testDoubleStoreReservationUnder30Seconds()
+    {
+        $model = $this->getModel();
+        $testingData = $this->getTestingReservationData();
+        $model->storeReservation($testingData);
+
+        $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $model->storeReservation($testingData);
     }
 
     public function testTransformDateTime()
@@ -69,60 +87,6 @@ class ReservationsFacadeTest extends PluginTestCase
 
         $this->assertInstanceOf('Carbon\Carbon', $date);
         $this->assertEquals('2016-10-08 15:45:00', $date->format('Y-m-d H:i:s'));
-    }
-
-    public function testIsDateAvailableFailing()
-    {
-        $model = $this->getModel();
-
-        // create reservation
-        $reservation = $model->storeReservation($this->getTestingReservationData());
-
-        // change created at date because of 30 seconds robots check
-        $reservation->created_at = '2016-08-18 14:00:00';
-        $reservation->save();
-
-        // try to do second reservation with same date and time
-        $this->setExpectedException('October\Rain\Exception\ApplicationException');
-        $model->storeReservation($this->getTestingReservationData());
-    }
-
-    public function testIsDateAvailablePassed()
-    {
-        $model = $this->getModel();
-
-        // create reservation
-        $reservation = $model->storeReservation($this->getTestingReservationData());
-
-        // change created at date because of 30 seconds robots check
-        $reservation->created_at = '2016-08-18 14:00:00';
-        $reservation->save();
-
-        // try to do second reservation with same date and time after 2 hours
-        $data = $this->getTestingReservationData();
-        $data['time'] = '22:00';
-        $model->storeReservation($data);
-    }
-
-    public function testIsDateAvailableForCancelled()
-    {
-        $model = $this->getModel();
-
-        // create reservation
-        $reservation = $model->storeReservation($this->getTestingReservationData());
-
-        // cancel status
-        $cancelledStatuses = Config::get('vojtasvoboda.reservations::config.statuses.cancelled', 'cancelled');
-        $statusIdent = empty($cancelledStatuses) ? 'cancelled' : $cancelledStatuses[0];
-
-        // change created at date because of 30 seconds robots check and cancell it
-        $reservation->created_at = '2016-08-18 14:00:00';
-        $reservation->status = Status::where('ident', $statusIdent)->first();
-        $reservation->save();
-
-        // try to do second reservation with same date and time
-        $data = $this->getTestingReservationData();
-        $model->storeReservation($data);
     }
 
     public function testGetReservationsCountByMail()

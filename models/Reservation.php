@@ -6,8 +6,10 @@ use Config;
 use Model;
 use October\Rain\Database\Traits\SoftDelete as SoftDeleteTrait;
 use October\Rain\Database\Traits\Validation as ValidationTrait;
+use October\Rain\Exception\ApplicationException;
 use Request;
 use Str;
+use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 
 /**
  * Reservation class.
@@ -41,7 +43,7 @@ class Reservation extends Model
         'street', 'town', 'zip', 'phone', 'message',
     ];
 
-    public $dates = ['created_at', 'updated_at', 'deleted_at'];
+    public $dates = ['date', 'created_at', 'updated_at', 'deleted_at'];
 
     public $belongsTo = [
         'status' => 'VojtaSvoboda\Reservations\Models\Status',
@@ -63,6 +65,21 @@ class Reservation extends Model
 
         if ($this->status === null) {
             $this->status = $this->getDefaultStatus();
+        }
+    }
+
+    public function beforeSave()
+    {
+        $this->validateAvailability();
+    }
+
+    /**
+     * Check reservation date availability.
+     */
+    public function validateAvailability()
+    {
+        if (!$this->getFacade()->validateReservation($this)) {
+            throw new ApplicationException($this->date->format('d.m.Y H:i') . ' is already booked.');
         }
     }
 
@@ -148,5 +165,15 @@ class Reservation extends Model
         } while ((self::where('number', $number)->count() > 0) && (++$count < 1000));
 
         return $count >= 1000 ? null : $number;
+    }
+
+    /**
+     * Get Reservations facade.
+     *
+     * @return ReservationsFacade
+     */
+    private function getFacade()
+    {
+        return App::make('vojtasvoboda.reservations.facade');
     }
 }

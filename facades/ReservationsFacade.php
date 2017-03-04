@@ -74,11 +74,11 @@ class ReservationsFacade
      */
     public function storeReservation($data)
     {
+        // check number of sends
+        $this->checkLimits($data);
+
         // transform date and time to Carbon
         $data['date'] = $this->transformDateTime($data);
-
-        // check date availability
-        $this->checkDate($data);
 
         // create reservation
         $reservation = $this->reservations->create($data);
@@ -254,11 +254,13 @@ class ReservationsFacade
      */
     public function transformDateTime($data)
     {
-        // validate date and time
+        // validate date
         if (empty($data['date'])) {
             throw new ApplicationException('You have to select pickup date!');
+        }
 
-        } elseif (empty($data['time'])) {
+        // validate time
+        if (empty($data['time'])) {
             throw new ApplicationException('You have to select pickup hour!');
         }
 
@@ -268,41 +270,53 @@ class ReservationsFacade
     }
 
     /**
-     * Check gived date and time.
+     * Validate reservation date and time.
      *
-     * @param array $data
-     *
-     * @throws ApplicationException
-     */
-    public function checkDate($data)
-    {
-        // check reservation sent limit
-        if ($this->isCreatedWhileAgo()) {
-            throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
-        }
-
-        // check date availability
-        if (!$this->isDateAvailable($data['date'])) {
-            throw new ApplicationException($data['date']->format('d.m.Y H:i') . ' is already booked.');
-        }
-    }
-
-    /**
-     * Returns if date is available to book.
-     *
-     * @param Carbon $date
+     * @param Reservation $reservation
      *
      * @return bool
      */
-    public function isDateAvailable(Carbon $date)
+    public function validateReservation(Reservation $reservation)
+    {
+        $reservationId = isset($reservation->id) ? $reservation->id : null;
+
+        return $this->isDateAvailable($reservation->date, $reservationId);
+    }
+
+    /**
+     * Returns if given date is available.
+     *
+     * @param Carbon $date
+     * @param int $exceptId Except reservation ID.
+     *
+     * @return bool
+     */
+    public function isDateAvailable($date, $exceptId = null)
     {
         // get boundary dates for given reservation date
         $boundaries = $this->datesResolver->getBoundaryDates($date);
 
         // get all reservations in this date
-        $reservations = $this->reservations->notCancelled()->whereBetween('date', $boundaries)->get();
+        $query = $this->reservations->notCancelled()->whereBetween('date', $boundaries);
 
-        return $reservations->count() === 0;
+        // if updating reservation, we should skip existing reservation
+        if ($exceptId) {
+            $query->where('id', '!=', $exceptId);
+        }
+
+        return $query->count() === 0;
+    }
+
+    /**
+     * Check reservations amount limit per time.
+     *
+     * @throws ApplicationException
+     */
+    private function checkLimits()
+    {
+        if ($this->isCreatedWhileAgo()) {
+            throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
+        }
     }
 
     /**

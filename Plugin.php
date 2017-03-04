@@ -2,12 +2,13 @@
 
 use Backend;
 use System\Classes\PluginBase;
+use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 
 class Plugin extends PluginBase
 {
     public function boot()
     {
-        $this->app->bind('vojtasvoboda.reservations.facade', 'VojtaSvoboda\Reservations\Facades\ReservationsFacade');
+        $this->app->bind('vojtasvoboda.reservations.facade', ReservationsFacade::class);
     }
 
     public function registerNavigation()
