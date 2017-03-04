@@ -296,23 +296,13 @@ class ReservationsFacade
      */
     public function isDateAvailable(Carbon $date)
     {
-        // get config
-        $length = Config::get('vojtasvoboda.reservations::config.reservation.length', '2 hours');
-
-        // check time slot before
-        $startDatetime = clone $date;
-        $startDatetime->modify('-' . $length);
-        $startDatetime->modify('+1 second');
-
-        // check time slot after
-        $endDatetime = clone $date;
-        $endDatetime->modify('+' . $length);
-        $endDatetime->modify('-1 second');
+        // get boundary dates for given reservation date
+        $boundaries = $this->datesResolver->getBoundaryDates($date);
 
         // get all reservations in this date
-        $reservations = $this->reservations->notCancelled()->whereBetween('date', [$startDatetime, $endDatetime])->get();
+        $reservations = $this->reservations->notCancelled()->whereBetween('date', $boundaries)->get();
 
-        return $reservations->count() == 0;
+        return $reservations->count() === 0;
     }
 
     /**

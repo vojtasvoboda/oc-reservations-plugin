@@ -58,6 +58,59 @@ class DatesResolver
         return $dates;
     }
 
+    /**
+     * Get booked interval around the given date.
+     *
+     * @param Carbon $date
+     *
+     * @return array
+     */
+    public function getBoundaryDates($date)
+    {
+        // reservation length
+        $length = $this->getLength();
+
+        // boundary dates before and after
+        $startDatetime = $this->getBoundaryBefore($date, $length);
+        $endDatetime = $this->getBoundaryAfter($date, $length);
+
+        return [$startDatetime, $endDatetime];
+    }
+
+    /**
+     * Get boundary date before reservation date.
+     *
+     * @param $date
+     * @param $length
+     *
+     * @return mixed
+     */
+    private function getBoundaryBefore($date, $length)
+    {
+        $startDatetime = clone $date;
+        $startDatetime->modify('-' . $length);
+        $startDatetime->modify('+1 second');
+
+        return $startDatetime;
+    }
+
+    /**
+     * Get boundary date after reservation date.
+     *
+     * @param $date
+     * @param $length
+     *
+     * @return mixed
+     */
+    private function getBoundaryAfter($date, $length)
+    {
+        $endDatetime = clone $date;
+        $endDatetime->modify('+' . $length);
+        $endDatetime->modify('-1 second');
+
+        return $endDatetime;
+    }
+
     private function getDateFormat()
     {
         return Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y');
