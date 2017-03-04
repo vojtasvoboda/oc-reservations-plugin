@@ -18,7 +18,7 @@ use VojtaSvoboda\Reservations\Models\Status;
 /**
  * Public reservations facade.
  *
- * Usage: App::make('vojtasvoboda.reservations.facade');
+ * Usage: App::make(ReservationsFacade::class);
  *
  * @package VojtaSvoboda\Reservations\Facades
  */
@@ -266,7 +266,7 @@ class ReservationsFacade
     public function checkDate($data)
     {
         // check reservation sent limit
-        if ($this->isSomeReservationExistsInLastTime()) {
+        if ($this->isCreatedWhileAgo()) {
             throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
         }
 
@@ -305,12 +305,19 @@ class ReservationsFacade
     }
 
     /**
-     * Try to find some reservation in less then half minute.
+     * Try to find some reservation in less then given limit (default 30 seconds).
      *
      * @return boolean
      */
-    public function isSomeReservationExistsInLastTime()
+    public function isCreatedWhileAgo()
     {
-        return $this->reservations->isExistInLastTime();
+        // protection time
+        $time = Config::get('vojtasvoboda.reservations::config.protection_time', '-30 seconds');
+        $timeLimit = Carbon::parse($time)->toDateTimeString();
+
+        // try to find some message
+        $item = $this->reservations->machine()->where('created_at', '>', $timeLimit)->first();
+
+        return $item !== null;
     }
 }

@@ -38,20 +38,6 @@ class ReservationTest extends PluginTestCase
         $this->assertNotEquals($firstNumber, $secondNumber);
     }
 
-    public function testIsExistsInLastTime()
-    {
-        $model = $this->getModel();
-        $exists = $model->isExistInLastTime();
-
-        $this->assertFalse($exists);
-
-        // create fake reservation
-        $model->create($this->getTestingReservationData());
-        $exists = $model->isExistInLastTime();
-
-        $this->assertTrue($exists);
-    }
-
     public function testScopeNotCancelled()
     {
         $model = $this->getModel();

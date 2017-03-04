@@ -99,23 +99,6 @@ class Reservation extends Model
     }
 
     /**
-     * If some message exists in last one minute
-     *
-     * @return bool
-     */
-    public function isExistInLastTime()
-    {
-        // protection time
-        $time = Config::get('vojtasvoboda.reservations::config.protection_time', '-30 seconds');
-        $timeLimit = Carbon::parse($time)->toDateTimeString();
-
-        // try to find some message
-        $item = self::machine()->where('created_at', '>', $timeLimit)->first();
-
-        return $item !== null;
-    }
-
-    /**
      * Get default reservation status.
      *
      * @return Status

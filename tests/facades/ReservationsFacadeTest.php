@@ -162,6 +162,20 @@ class ReservationsFacadeTest extends PluginTestCase
         $this->assertEquals(true, $isReturning, 'Email test@test.cz has one reservation, so it should be marked as returning customer.');
     }
 
+    public function testIsCreatedWhileAgo()
+    {
+        $model = $this->getModel();
+        $exists = $model->isCreatedWhileAgo();
+
+        $this->assertFalse($exists);
+
+        // create fake reservation
+        $model->storeReservation($this->getTestingReservationData());
+        $exists = $model->isCreatedWhileAgo();
+
+        $this->assertTrue($exists);
+    }
+
     private function getTestingReservationData()
     {
         return [
