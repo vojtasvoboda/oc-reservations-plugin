@@ -75,7 +75,7 @@ class ReservationsFacade
     public function storeReservation($data)
     {
         // check number of sends
-        $this->checkLimits($data);
+        $this->checkLimits();
 
         // transform date and time to Carbon
         $data['date'] = $this->transformDateTime($data);
@@ -286,7 +286,7 @@ class ReservationsFacade
         $query = $this->reservations->notCancelled()->whereBetween('date', $boundaries);
 
         // if updating reservation, we should skip existing reservation
-        if ($exceptId) {
+        if ($exceptId !== null) {
             $query->where('id', '!=', $exceptId);
         }
 
