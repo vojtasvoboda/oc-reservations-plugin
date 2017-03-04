@@ -22,4 +22,6 @@ before_script:
   - cd plugins/vojtasvoboda/reservations
   - composer install
 
-script: ../../../vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+script:
+  - ../../../vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - bash <(curl -s https://codecov.io/bash)
