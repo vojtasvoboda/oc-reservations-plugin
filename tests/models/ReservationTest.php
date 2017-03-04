@@ -3,10 +3,13 @@
 use App;
 use Carbon\Carbon;
 use Config;
+use Illuminate\Support\Facades\Validator;
 use PluginTestCase;
+use October\Rain\Database\ModelException;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 use VojtaSvoboda\Reservations\Models\Reservation;
 use VojtaSvoboda\Reservations\Models\Status;
+use VojtaSvoboda\Reservations\Validators\ReservationsValidators;
 
 class ReservationTest extends PluginTestCase
 {
@@ -17,6 +20,11 @@ class ReservationTest extends PluginTestCase
         parent::setUp();
 
         $this->app->bind('vojtasvoboda.reservations.facade', ReservationsFacade::class);
+
+        // registrate reservations validators
+        Validator::resolver(function($translator, $data, $rules, $messages, $customAttributes) {
+            return new ReservationsValidators($translator, $data, $rules, $messages, $customAttributes);
+        });
     }
 
     /**
@@ -51,7 +59,7 @@ class ReservationTest extends PluginTestCase
         $model->create($this->getTestingReservationData());
 
         // try to do second reservation with same date and time
-        $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $this->setExpectedException(ModelException::class, 'Date 18.08.2016 20:00 is already booked.');
         $model->create($this->getTestingReservationData());
     }
 

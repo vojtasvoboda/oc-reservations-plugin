@@ -37,7 +37,6 @@ class DatesResolver
         $dates = [];
         foreach ($reservations as $reservation)
         {
-            /** @var Carbon $date */
             $date = Carbon::parse($reservation->date);
             $reservationDay = $date->format($dateFormat);
 
@@ -65,7 +64,7 @@ class DatesResolver
      *
      * @return array
      */
-    public function getBoundaryDates($date)
+    public function getBoundaryDates(Carbon $date)
     {
         // reservation length
         $length = $this->getLength();
@@ -80,12 +79,12 @@ class DatesResolver
     /**
      * Get boundary date before reservation date.
      *
-     * @param $date
-     * @param $length
+     * @param Carbon $date
+     * @param string $length
      *
      * @return mixed
      */
-    private function getBoundaryBefore($date, $length)
+    private function getBoundaryBefore(Carbon $date, $length)
     {
         $startDatetime = clone $date;
         $startDatetime->modify('-' . $length);
@@ -97,12 +96,12 @@ class DatesResolver
     /**
      * Get boundary date after reservation date.
      *
-     * @param $date
-     * @param $length
+     * @param Carbon $date
+     * @param string $length
      *
      * @return mixed
      */
-    private function getBoundaryAfter($date, $length)
+    private function getBoundaryAfter(Carbon $date, $length)
     {
         $endDatetime = clone $date;
         $endDatetime->modify('+' . $length);

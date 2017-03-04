@@ -9,7 +9,6 @@ use October\Rain\Database\Traits\Validation as ValidationTrait;
 use October\Rain\Exception\ApplicationException;
 use Request;
 use Str;
-use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 
 /**
  * Reservation class.
@@ -27,7 +26,7 @@ class Reservation extends Model
 
     /** @var array Rules */
     public $rules = [
-        'date' => 'required|date',
+        'date' => 'required|date|reservation',
         'locale' => 'max:20',
         'email' => 'required|email',
         'name' => 'required|max:300',
@@ -36,6 +35,10 @@ class Reservation extends Model
         'zip' => 'numeric',
         'phone' => 'required|max:300',
         'message' => 'required|max:3000',
+    ];
+
+    public $customMessages = [
+        'reservation' => 'Date :reservation is already booked.',
     ];
 
     public $fillable = [
@@ -65,21 +68,6 @@ class Reservation extends Model
 
         if ($this->status === null) {
             $this->status = $this->getDefaultStatus();
-        }
-    }
-
-    public function beforeSave()
-    {
-        $this->validateAvailability();
-    }
-
-    /**
-     * Check reservation date availability.
-     */
-    public function validateAvailability()
-    {
-        if (!$this->getFacade()->validateReservation($this)) {
-            throw new ApplicationException($this->date->format('d.m.Y H:i') . ' is already booked.');
         }
     }
 
@@ -165,15 +153,5 @@ class Reservation extends Model
         } while ((self::where('number', $number)->count() > 0) && (++$count < 1000));
 
         return $count >= 1000 ? null : $number;
-    }
-
-    /**
-     * Get Reservations facade.
-     *
-     * @return ReservationsFacade
-     */
-    private function getFacade()
-    {
-        return App::make('vojtasvoboda.reservations.facade');
     }
 }

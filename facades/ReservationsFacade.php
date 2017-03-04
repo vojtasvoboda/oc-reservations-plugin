@@ -270,20 +270,6 @@ class ReservationsFacade
     }
 
     /**
-     * Validate reservation date and time.
-     *
-     * @param Reservation $reservation
-     *
-     * @return bool
-     */
-    public function validateReservation(Reservation $reservation)
-    {
-        $reservationId = isset($reservation->id) ? $reservation->id : null;
-
-        return $this->isDateAvailable($reservation->date, $reservationId);
-    }
-
-    /**
      * Returns if given date is available.
      *
      * @param Carbon $date

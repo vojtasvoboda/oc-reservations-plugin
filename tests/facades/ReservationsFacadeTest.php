@@ -3,10 +3,11 @@
 use App;
 use Carbon\Carbon;
 use Config;
+use Illuminate\Support\Facades\Validator;
 use PluginTestCase;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 use VojtaSvoboda\Reservations\Models\Settings;
-use VojtaSvoboda\Reservations\Models\Status;
+use VojtaSvoboda\Reservations\Validators\ReservationsValidators;
 
 class ReservationsFacadeTest extends PluginTestCase
 {
@@ -15,6 +16,11 @@ class ReservationsFacadeTest extends PluginTestCase
         parent::setUp();
 
         $this->app->bind('vojtasvoboda.reservations.facade', ReservationsFacade::class);
+
+        // registrate reservations validators
+        Validator::resolver(function($translator, $data, $rules, $messages, $customAttributes) {
+            return new ReservationsValidators($translator, $data, $rules, $messages, $customAttributes);
+        });
     }
 
     /**
