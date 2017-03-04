@@ -85,7 +85,7 @@ class ReservationForm extends ComponentBase
 		// inject assets
         $this->injectAssets();
 
-		// load booked dates
+		// load booked dates and their time slots
         $dates = $facade->getReservedDates();
 
         // template data

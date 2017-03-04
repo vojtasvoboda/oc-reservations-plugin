@@ -6,6 +6,7 @@ use BackendMenu;
 use Flash;
 use Lang;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
+use VojtaSvoboda\Reservations\Models\Reservation;
 use VojtaSvoboda\Reservations\Models\Status;
 
 class Reservations extends Controller
@@ -35,23 +36,24 @@ class Reservations extends Controller
         BackendMenu::setContext('VojtaSvoboda.Reservations', 'reservations', $action);
     }
 
+    /**
+     * Extend controller listing.
+     */
     public function index()
     {
         $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/bulk-actions.js');
-
         $this->asExtension('ListController')->index();
     }
 
     /**
-     * Override displaying reservation status.
+     * Override displaying reservation listing.
      *
-     * @param $record
-     * @param $columnName
-     * @param null $definition
+     * @param Reservation $record
+     * @param string $columnName
      *
      * @return string
      */
-    public function listOverrideColumnValue($record, $columnName, $definition = null)
+    public function listOverrideColumnValue($record, $columnName)
     {
         $statusStyle = "display:inline-block;width:13px;height:14px;position:relative;top:2px;margin-right:4px;color:#fff;font-size:11px;padding-left:3px;";
 
@@ -60,28 +62,25 @@ class Reservations extends Controller
             $name = $this->getStateName($record->status_id);
 
             return '<div><span style="' . $statusStyle . 'background-color:' . $color . '"></span> ' . $name . '</div>';
+        }
 
-        } elseif ($columnName == 'returning') {
+        if ($columnName == 'returning') {
             return $this->isReturning($record->email) ? '<i class=" icon-star"></i>' : '';
         }
     }
 
     /**
-     * Bulk actions
+     * Bulk change state and bulk delete.
      *
      * @return mixed
      */
     public function index_onBulkAction()
     {
-        if (($bulkAction = post('action')) && ($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds))
-        {
-            /** @var ReservationsFacade $facade */
-            $facade = App::make('vojtasvoboda.reservations.facade');
-
+        if (($bulkAction = post('action')) && ($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             if ($bulkAction == 'delete') {
-                $facade->bulkDelete($checkedIds);
+                $this->getFacade()->bulkDelete($checkedIds);
             } else {
-                $facade->bulkStateChange($checkedIds, $bulkAction);
+                $this->getFacade()->bulkStateChange($checkedIds, $bulkAction);
             }
 
             $msg = Lang::get('vojtasvoboda.reservations::lang.reservations.change_status_success');
@@ -94,24 +93,31 @@ class Reservations extends Controller
     /**
      * Return if User is returning.
      *
-     * @param string $email Users email
+     * @param string $email Users email.
      *
      * @return bool
      */
     private function isReturning($email)
     {
-        /** @var ReservationsFacade $facade */
-        $facade = App::make('vojtasvoboda.reservations.facade');
+        return $this->getFacade()->isUserReturning($email);
+    }
 
-        return $facade->isUserReturning($email);
+    /**
+     * Get facade providing all plugin logic.
+     *
+     * @return ReservationsFacade
+     */
+    private function getFacade()
+    {
+        return App::make(ReservationsFacade::class);
     }
 
     /**
      * Get color by state ident.
      *
-     * @param $ident
+     * @param string $ident
      *
-     * @return null
+     * @return string|null
      */
     private function getStateColor($ident)
     {
@@ -125,9 +131,9 @@ class Reservations extends Controller
     /**
      * Get name by state ident.
      *
-     * @param $ident
+     * @param string $ident
      *
-     * @return null
+     * @return string|null
      */
     private function getStateName($ident)
     {
