@@ -19,33 +19,29 @@ class ReservationsValidators extends Validator
      *
      * @param string $attribute Name of the validated field.
      * @param mixed $value Field value.
-     * @param array $parameters Validation parameters.
      *
      * @return bool
      */
-	public function validateReservation($attribute, $value, $parameters)
+	public function validateReservation($attribute, $value)
 	{
-        $date = $this->getDateAsCarbon($this->data['date']);
-        $reservationId = isset($this->data['id']) ? $this->data['id'] : null;
+	    if ($attribute === 'date') {
+            $date = $this->getDateAsCarbon($value);
+            $reservationId = isset($this->data['id']) ? $this->data['id'] : null;
 
-        if (!$this->getFacade()->isDateAvailable($date, $reservationId)) {
-            return false;
+            return $this->getFacade()->isDateAvailable($date, $reservationId);
         }
 
-		return true;
+		return false;
 	}
 
     /**
      * Replace placeholder :reservation with custom text.
      *
      * @param string $message
-     * @param string $attribute
-     * @param string $rule
-     * @param array $parameters
      *
      * @return string
      */
-    protected function replaceReservation($message, $attribute, $rule, $parameters)
+    protected function replaceReservation($message)
     {
         $date = $this->getDateAsCarbon($this->data['date']);
 
