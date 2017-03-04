@@ -81,7 +81,7 @@ class ReservationsFacade
         $data['date'] = $this->transformDateTime($data);
 
         // place for extending
-        Event::fire('vojtasvoboda.reservations.beforeCreate', [$data]);
+        Event::fire('vojtasvoboda.reservations.processReservation', [&$data]);
 
         // create reservation
         $reservation = $this->reservations->create($data);
