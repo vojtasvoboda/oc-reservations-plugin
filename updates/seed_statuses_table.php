@@ -25,7 +25,7 @@ class SeedStatusesTable extends Seeder
         $items = Yaml::parse(File::get($seedFile));
 
         // process each line
-        foreach ($items as $key => $item)
+        foreach ($items as $item)
         {
             // create new Status
             $status = Status::create([
@@ -53,7 +53,8 @@ class SeedStatusesTable extends Seeder
     {
         $filePath = $path . '/' . $imagename;
         if (file_exists($filePath) && is_file($filePath)) {
-            $fileObject = $this->getSavedFile($filePath, $isPublic = true);
+            $isPublic = true;
+            $fileObject = $this->getSavedFile($filePath, $isPublic);
             $item->image()->add($fileObject);
         }
     }

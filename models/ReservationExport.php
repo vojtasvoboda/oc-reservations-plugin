@@ -27,11 +27,10 @@ class ReservationExport extends ExportModel
      * Prepare data for export.
      *
      * @param $columns
-     * @param $sessionKey
      *
      * @return array
      */
-    public function exportData($columns, $sessionKey = null)
+    public function exportData($columns)
     {
         $query = Reservation::query();
 

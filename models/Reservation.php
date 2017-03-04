@@ -108,11 +108,11 @@ class Reservation extends Model
      */
     public function scopeMachine($query)
     {
-        $ip = Request::server('REMOTE_ADDR');
+        $ip_addr = Request::server('REMOTE_ADDR');
         $ip_forwarded = Request::server('HTTP_X_FORWARDED_FOR');
         $user_agent = Request::server('HTTP_USER_AGENT');
 
-        return $query->whereIp($ip)->whereIpForwarded($ip_forwarded)->whereUserAgent($user_agent);
+        return $query->whereIp($ip_addr)->whereIpForwarded($ip_forwarded)->whereUserAgent($user_agent);
     }
 
     /**
