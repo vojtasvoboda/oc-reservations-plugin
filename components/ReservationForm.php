@@ -90,7 +90,7 @@ class ReservationForm extends ComponentBase
 
         // template data
 		$this->page['sent'] = Flash::check();
-		$this->page['post'] = $_POST;
+		$this->page['post'] = post();
 		$this->page['error'] = $error;
         $this->page['dates'] = json_encode($dates);
 	}
