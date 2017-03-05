@@ -37,7 +37,7 @@ class DatesResolver
         $dates = [];
         foreach ($reservations as $reservation)
         {
-            $date = Carbon::parse($reservation->date);
+            $date = $reservation->date;
             $reservationDay = $date->format($dateFormat);
 
             // reservation end date
@@ -110,22 +110,22 @@ class DatesResolver
         return $endDatetime;
     }
 
-    private function getDateFormat()
+    protected function getDateFormat()
     {
         return Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y');
     }
 
-    private function getTimeFormat()
+    protected function getTimeFormat()
     {
         return Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i');
     }
 
-    private function getInterval()
+    protected function getInterval()
     {
         return Config::get('vojtasvoboda.reservations::config.reservation.interval', 15);
     }
 
-    private function getLength()
+    protected function getLength()
     {
         return Config::get('vojtasvoboda.reservations::config.reservation.length', '2 hours');
     }
