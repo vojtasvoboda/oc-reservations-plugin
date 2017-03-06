@@ -83,7 +83,7 @@ class ReservationForm extends ComponentBase
         $this->injectAssets();
 
 		// load booked dates and their time slots
-        $dates = $facade->getReservedDates();
+        $dates = $this->getReservedDates();
 
         // template data
 		$this->page['sent'] = Flash::check();
@@ -100,6 +100,16 @@ class ReservationForm extends ComponentBase
 	protected function getFacade()
     {
         return App::make(ReservationsFacade::class);
+    }
+
+    /**
+     * Get reserved dates.
+     *
+     * @return array
+     */
+    protected function getReservedDates()
+    {
+        return $this->getFacade()->getReservedDates();
     }
 
     /**
