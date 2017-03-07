@@ -12,17 +12,19 @@ class BaseMailer
      * Get template ident by locale.
      *
      * @param string $name
+     * @param string $locale
      *
      * @return string
      */
-    public function getTemplateIdent($name)
+    public function getTemplateIdent($name, $locale = null)
     {
-        $locale = App::getLocale();
+        if ($locale === null) {
+            $locale = App::getLocale();
+        }
         $identBase = 'vojtasvoboda.reservations::mail.' . $name . '-';
-        $ident = $identBase . $locale;
 
-        if (file_exists(__DIR__ . '/../views/mail/' . $ident . '.htm')) {
-            return $ident;
+        if (file_exists(__DIR__ . '/../views/mail/' . $name . '-' . $locale . '.htm')) {
+            return $identBase . $locale;
         }
 
         return $identBase . self::DEFAULT_TEMPLATE_LOCALE;

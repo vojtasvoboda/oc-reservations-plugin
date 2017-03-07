@@ -10,3 +10,4 @@
 1.0.6: Fix reservation datepicker JS.
 1.0.7: Add Admin confirmation function.
 1.0.8: Refactor plugin's mailers.
+1.0.9: Fix sending confirmation email to admin by locale chosed at backend.

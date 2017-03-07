@@ -17,7 +17,7 @@ class BaseMailerTest extends PluginTestCase
         return App::make(BaseMailer::class);
     }
 
-    public function testStoreEmptyReservation()
+    public function testGetTemplateIdent()
     {
         $model = $this->getModel();
 
@@ -25,5 +25,14 @@ class BaseMailerTest extends PluginTestCase
         $locale = App::getLocale();
 
         $this->assertEquals('vojtasvoboda.reservations::mail.reservation-' . $locale, $ident);
+    }
+
+    public function testGetTemplateIdentWithLocale()
+    {
+        $model = $this->getModel();
+
+        $ident = $model->getTemplateIdent('reservation-admin', 'cs');
+
+        $this->assertEquals('vojtasvoboda.reservations::mail.reservation-admin-cs', $ident);
     }
 }
