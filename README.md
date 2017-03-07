@@ -115,12 +115,7 @@ Receiving "Class 'PluginTestCase' not found" error? Just type `composer dumpauto
 
 - [ ] Complate all translations.
 - [ ] Put some config to backend Settings (mail BCC, etc).
-- [ ] Move date validation to Reservation model, because we need validation also when creating new reservation from the backend.
-- [ ] When changing reservation from cancelled status back to available, check date availability.
 - [ ] Checkbox for disabling injecting assets with components.
-- [ ] Add capacity parameter. Each time slot should have some capacity (number of tables, cars, seets etc.)
-- [ ] Create calendar report widget for showing taken dates.
-- [ ] Create pie report widget for showing reservations by status.
 - [ ] Automatically load statuses for reservations listing/filtration.
 - [ ] Assets concatenation.
 - [ ] Log history of reservation changes.

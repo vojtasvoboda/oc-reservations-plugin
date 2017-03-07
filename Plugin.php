@@ -1,13 +1,21 @@
 <?php namespace VojtaSvoboda\Reservations;
 
 use Backend;
+use Illuminate\Support\Facades\Validator;
 use System\Classes\PluginBase;
+use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
+use VojtaSvoboda\Reservations\Validators\ReservationsValidators;
 
 class Plugin extends PluginBase
 {
     public function boot()
     {
-        $this->app->bind('vojtasvoboda.reservations.facade', 'VojtaSvoboda\Reservations\Facades\ReservationsFacade');
+        $this->app->bind('vojtasvoboda.reservations.facade', ReservationsFacade::class);
+
+        // registrate reservations validators
+        Validator::resolver(function($translator, $data, $rules, $messages, $customAttributes) {
+            return new ReservationsValidators($translator, $data, $rules, $messages, $customAttributes);
+        });
     }
 
     public function registerNavigation()

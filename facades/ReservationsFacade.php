@@ -18,7 +18,7 @@ use VojtaSvoboda\Reservations\Models\Status;
 /**
  * Public reservations facade.
  *
- * Usage: App::make('vojtasvoboda.reservations.facade');
+ * Usage: App::make(ReservationsFacade::class);
  *
  * @package VojtaSvoboda\Reservations\Facades
  */
@@ -74,25 +74,39 @@ class ReservationsFacade
      */
     public function storeReservation($data)
     {
+        // check number of sends
+        $this->checkLimits();
+
         // transform date and time to Carbon
         $data['date'] = $this->transformDateTime($data);
 
-        // check date availability
-        $this->checkDate($data);
+        // place for extending
+        Event::fire('vojtasvoboda.reservations.processReservation', [&$data]);
 
         // create reservation
         $reservation = $this->reservations->create($data);
 
+        // send mails to client and admin
+        $this->sendMails($reservation);
+
+        return $reservation;
+    }
+
+    /**
+     * Send mail to client and admin.
+     *
+     * @param Reservation $reservation
+     */
+    public function sendMails($reservation)
+    {
         // calculate reservations by same email
-        $sameCount = $this->getReservationsWithSameEmailCount($reservation->email);
+        $sameCount = $this->getReservationsCountByMail($reservation->email);
 
         // send reservation confirmation to customer
         $this->mailer->send($reservation, $sameCount);
 
         // send reservation confirmation to admin
         $this->adminMailer->send($reservation, $sameCount);
-
-        return $reservation;
     }
 
     /**
@@ -147,7 +161,7 @@ class ReservationsFacade
      *
      * @return int
      */
-    public function getReservationsWithSameEmailCount($email)
+    public function getReservationsCountByMail($email)
     {
         return $this->reservations->where('email', $email)->notCancelled()->count();
     }
@@ -161,7 +175,7 @@ class ReservationsFacade
      */
     public function isUserReturning($email)
     {
-        // if disabled, return always false
+        // when disabled, user is never returning
         $threshold = Settings::get('returning_mark', 0);
         if ($threshold < 1) {
             return false;
@@ -243,11 +257,13 @@ class ReservationsFacade
      */
     public function transformDateTime($data)
     {
-        // validate date and time
+        // validate date
         if (empty($data['date'])) {
             throw new ApplicationException('You have to select pickup date!');
+        }
 
-        } elseif (empty($data['time'])) {
+        // validate time
+        if (empty($data['time'])) {
             throw new ApplicationException('You have to select pickup hour!');
         }
 
@@ -257,60 +273,55 @@ class ReservationsFacade
     }
 
     /**
-     * Check gived date and time.
-     *
-     * @param array $data
-     *
-     * @throws ApplicationException
-     */
-    public function checkDate($data)
-    {
-        // check reservation sent limit
-        if ($this->isSomeReservationExistsInLastTime()) {
-            throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
-        }
-
-        // check date availability
-        if (!$this->isDateAvailable($data['date'])) {
-            throw new ApplicationException($data['date']->format('d.m.Y H:i') . ' is already booked.');
-        }
-    }
-
-    /**
-     * Returns if date is available to book.
+     * Returns if given date is available.
      *
      * @param Carbon $date
+     * @param int $exceptId Except reservation ID.
      *
      * @return bool
      */
-    public function isDateAvailable(Carbon $date)
+    public function isDateAvailable($date, $exceptId = null)
     {
-        // get config
-        $length = Config::get('vojtasvoboda.reservations::config.reservation.length', '2 hours');
-
-        // check time slot before
-        $startDatetime = clone $date;
-        $startDatetime->modify('-' . $length);
-        $startDatetime->modify('+1 second');
-
-        // check time slot after
-        $endDatetime = clone $date;
-        $endDatetime->modify('+' . $length);
-        $endDatetime->modify('-1 second');
+        // get boundary dates for given reservation date
+        $boundaries = $this->datesResolver->getBoundaryDates($date);
 
         // get all reservations in this date
-        $reservations = $this->reservations->notCancelled()->whereBetween('date', [$startDatetime, $endDatetime])->get();
+        $query = $this->reservations->notCancelled()->whereBetween('date', $boundaries);
 
-        return $reservations->count() == 0;
+        // if updating reservation, we should skip existing reservation
+        if ($exceptId !== null) {
+            $query->where('id', '!=', $exceptId);
+        }
+
+        return $query->count() === 0;
     }
 
     /**
-     * Try to find some reservation in less then half minute.
+     * Check reservations amount limit per time.
+     *
+     * @throws ApplicationException
+     */
+    private function checkLimits()
+    {
+        if ($this->isCreatedWhileAgo()) {
+            throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
+        }
+    }
+
+    /**
+     * Try to find some reservation in less then given limit (default 30 seconds).
      *
      * @return boolean
      */
-    public function isSomeReservationExistsInLastTime()
+    public function isCreatedWhileAgo()
     {
-        return $this->reservations->isExistInLastTime();
+        // protection time
+        $time = Config::get('vojtasvoboda.reservations::config.protection_time', '-30 seconds');
+        $timeLimit = Carbon::parse($time)->toDateTimeString();
+
+        // try to find some message
+        $item = $this->reservations->machine()->where('created_at', '>', $timeLimit)->first();
+
+        return $item !== null;
     }
 }

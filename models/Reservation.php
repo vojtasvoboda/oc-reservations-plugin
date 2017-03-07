@@ -6,6 +6,7 @@ use Config;
 use Model;
 use October\Rain\Database\Traits\SoftDelete as SoftDeleteTrait;
 use October\Rain\Database\Traits\Validation as ValidationTrait;
+use October\Rain\Exception\ApplicationException;
 use Request;
 use Str;
 
@@ -25,7 +26,7 @@ class Reservation extends Model
 
     /** @var array Rules */
     public $rules = [
-        'date' => 'required|date',
+        'date' => 'required|date|reservation',
         'locale' => 'max:20',
         'email' => 'required|email',
         'name' => 'required|max:300',
@@ -36,12 +37,16 @@ class Reservation extends Model
         'message' => 'required|max:3000',
     ];
 
+    public $customMessages = [
+        'reservation' => 'Date :reservation is already booked.',
+    ];
+
     public $fillable = [
         'status', 'date', 'locale', 'email', 'name', 'lastname',
         'street', 'town', 'zip', 'phone', 'message',
     ];
 
-    public $dates = ['created_at', 'updated_at', 'deleted_at'];
+    public $dates = ['date', 'created_at', 'updated_at', 'deleted_at'];
 
     public $belongsTo = [
         'status' => 'VojtaSvoboda\Reservations\Models\Status',
@@ -64,6 +69,23 @@ class Reservation extends Model
         if ($this->status === null) {
             $this->status = $this->getDefaultStatus();
         }
+    }
+
+    /**
+     * If reservation is cancelled.
+     *
+     * @param string $statusIdent
+     *
+     * @return bool
+     */
+    public function isCancelled($statusIdent = null)
+    {
+        if ($statusIdent === null) {
+            $statusIdent = $this->status->ident;
+        }
+        $cancelledStatuses = Config::get('vojtasvoboda.reservations::config.statuses.cancelled', ['cancelled']);
+
+        return in_array($statusIdent, $cancelledStatuses);
     }
 
     /**
@@ -91,28 +113,11 @@ class Reservation extends Model
      */
     public function scopeMachine($query)
     {
-        $ip = Request::server('REMOTE_ADDR');
+        $ip_addr = Request::server('REMOTE_ADDR');
         $ip_forwarded = Request::server('HTTP_X_FORWARDED_FOR');
         $user_agent = Request::server('HTTP_USER_AGENT');
 
-        return $query->whereIp($ip)->whereIpForwarded($ip_forwarded)->whereUserAgent($user_agent);
-    }
-
-    /**
-     * If some message exists in last one minute
-     *
-     * @return bool
-     */
-    public function isExistInLastTime()
-    {
-        // protection time
-        $time = Config::get('vojtasvoboda.reservations::config.protection_time', '-30 seconds');
-        $timeLimit = Carbon::parse($time)->toDateTimeString();
-
-        // try to find some message
-        $item = self::machine()->where('created_at', '>', $timeLimit)->first();
-
-        return $item !== null;
+        return $query->whereIp($ip_addr)->whereIpForwarded($ip_forwarded)->whereUserAgent($user_agent);
     }
 
     /**
