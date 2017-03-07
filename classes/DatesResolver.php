@@ -35,22 +35,18 @@ class DatesResolver
 
         // sort reservations by date and count time slots before reservation and during the reservation
         $dates = [];
-        foreach ($reservations as $reservation)
-        {
-            $date = $reservation->date;
-            $reservationDay = $date->format($dateFormat);
+        foreach ($reservations as $reservation) {
 
-            // reservation end date
-            $endTime = clone $date;
-            $endTime->modify('+' . $length);
+            // init dates
+            $startDate = $this->getStartDate($reservation, $length, $interval);
+            $endDate = $this->getEndDate($reservation, $length);
+            $reservationDay = $reservation->date->format($dateFormat);
 
-            // each reservation takes some time
-            $date->modify('-' . $length);
-            $date->modify('+' . $interval . ' minutes');
-            while ($date < $endTime) {
-                $time = $date->format($timeFormat);
+            // save each booked interval
+            while ($startDate < $endDate) {
+                $time = $startDate->format($timeFormat);
                 $dates[$reservationDay][$time] = $time;
-                $date->modify('+' . $interval . ' minutes');
+                $startDate->modify('+' . $interval . ' minutes');
             }
         }
 
@@ -108,6 +104,40 @@ class DatesResolver
         $endDatetime->modify('-1 second');
 
         return $endDatetime;
+    }
+
+    /**
+     * Get reservation imaginary start date.
+     *
+     * @param $reservation
+     * @param $length
+     * @param $interval
+     *
+     * @return mixed
+     */
+    protected function getStartDate($reservation, $length, $interval)
+    {
+        $startDate = $reservation->date;
+        $startDate->modify('-' . $length);
+        $startDate->modify('+' . $interval . ' minutes');
+
+        return $startDate;
+    }
+
+    /**
+     * Get reservation imaginary end date.
+     *
+     * @param $reservation
+     * @param $length
+     *
+     * @return mixed
+     */
+    protected function getEndDate($reservation, $length)
+    {
+        $endDate = clone $reservation->date;
+        $endDate->modify('+' . $length);
+
+        return $endDate;
     }
 
     protected function getDateFormat()
