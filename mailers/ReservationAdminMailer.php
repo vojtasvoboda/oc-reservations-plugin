@@ -20,6 +20,7 @@ class ReservationAdminMailer extends BaseMailer
         $locale = App::getLocale();
         $appUrl = App::make('url')->to('/');
         $enabled = Settings::get('admin_confirmation_enable');
+        $templateLocale = Settings::get('admin_confirmation_locale');
         $recipients = $this->initRecipients();
         $recipients['email'] = Settings::get('admin_confirmation_email');
         $recipients['name'] = Settings::get('admin_confirmation_name');
@@ -29,7 +30,7 @@ class ReservationAdminMailer extends BaseMailer
             return;
         }
 
-        $template = $this->getTemplateIdent('reservation-admin');
+        $template = $this->getTemplateIdent('reservation-admin', $templateLocale);
 
         $templateParameters = [
             'site' => $appUrl,
