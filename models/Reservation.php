@@ -72,6 +72,23 @@ class Reservation extends Model
     }
 
     /**
+     * If reservation is cancelled.
+     *
+     * @param string $statusIdent
+     *
+     * @return bool
+     */
+    public function isCancelled($statusIdent = null)
+    {
+        if ($statusIdent === null) {
+            $statusIdent = $this->status->ident;
+        }
+        $cancelledStatuses = Config::get('vojtasvoboda.reservations::config.statuses.cancelled', ['cancelled']);
+
+        return in_array($statusIdent, $cancelledStatuses);
+    }
+
+    /**
      * Scope for getting non cancelled reservations.
      *
      * @param $query

@@ -84,7 +84,7 @@ class ReservationTest extends PluginTestCase
         $reservation = $model->create($this->getTestingReservationData());
 
         // cancel status
-        $cancelledStatuses = Config::get('vojtasvoboda.reservations::config.statuses.cancelled', 'cancelled');
+        $cancelledStatuses = Config::get('vojtasvoboda.reservations::config.statuses.cancelled', ['cancelled']);
         $statusIdent = empty($cancelledStatuses) ? 'cancelled' : $cancelledStatuses[0];
 
         // cancell reservation
@@ -94,6 +94,15 @@ class ReservationTest extends PluginTestCase
         // try to do second reservation with same date and time
         $data = $this->getTestingReservationData();
         $model->create($data);
+    }
+
+    public function testIsCancelled()
+    {
+        $model = $this->getModel();
+
+        $reservation = $model->create($this->getTestingReservationData());
+        $this->assertFalse($reservation->isCancelled());
+        $this->assertTrue($reservation->isCancelled('cancelled'));
     }
 
     public function testGetHash()

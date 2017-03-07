@@ -4,6 +4,8 @@ use App;
 use Carbon\Carbon;
 use Illuminate\Validation\Validator;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
+use VojtaSvoboda\Reservations\Models\Reservation;
+use VojtaSvoboda\Reservations\Models\Status;
 
 /**
  * Custom Reservations validator.
@@ -25,14 +27,34 @@ class ReservationsValidators extends Validator
 	public function validateReservation($attribute, $value)
 	{
 	    if ($attribute === 'date') {
-            $date = $this->getDateAsCarbon($value);
-            $reservationId = isset($this->data['id']) ? $this->data['id'] : null;
-
-            return $this->getFacade()->isDateAvailable($date, $reservationId);
+            return $this->validateDateAttribute($value);
         }
 
 		return false;
 	}
+
+    /**
+     * Validate date attribute.
+     *
+     * @param string $value
+     *
+     * @return bool
+     */
+	protected function validateDateAttribute($value)
+    {
+        $date = $this->getDateAsCarbon($value);
+        $reservationId = isset($this->data['id']) ? $this->data['id'] : null;
+
+        // disable validation for cancelled reservations
+        if ($reservationId !== null) {
+            $reservation = Reservation::findOrFail($reservationId);
+            if ($this->isReservationCancelled($reservation)) {
+                return true;
+            }
+        }
+
+        return $this->getFacade()->isDateAvailable($date, $reservationId);
+    }
 
     /**
      * Replace placeholder :reservation with custom text.
@@ -46,6 +68,20 @@ class ReservationsValidators extends Validator
         $date = $this->getDateAsCarbon($this->data['date']);
 
         return str_replace(':reservation', $date->format('d.m.Y H:i'), $message);
+    }
+
+    /**
+     * Returns if reservation is cancelled or going to be cancelled.
+     *
+     * @param Reservation $reservation
+     *
+     * @return bool
+     */
+    private function isReservationCancelled($reservation)
+    {
+        $futureStatus = Status::findOrFail($this->data['status_id']);
+
+        return $reservation->isCancelled($futureStatus->ident);
     }
 
     /**

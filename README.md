@@ -115,14 +115,11 @@ Receiving "Class 'PluginTestCase' not found" error? Just type `composer dumpauto
 
 - [ ] Complate all translations.
 - [ ] Put some config to backend Settings (mail BCC, etc).
-- [ ] When changing reservation from cancelled status back to available, also check date availability.
 - [ ] Checkbox for disabling injecting assets with components.
-- [ ] Add capacity parameter. Each time slot should have some capacity (number of tables, cars, seets etc.)
 - [ ] Automatically load statuses for reservations listing/filtration.
 - [ ] Assets concatenation.
 - [ ] Log history of reservation changes.
 - [ ] Make bulk reservation status change in one SQL query.
-- [ ] Refactor Reservation::validateAvailability() to own Validator
 
 ## Contributing
 
