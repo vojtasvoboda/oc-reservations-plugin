@@ -13,3 +13,4 @@
 1.0.9: Fix sending confirmation email to admin by locale chosed at backend.
 1.0.10: Enable backend date availability validation when reservation is changing.
 1.0.11: Fix form labels names.
+1.0.12: Add russian lang
