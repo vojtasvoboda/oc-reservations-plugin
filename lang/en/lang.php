@@ -81,5 +81,6 @@ return [
         'cs_label' => 'Reservation confirmation CS',
         'en_label' => 'Reservation confirmation EN',
         'es_label' => 'Reservation confirmation ES',
+        'ru_label' => 'Reservation confirmation RU',
     ],
 ];

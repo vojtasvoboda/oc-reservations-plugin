@@ -1,0 +1,19 @@
+subject = "Новое бронирование"
+layout = "default"
+==
+<p>
+    Новоя бронь в системе:<br />
+    <br />
+    Дата и время: {{ reservation.date | date("d.m.Y H:i") }}<br />
+    <br />
+    Адрес: {{ reservation.street }}<br />
+    Имя: {{ reservation.name }} {{ reservation.lastname }}<br />
+    Email: {{ reservation.email }}<br />
+    Телефон: {{ reservation.phone }}<br />
+    <br />
+    Комментарий: {{ reservation.message }}<br />
+    <br />
+    Создано: {{ reservation.created_at | date("d.m.Y H:i") }}<br />
+    <br />
+    Количество резервирований по этому email: {{ reservationsCount }}<br />
+</p>

@@ -1,0 +1,26 @@
+subject = "Ваша бронь"
+layout = "default"
+==
+<p>
+    Здравствуйте,<br />
+    <br />
+    спасибо за вашу бронь. Ниже указаны введённые Вами данные:<br />
+    <br />
+    Дата и время: {{ reservation.date | date("d.m.Y H:i") }}<br />
+    <br />
+    Адрес: {{ reservation.street }}<br />
+    Имя: {{ reservation.name }} {{ reservation.lastname }}<br />
+    Email: {{ reservation.email }}<br />
+    Телефон: {{ reservation.phone }}<br />
+    <br />
+    Комментарий: {{ reservation.message }}<br />
+    <br />
+    Мы получили Ваше бронирование {{ reservation.created_at | date("d.m.Y H:i") }} и пришлём Вам подтверждение как можно скорее.<br />
+    <br />
+    {% if reservationsCount == 1 %}
+    Мы надеемся, что вам понравится у нас!
+    <br />
+    {% endif %}
+    <br />
+    Благодарим за использование наших услуг
+</p>
