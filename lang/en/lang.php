@@ -83,4 +83,50 @@ return [
         'es_label' => 'Reservation confirmation ES',
         'ru_label' => 'Reservation confirmation RU',
     ],
+
+    'settings' => [
+        'description' => 'Manage Reservations settings.',
+        'tabs' => [
+            'plugin'  => 'Reservations settings',
+            'admin'   => 'Admin confirmation',
+            'formats' => 'Datetime formats',
+        ],
+
+        'returning_mark' => [
+            'label'   => 'Mark returning customers',
+            'comment' => 'Mark customers with that number of reservations or more. Disable by value 0.',
+        ],
+        'admin_confirmation_enable' => [
+            'label'   => 'Enable admin confirmation',
+        ],
+        'admin_confirmation_email' => [
+            'label'   => 'Admin email',
+            'comment' => 'Admin email for sending confirmation.',
+        ],
+        'admin_confirmation_name' => [
+            'label'   => 'Admin name',
+            'comment' => 'Admin name for confirmation email.',
+        ],
+        'admin_confirmation_locale' => [
+            'label'   => 'Admin confirmation locale',
+            'comment' => 'Locale of confirmation email.',
+        ],
+        'reservation_interval' => [
+            'label'   => 'Reservations interval slot (minute)',
+            'comment' => 'Used for reservation form time picker.',
+        ],
+        'reservation_length' => [
+            'label'   => 'Length of one reservation (hour)',
+            'comment' => 'How much time one reservation takes.',
+        ],
+        'formats_date' => [
+            'label'   => 'Date format',
+        ],
+        'formats_time' => [
+            'label'   => 'Time format',
+        ],
+        'formats_datetime' => [
+            'label'   => 'Datetime format',
+        ],
+    ],
 ];

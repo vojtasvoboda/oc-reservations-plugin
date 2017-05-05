@@ -3,25 +3,6 @@
 return [
 
     /**
-     * Set up reservations.
-     */
-    'reservation' => [
-
-        /**
-         * Reservations interval slot. Used for reservation form time picker.
-         */
-        'interval' => 15,
-
-        /**
-         * Length of one reservation. How much time one reservation takes.
-         * Note that when you have reservation at 09:00 with 2 hours lenght,
-         * next possible reservation is at 11:00 and previous possible
-         * reservation is at 07:00 to not cover reservation from 09:00!
-         */
-        'length' => '2 hours',
-    ],
-
-    /**
      * Reservation statuses config.
      */
     'statuses' => [
@@ -35,18 +16,6 @@ return [
          * Reservation status idents that doesn't blocks terms for booking.
          */
         'cancelled' => ['cancelled'],
-    ],
-
-    /**
-     * Datetime formats.
-     */
-    'formats' => [
-
-        'datetime' => 'd/m/Y H:i',
-
-        'date' => 'd/m/Y',
-
-        'time' => 'H:i',
     ],
 
     /**

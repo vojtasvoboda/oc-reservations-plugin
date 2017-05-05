@@ -267,7 +267,7 @@ class ReservationsFacade
             throw new ApplicationException('You have to select pickup hour!');
         }
 
-        $format = Config::get('vojtasvoboda.reservations::config.formats.datetime', 'd/m/Y H:i');
+        $format = Settings::get('formats_datetime', 'd/m/Y H:i');
 
         return Carbon::createFromFormat($format, trim($data['date'] . ' ' . $data['time']));
     }

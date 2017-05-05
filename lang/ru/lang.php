@@ -83,4 +83,50 @@ return [
         'es_label' => 'Подтверждение резервирования ES',
         'ru_label' => 'Подтверждение резервирования RU',
     ],
+
+    'settings' => [
+        'description' => 'Управление настройками бронирования',
+        'tabs' => [
+            'plugin'  => 'Настройки',
+            'admin'   => 'Оповещение',
+            'formats' => 'Формат даты времени',
+        ],
+
+        'returning_mark' => [
+            'label'   => 'Mark returning customers',
+            'comment' => 'Mark customers with that number of reservations or more. Disable by value 0.',
+        ],
+        'admin_confirmation_enable' => [
+            'label'   => 'Включить оповещение администратора',
+        ],
+        'admin_confirmation_email' => [
+            'label'   => 'Email администратора',
+            'comment' => 'Email администратора для отправки оповещений.',
+        ],
+        'admin_confirmation_name' => [
+            'label'   => 'Имя администратора',
+            'comment' => 'Имя name администратора для отправки оповещений.',
+        ],
+        'admin_confirmation_locale' => [
+            'label'   => 'Локаль для оповещения администратора',
+            'comment' => 'Локаль шаблона для оповещения администратора.',
+        ],
+        'reservation_interval' => [
+            'label'   => 'Интервал слотов для бронирования (в минутах)',
+            'comment' => 'Используется для выбора времени резервирования.',
+        ],
+        'reservation_length' => [
+            'label'   => 'Длина одной брони (в часах)',
+            'comment' => 'Сколько времени занимает одна бронь.',
+        ],
+        'formats_date' => [
+            'label'   => 'Формат даты',
+        ],
+        'formats_time' => [
+            'label'   => 'Формат времени',
+        ],
+        'formats_datetime' => [
+            'label'   => 'Формат дата + время',
+        ],
+    ],
 ];
