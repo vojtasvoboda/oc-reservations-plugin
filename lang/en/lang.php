@@ -34,6 +34,7 @@ return [
 
     'reservation' => [
         'date' => 'Date',
+        'time' => 'Time',
         'date_format' => 'd.m.Y H:i:s',
         'name' => 'Name',
         'email' => 'Email',
@@ -45,6 +46,7 @@ return [
         'message' => 'Message',
         'number' => 'Number',
         'returning' => 'Returning',
+        'submit' => 'Submit',
     ],
 
     'statuses' => [
@@ -82,6 +84,15 @@ return [
         'en_label' => 'Reservation confirmation EN',
         'es_label' => 'Reservation confirmation ES',
         'ru_label' => 'Reservation confirmation RU',
+    ],
+
+    'errors' => [
+        'empty_date' => 'You have to select pickup date!',
+        'empty_hour' => 'You have to select pickup hour!',
+        'please_wait' => 'You can sent only one reservation per 30 seconds, please wait a second.',
+        'session_expired' => 'Form session expired! Please refresh the page.',
+        'exception' => 'We\'re sorry, but something went wrong and the form cannot be sent.',
+        'already_booked' => 'Date :reservation is already booked.',
     ],
 
     'settings' => [
