@@ -93,6 +93,9 @@ return [
         'session_expired' => 'Form session expired! Please refresh the page.',
         'exception' => 'We\'re sorry, but something went wrong and the form cannot be sent.',
         'already_booked' => 'Date :reservation is already booked.',
+        'days_off' => 'Selected date is day off.',
+        'out_of_hours' => 'Selected time is out of hours.',
+        'past_date' => 'Selected date is passed.',
     ],
 
     'settings' => [
@@ -100,7 +103,7 @@ return [
         'tabs' => [
             'plugin'  => 'Reservations settings',
             'admin'   => 'Admin confirmation',
-            'formats' => 'Datetime formats',
+            'datetime' => 'Date, time settings',
         ],
 
         'returning_mark' => [
@@ -138,6 +141,27 @@ return [
         ],
         'formats_datetime' => [
             'label'   => 'Datetime format',
+        ],
+        'first_weekday' => [
+            'label'   => 'The first day of the week is Monday?',
+        ],
+        'work_time_from' => [
+            'label'   => 'Start working from',
+            'comment' => 'Time to format HH:mm (24 hours format)',
+        ],
+        'work_time_to' => [
+            'label'   => 'Finish working at',
+            'comment' => 'Time to format HH:mm (24 hours format)',
+        ],
+        'work_days' => [
+            'label'   => 'Work days',
+            'monday'    => 'Monday',
+            'tuesday'   => 'Tuesday',
+            'wednesday' => 'Wednesday',
+            'thursday'  => 'Thursday',
+            'friday'    => 'Friday',
+            'saturday'  => 'Saturday',
+            'sunday'    => 'Sunday',
         ],
     ],
 ];
