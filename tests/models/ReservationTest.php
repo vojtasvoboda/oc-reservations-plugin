@@ -59,7 +59,7 @@ class ReservationTest extends PluginTestCase
         $model->create($this->getTestingReservationData());
 
         // try to do second reservation with same date and time
-        $this->setExpectedException(ModelException::class, 'Date 18.08.2016 20:00 is already booked.');
+        $this->setExpectedException(ModelException::class, 'vojtasvoboda.reservations::lang.errors.already_booked');
         $model->create($this->getTestingReservationData());
     }
 
