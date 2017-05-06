@@ -38,7 +38,7 @@ class Reservation extends Model
     ];
 
     public $customMessages = [
-        'reservation' => 'Date :reservation is already booked.',
+        'reservation' => 'vojtasvoboda.reservations::lang.errors.already_booked',
     ];
 
     public $fillable = [

@@ -57,9 +57,7 @@ class ReservationForm extends ComponentBase
             // check CSRF token
             if (Session::token() != Input::get('_token')) {
                 $error = Lang::get('vojtasvoboda.reservations::lang.errors.session_expired');
-
             } else {
-
                 try {
                     $data = Input::all();
                     $facade->storeReservation($data);
@@ -127,9 +125,15 @@ class ReservationForm extends ComponentBase
         $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.time.js');
 
         switch (Lang::getLocale()) {
-            case 'cs': $pickerTranslate = 'cs_CZ'; break;
-            case 'es': $pickerTranslate = 'es_ES'; break;
-            case 'ru': $pickerTranslate = 'ru_RU'; break;
+            case 'cs':
+                $pickerTranslate = 'cs_CZ';
+                break;
+            case 'es':
+                $pickerTranslate = 'es_ES';
+                break;
+            case 'ru':
+                $pickerTranslate = 'ru_RU';
+                break;
         }
 
         if (isset($pickerTranslate)) {
