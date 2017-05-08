@@ -14,3 +14,4 @@
 1.0.10: Enable backend date availability validation when reservation is changing.
 1.0.11: Fix form labels names.
 1.0.12: Add russian lang
+1.0.13: Add translate settings, move some configs to settings, add translate front, move attribute street to optional, add work days and time, fix error

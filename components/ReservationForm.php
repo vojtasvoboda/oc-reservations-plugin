@@ -12,6 +12,8 @@ use October\Rain\Exception\ValidationException;
 use Redirect;
 use Session;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
+use VojtaSvoboda\Reservations\Models\Settings;
+use Config;
 
 /**
  * Reservation Form component.
@@ -20,6 +22,8 @@ use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
  */
 class ReservationForm extends ComponentBase
 {
+    const PATH_PICKADATE_COMPRESSED = '/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/';
+
     public function componentDetails()
 	{
 		return [
@@ -35,7 +39,7 @@ class ReservationForm extends ComponentBase
     {
         // check CSRF token
         if (Session::token() != Input::get('_token')) {
-            throw new ApplicationException('Form session expired! Please refresh the page.');
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.session_expired'));
         }
 
         $data = Input::all();
@@ -54,10 +58,8 @@ class ReservationForm extends ComponentBase
 
             // check CSRF token
             if (Session::token() != Input::get('_token')) {
-                $error = 'Form session expired! Please refresh the page.';
-
+                $error = Lang::get('vojtasvoboda.reservations::lang.errors.session_expired');
             } else {
-
                 try {
                     $data = Input::all();
                     $facade->storeReservation($data);
@@ -74,7 +76,7 @@ class ReservationForm extends ComponentBase
 
                 } catch(Exception $e) {
                     Log::error($e->getMessage());
-                    $error = 'We\'re sorry, but something went wrong and the form cannot be sent.';
+                    $error = Lang::get('vojtasvoboda.reservations::lang.errors.exception');
                 }
             }
 		}
@@ -90,6 +92,24 @@ class ReservationForm extends ComponentBase
 		$this->page['post'] = post();
 		$this->page['error'] = $error;
         $this->page['dates'] = json_encode($dates);
+        $this->page['settings'] = [
+            'formats_date'         => Settings::get(
+                'formats_date',
+                Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y')
+            ),
+            'formats_time'         => Settings::get(
+                'formats_time',
+                Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i')
+            ),
+            'reservation_interval' => Settings::get(
+                'reservation_interval',
+                Config::get('vojtasvoboda.reservations::config.reservation.interval', 15)
+            ),
+            'first_weekday'        => (int)Settings::get('first_weekday', false),
+            'work_time_from'       => Settings::get('work_time_from', '10:00'),
+            'work_time_to'         => Settings::get('work_time_to', '18:00'),
+            'work_days'            => Settings::get('work_days', ['monday','tuesday','wednesday','thursday','friday']),
+        ];
 	}
 
     /**
@@ -117,12 +137,29 @@ class ReservationForm extends ComponentBase
      */
     protected function injectAssets()
     {
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.css');
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.date.css');
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.time.css');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.date.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.time.js');
+        $this->addCss(self::PATH_PICKADATE_COMPRESSED.'themes/classic.css');
+        $this->addCss(self::PATH_PICKADATE_COMPRESSED.'themes/classic.date.css');
+        $this->addCss(self::PATH_PICKADATE_COMPRESSED.'themes/classic.time.css');
+        $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.js');
+        $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.date.js');
+        $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.time.js');
+
+        switch (Lang::getLocale()) {
+            case 'cs':
+                $pickerTranslate = 'cs_CZ';
+                break;
+            case 'es':
+                $pickerTranslate = 'es_ES';
+                break;
+            case 'ru':
+                $pickerTranslate = 'ru_RU';
+                break;
+        }
+
+        if (isset($pickerTranslate)) {
+            $this->addJs(self::PATH_PICKADATE_COMPRESSED.'translations/'.$pickerTranslate.'.js');
+        }
+
         $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
     }
 }

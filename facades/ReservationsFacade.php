@@ -4,6 +4,7 @@ use Auth;
 use Carbon\Carbon;
 use Config;
 use Event;
+use Lang;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use October\Rain\Exception\ApplicationException;
@@ -259,17 +260,79 @@ class ReservationsFacade
     {
         // validate date
         if (empty($data['date'])) {
-            throw new ApplicationException('You have to select pickup date!');
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.empty_date'));
         }
 
         // validate time
         if (empty($data['time'])) {
-            throw new ApplicationException('You have to select pickup hour!');
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.empty_hour'));
         }
 
-        $format = Config::get('vojtasvoboda.reservations::config.formats.datetime', 'd/m/Y H:i');
+        $format = Settings::get(
+            'formats_datetime',
+            Config::get('vojtasvoboda.reservations::config.formats.datetime', 'd/m/Y H:i')
+        );
 
-        return Carbon::createFromFormat($format, trim($data['date'] . ' ' . $data['time']));
+        $dateTime = Carbon::createFromFormat($format, trim($data['date'] . ' ' . $data['time']));
+
+        // validate date + time > current
+        if ($dateTime->timestamp < Carbon::now()->timestamp) {
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.past_date'));
+        }
+
+        // validate days off
+        if (!in_array($dateTime->dayOfWeek, $this->getWorkDays())) {
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.days_off'));
+        }
+
+        // validate out of hours
+        $workTime = $this->getWorkTime();
+        $timeToMinute = $dateTime->hour * 60 + $dateTime->minute;
+        if (($timeToMinute < $workTime['from']['hour'] * 60 + $workTime['from']['minute'])
+            || $timeToMinute > $workTime['to']['hour'] * 60 + $workTime['to']['minute']) {
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.out_of_hours'));
+        }
+
+        return $dateTime;
+    }
+
+    /**
+     * Get work days of week
+     *
+     * @return array
+     */
+    public function getWorkDays()
+    {
+        $daysWorkInput = Settings::get('work_days', ['monday','tuesday','wednesday','thursday','friday']);
+        $daysWork = [];
+
+        foreach (['monday','tuesday','wednesday','thursday','friday','saturday','sunday'] as $index => $day) {
+            if (in_array($day, $daysWorkInput)) {
+                $daysWork[] = $index + 1;
+            }
+        }
+
+        return $daysWork;
+    }
+
+    /**
+     * Get work time of day
+     *
+     * @return array
+     */
+    public function getWorkTime()
+    {
+        $workTime = [];
+
+        $work_time_from = explode(':', Settings::get('work_time_from', '10:00'));
+        $workTime['from']['hour'] = (int)$work_time_from[0];
+        $workTime['from']['minute'] = (isset($work_time_from[1]))?(int)$work_time_from[1]:0;
+
+        $work_time_to = explode(':', Settings::get('work_time_to', '18:00'));
+        $workTime['to']['hour'] = (int)$work_time_to[0];
+        $workTime['to']['minute'] = (isset($work_time_to[1]))?(int)$work_time_to[1]:0;
+
+        return $workTime;
     }
 
     /**
@@ -304,7 +367,7 @@ class ReservationsFacade
     private function checkLimits()
     {
         if ($this->isCreatedWhileAgo()) {
-            throw new ApplicationException('You can sent only one reservation per 30 seconds, please wait a second.');
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.please_wait'));
         }
     }
 

@@ -7,8 +7,10 @@ var reservationform = function($) {
 
     if ($("#date").length > 0) {
         $("#date").pickadate({
-            format: "dd/mm/yyyy",
+            format: dateFormat,
             min: "0",
+            disable: disableDays,
+            firstDay: firstDay,
             onSet: function (context) {
                 loadBookedTimes(new Date(context.select));
             }
@@ -17,8 +19,10 @@ var reservationform = function($) {
 
     if ($("#time").length > 0) {
         $("#time").pickatime({
-            format: "HH:i",
-            interval: 15
+            format: timeFormat,
+            min: startWork,
+            max: finishWork,
+            interval: timeInterval
         });
 
         disableAllTimes();
@@ -50,18 +54,31 @@ function loadBookedTimes(date)
     month = (month < 10 ? '0' : '') + month;
     var selectedDate = day + '/' + month + '/' + date.getFullYear();
 
+    var dateNow = new Date();
+    var dateNowFormat = (dateNow.getDate() < 10 ? '0' : '') + dateNow.getDate();
+    dateNowFormat += '/' + (dateNow.getMonth() < 9 ? '0' : '') + (dateNow.getMonth() + 1);
+    dateNowFormat += '/' + date.getFullYear();
+
     var $input = $('#time').pickatime();
     var picker = $input.pickatime('picker');
 
     picker.set('disable', false);
+    var dates = [];
+
+    if (dateNowFormat == selectedDate) {
+        dates.push({
+            from: [0, 0],
+            to: [dateNow.getHours(), Math.floor(dateNow.getMinutes() / timeInterval) * timeInterval]
+        });
+    }
 
     if (selectedDate in booked) {
-        var dates = [];
         $.each(booked[selectedDate], function() {
             dates.push(this.split(':'));
         });
-        picker.set('disable', dates);
     }
+
+    picker.set('disable', dates);
 }
 
 jQuery(document).ready(reservationform);

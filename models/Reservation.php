@@ -30,7 +30,7 @@ class Reservation extends Model
         'locale' => 'max:20',
         'email' => 'required|email',
         'name' => 'required|max:300',
-        'street' => 'required|max:300',
+        'street' => 'max:300',
         'town' => 'max:300',
         'zip' => 'numeric',
         'phone' => 'required|max:300',
@@ -38,7 +38,7 @@ class Reservation extends Model
     ];
 
     public $customMessages = [
-        'reservation' => 'Date :reservation is already booked.',
+        'reservation' => 'vojtasvoboda.reservations::lang.errors.already_booked',
     ];
 
     public $fillable = [

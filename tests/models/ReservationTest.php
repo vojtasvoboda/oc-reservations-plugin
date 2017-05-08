@@ -59,7 +59,7 @@ class ReservationTest extends PluginTestCase
         $model->create($this->getTestingReservationData());
 
         // try to do second reservation with same date and time
-        $this->setExpectedException(ModelException::class, 'Date 18.08.2016 20:00 is already booked.');
+        $this->setExpectedException(ModelException::class, 'vojtasvoboda.reservations::lang.errors.already_booked');
         $model->create($this->getTestingReservationData());
     }
 
@@ -72,7 +72,7 @@ class ReservationTest extends PluginTestCase
 
         // try to do second reservation with same date and time after 2 hours
         $data = $this->getTestingReservationData();
-        $data['date'] = Carbon::createFromFormat('Y-m-d H:i', '2016-08-18 22:00');
+        $data['date'] = Carbon::createFromFormat('Y-m-d H:i', (new \DateTime('next monday'))->format('Y-m-d 13:00'));
         $model->create($data);
     }
 
@@ -163,7 +163,7 @@ class ReservationTest extends PluginTestCase
     private function getTestingReservationData()
     {
         return [
-            'date' => Carbon::createFromFormat('Y-m-d H:i', '2016-08-18 20:00'),
+            'date' => Carbon::createFromFormat('Y-m-d H:i', (new \DateTime('next monday'))->format('Y-m-d 11:00')),
             'email' => 'test@test.cz',
             'phone' => '777111222',
             'street' => 'ABCDE',

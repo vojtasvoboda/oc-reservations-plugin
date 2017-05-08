@@ -34,6 +34,7 @@ return [
 
     'reservation' => [
         'date' => 'Date',
+        'time' => 'Time',
         'date_format' => 'd.m.Y H:i:s',
         'name' => 'Name',
         'email' => 'Email',
@@ -45,6 +46,7 @@ return [
         'message' => 'Message',
         'number' => 'Number',
         'returning' => 'Returning',
+        'submit' => 'Submit',
     ],
 
     'statuses' => [
@@ -82,5 +84,84 @@ return [
         'en_label' => 'Reservation confirmation EN',
         'es_label' => 'Reservation confirmation ES',
         'ru_label' => 'Reservation confirmation RU',
+    ],
+
+    'errors' => [
+        'empty_date' => 'You have to select pickup date!',
+        'empty_hour' => 'You have to select pickup hour!',
+        'please_wait' => 'You can sent only one reservation per 30 seconds, please wait a second.',
+        'session_expired' => 'Form session expired! Please refresh the page.',
+        'exception' => 'We\'re sorry, but something went wrong and the form cannot be sent.',
+        'already_booked' => 'Date :reservation is already booked.',
+        'days_off' => 'Selected date is day off.',
+        'out_of_hours' => 'Selected time is out of hours.',
+        'past_date' => 'Selected date is passed.',
+    ],
+
+    'settings' => [
+        'description' => 'Manage Reservations settings.',
+        'tabs' => [
+            'plugin'  => 'Reservations settings',
+            'admin'   => 'Admin confirmation',
+            'datetime' => 'Date, time settings',
+        ],
+
+        'returning_mark' => [
+            'label'   => 'Mark returning customers',
+            'comment' => 'Mark customers with that number of reservations or more. Disable by value 0.',
+        ],
+        'admin_confirmation_enable' => [
+            'label'   => 'Enable admin confirmation',
+        ],
+        'admin_confirmation_email' => [
+            'label'   => 'Admin email',
+            'comment' => 'Admin email for sending confirmation.',
+        ],
+        'admin_confirmation_name' => [
+            'label'   => 'Admin name',
+            'comment' => 'Admin name for confirmation email.',
+        ],
+        'admin_confirmation_locale' => [
+            'label'   => 'Admin confirmation locale',
+            'comment' => 'Locale of confirmation email.',
+        ],
+        'reservation_interval' => [
+            'label'   => 'Reservations interval slot (minute)',
+            'comment' => 'Used for reservation form time picker.',
+        ],
+        'reservation_length' => [
+            'label'   => 'Length of one reservation (hour)',
+            'comment' => 'How much time one reservation takes.',
+        ],
+        'formats_date' => [
+            'label'   => 'Date format',
+        ],
+        'formats_time' => [
+            'label'   => 'Time format',
+        ],
+        'formats_datetime' => [
+            'label'   => 'Datetime format',
+        ],
+        'first_weekday' => [
+            'label'   => 'The first day of the week is Monday?',
+        ],
+        'work_time_from' => [
+            'label'   => 'Start working from',
+            'comment' => 'Time to format HH:mm (24 hours format)',
+        ],
+        'work_time_to' => [
+            'label'   => 'Finish working at',
+            'comment' => 'Time to format HH:mm (24 hours format)',
+        ],
+        'work_days' => [
+            'label'   => 'Work days',
+            'monday'    => 'Monday',
+            'tuesday'   => 'Tuesday',
+            'wednesday' => 'Wednesday',
+            'thursday'  => 'Thursday',
+            'friday'    => 'Friday',
+            'saturday'  => 'Saturday',
+            'sunday'    => 'Sunday',
+        ],
     ],
 ];

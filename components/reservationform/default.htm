@@ -8,8 +8,17 @@
     {% endif %}
 </div>
 
+<script type="text/javascript" src="/plugins/vojtasvoboda/reservations/assets/js/convert.js"></script>
+
 <script type="text/javascript">
     var booked = JSON.parse('{{ dates | raw }}');
+    var dateFormat = datepicker_format("{{ settings.formats_date }}");
+    var timeFormat = datepicker_format("{{ settings.formats_time}}");
+    var timeInterval = {{ settings.reservation_interval }};
+    var firstDay = {{ settings.first_weekday }};
+    var disableDays = get_work_days("{{settings.work_days|join(',')}}", firstDay);
+    var startWork = convertTimeToArray("{{settings.work_time_from}}", timeFormat);
+    var finishWork = convertTimeToArray("{{settings.work_time_to}}", timeFormat);
 </script>
 
 <form
@@ -21,35 +30,35 @@
     id="{{__SELF__}}"{% if sent %} class="sent"{% endif %}>
 
     <div class="form-group">
-        <label for="date">Date</label>
+        <label for="date">{{ 'vojtasvoboda.reservations::lang.reservation.date'|trans }}</label>
         <input id="date" name="date" class="form-control datepicker" type="text" value="{{ post.date }}" />
     </div>
     <div class="form-group">
-        <label for="time">Time</label>
+        <label for="time">{{ 'vojtasvoboda.reservations::lang.reservation.time'|trans }}</label>
         <input id="time" name="time" class="form-control" type="text" value="{{ post.time }}" />
     </div>
     <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" name="email" class="form-control" type="text" placeholder="Email" value="{{ post.email }}" />
+        <label for="email">{{ 'vojtasvoboda.reservations::lang.reservation.email'|trans }}</label>
+        <input id="email" name="email" class="form-control" type="text" placeholder="{{ 'vojtasvoboda.reservations::lang.reservation.email'|trans }}" value="{{ post.email }}" />
     </div>
     <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" name="name" class="form-control" type="text" placeholder="Name" value="{{ post.name }}" />
+        <label for="name">{{ 'vojtasvoboda.reservations::lang.reservation.name'|trans }}</label>
+        <input id="name" name="name" class="form-control" type="text" placeholder="{{ 'vojtasvoboda.reservations::lang.reservation.name'|trans }}" value="{{ post.name }}" />
     </div>
     <div class="form-group">
-        <label for="street">Address / street</label>
-        <input id="street" name="street" class="form-control" type="text" placeholder="Street" value="{{ post.street }}" />
+        <label for="street">{{ 'vojtasvoboda.reservations::lang.reservation.street'|trans }}</label>
+        <input id="street" name="street" class="form-control" type="text" placeholder="{{ 'vojtasvoboda.reservations::lang.reservation.street'|trans }}" value="{{ post.street }}" />
     </div>
     <div class="form-group">
-        <label for="phone">Phone</label>
-        <input id="phone" name="phone" class="form-control" type="text" placeholder="Phone" value="{{ post.phone }}" />
+        <label for="phone">{{ 'vojtasvoboda.reservations::lang.reservation.phone'|trans }}</label>
+        <input id="phone" name="phone" class="form-control" type="text" placeholder="{{ 'vojtasvoboda.reservations::lang.reservation.phone'|trans }}" value="{{ post.phone }}" />
     </div>
     <div class="form-group">
-        <label for="message">Your message</label>
-        <textarea id="message" name="message" class="form-control" placeholder="Your message">{{ post.message }}</textarea>
+        <label for="message">{{ 'vojtasvoboda.reservations::lang.reservation.message'|trans }}</label>
+        <textarea id="message" name="message" class="form-control" placeholder="{{ 'vojtasvoboda.reservations::lang.reservation.message'|trans }}">{{ post.message }}</textarea>
     </div>
 
     {{ form_token() }}
-    <button type="submit" name="{{ __SELF__ }}-submit" class="btn btn-success" value="1" id="submit">Submit</button>
+    <button type="submit" name="{{ __SELF__ }}-submit" class="btn btn-success" value="1" id="submit">{{ 'vojtasvoboda.reservations::lang.reservation.submit'|trans }}</button>
 
 </form>
