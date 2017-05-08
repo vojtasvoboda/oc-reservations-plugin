@@ -1,6 +1,6 @@
 scopes:
     status:
-        label: 'backend::lang.reservation.status'
+        label: vojtasvoboda.reservations::lang.reservation.status
         modelClass: VojtaSvoboda\Reservations\Models\Status
         nameFrom: name
         conditions: status_id in (:filtered)
