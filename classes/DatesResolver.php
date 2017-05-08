@@ -141,21 +141,33 @@ class DatesResolver
 
     protected function getDateFormat()
     {
-        return Settings::get('formats_date', 'd/m/Y');
+        return Settings::get(
+            'formats_date',
+            Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y')
+        );
     }
 
     protected function getTimeFormat()
     {
-        return Settings::get('formats_time', 'H:i');
+        return Settings::get(
+            'formats_time',
+            Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i')
+        );
     }
 
     protected function getInterval()
     {
-        return Settings::get('reservation_interval', 15);
+        return Settings::get(
+            'reservation_interval',
+            Config::get('vojtasvoboda.reservations::config.reservation.interval', 15)
+        );
     }
 
     protected function getLength()
     {
-        return Settings::get('reservation_length', 2).' hours';
+        return Settings::get(
+            'reservation_length',
+            (int)Config::get('vojtasvoboda.reservations::config.reservation.length', 15)
+        ).' hours';
     }
 }

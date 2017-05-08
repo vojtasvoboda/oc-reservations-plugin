@@ -268,7 +268,10 @@ class ReservationsFacade
             throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.empty_hour'));
         }
 
-        $format = Settings::get('formats_datetime', 'd/m/Y H:i');
+        $format = Settings::get(
+            'formats_datetime',
+            Config::get('vojtasvoboda.reservations::config.formats.datetime', 'd/m/Y H:i')
+        );
 
         $dateTime = Carbon::createFromFormat($format, trim($data['date'] . ' ' . $data['time']));
 

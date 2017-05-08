@@ -13,6 +13,7 @@ use Redirect;
 use Session;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 use VojtaSvoboda\Reservations\Models\Settings;
+use Config;
 
 /**
  * Reservation Form component.
@@ -92,9 +93,18 @@ class ReservationForm extends ComponentBase
 		$this->page['error'] = $error;
         $this->page['dates'] = json_encode($dates);
         $this->page['settings'] = [
-            'formats_date'         => Settings::get('formats_date', 'd/m/Y'),
-            'formats_time'         => Settings::get('formats_time', 'H:i'),
-            'reservation_interval' => Settings::get('reservation_interval', 15),
+            'formats_date'         => Settings::get(
+                'formats_date',
+                Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y')
+            ),
+            'formats_time'         => Settings::get(
+                'formats_time',
+                Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i')
+            ),
+            'reservation_interval' => Settings::get(
+                'reservation_interval',
+                Config::get('vojtasvoboda.reservations::config.reservation.interval', 15)
+            ),
             'first_weekday'        => Settings::get('first_weekday', false),
             'work_time_from'       => Settings::get('work_time_from', '10:00'),
             'work_time_to'         => Settings::get('work_time_to', '18:00'),
