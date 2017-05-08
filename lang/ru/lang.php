@@ -18,7 +18,7 @@ return [
     'reservations' => [
         'menu_label' => 'Бронирование',
         'widget_label' => 'Бронирование',
-        'bulk_actions' => 'Bulk actions',
+        'bulk_actions' => 'Массовые действия',
         'approved' => 'Подтвердить',
         'approved_question' => 'Вы уверены, что хотите подтвердить брони?',
         'closed' => 'Закрыть',
@@ -28,8 +28,8 @@ return [
         'cancelled' => 'Отменить',
         'cancelled_question' => 'Вы уверены, что хотите отменить брони?',
         'delete' => 'Удалить',
-        'delete_question' => 'Are you sure to delete selected reservations?',
-        'change_status_success' => 'Reservation states has been successfully changed.',
+        'delete_question' => 'Вы действительно хотите удалить выбранные брони?',
+        'change_status_success' => 'Статус брони успешно изменён.',
     ],
 
     'reservation' => [
@@ -45,7 +45,7 @@ return [
         'street' => 'Адрес / улица',
         'message' => 'Комментарий',
         'number' => 'Номер',
-        'returning' => 'Returning',
+        'returning' => 'Постоянный клиент',
         'submit' => 'Отправить',
     ],
 
@@ -107,8 +107,8 @@ return [
         ],
 
         'returning_mark' => [
-            'label'   => 'Mark returning customers',
-            'comment' => 'Mark customers with that number of reservations or more. Disable by value 0.',
+            'label'   => 'Отметка постоянного клиента',
+            'comment' => 'Отмечать клиента постоянным, если у него броней больше или равно указанному. Отключено при 0',
         ],
         'admin_confirmation_enable' => [
             'label'   => 'Включить оповещение администратора',

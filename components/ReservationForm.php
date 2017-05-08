@@ -105,7 +105,7 @@ class ReservationForm extends ComponentBase
                 'reservation_interval',
                 Config::get('vojtasvoboda.reservations::config.reservation.interval', 15)
             ),
-            'first_weekday'        => Settings::get('first_weekday', false),
+            'first_weekday'        => (int)Settings::get('first_weekday', false),
             'work_time_from'       => Settings::get('work_time_from', '10:00'),
             'work_time_to'         => Settings::get('work_time_to', '18:00'),
             'work_days'            => Settings::get('work_days', ['monday','tuesday','wednesday','thursday','friday']),

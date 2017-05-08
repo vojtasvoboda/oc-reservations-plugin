@@ -167,7 +167,7 @@ class DatesResolver
     {
         return Settings::get(
             'reservation_length',
-            (int)Config::get('vojtasvoboda.reservations::config.reservation.length', 15)
+            (int)Config::get('vojtasvoboda.reservations::config.reservation.length', 2)
         ).' hours';
     }
 }
