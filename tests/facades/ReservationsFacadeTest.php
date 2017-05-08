@@ -88,12 +88,12 @@ class ReservationsFacadeTest extends PluginTestCase
         $dateTime = new \DateTime('next monday');
         $data = [
             'date' => $dateTime->format('d/m/Y'),
-            'time' => $dateTime->format('11:00'),
+            'time' => $dateTime->format('15:45'),
         ];
         $date = $model->transformDateTime($data);
 
         $this->assertInstanceOf('Carbon\Carbon', $date);
-        $this->assertEquals($data['date'].' '.$data['time'], $date->format('Y-m-d H:i:s'));
+        $this->assertEquals($dateTime->format('Y-m-d').' 15:45:00', $date->format('Y-m-d H:i:s'));
     }
 
     public function testGetReservationsCountByMail()
