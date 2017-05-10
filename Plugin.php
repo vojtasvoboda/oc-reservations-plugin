@@ -88,9 +88,9 @@ class Plugin extends PluginBase
     {
         return [
             'settings' => [
-                'category' => 'Reservations',
-                'label' => 'Reservations',
-                'description' => 'Manage Reservations settings.',
+                'category' => 'vojtasvoboda.reservations::lang.plugin.category',
+                'label' => 'vojtasvoboda.reservations::lang.plugin.name',
+                'description' => 'vojtasvoboda.reservations::lang.settings.description',
                 'icon' => 'icon-calendar-o',
                 'class' => 'VojtaSvoboda\Reservations\Models\Settings',
                 'order' => 100,

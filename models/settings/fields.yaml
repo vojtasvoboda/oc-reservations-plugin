@@ -1,25 +1,25 @@
 tabs:
     fields:
         returning_mark:
-            tab: Returning customers
-            label: Mark returning customers
+            tab: vojtasvoboda.reservations::lang.settings.tabs.plugin
+            label: vojtasvoboda.reservations::lang.settings.returning_mark.label
             default: 0
-            comment: Mark customers with that number of reservations or more. Disable by value 0.
+            comment: vojtasvoboda.reservations::lang.settings.returning_mark.comment
         admin_confirmation_enable:
-            tab: Admin confirmation
-            label: Enable admin confirmation
+            tab: vojtasvoboda.reservations::lang.settings.tabs.admin
+            label: vojtasvoboda.reservations::lang.settings.admin_confirmation_enable.label
             type: switch
             default: false
         admin_confirmation_email:
-            tab: Admin confirmation
-            label: Admin email
-            comment: Admin email for sending confirmation.
+            tab: vojtasvoboda.reservations::lang.settings.tabs.admin
+            label: vojtasvoboda.reservations::lang.settings.admin_confirmation_email.label
+            comment: vojtasvoboda.reservations::lang.settings.admin_confirmation_email.comment
         admin_confirmation_name:
-            tab: Admin confirmation
-            label: Admin name
-            comment: Admin name for confirmation email.
+            tab: vojtasvoboda.reservations::lang.settings.tabs.admin
+            label: vojtasvoboda.reservations::lang.settings.admin_confirmation_name.label
+            comment: vojtasvoboda.reservations::lang.settings.admin_confirmation_name.comment
         admin_confirmation_locale:
-            tab: Admin confirmation
-            label: Admin confirmation locale
-            comment: Locale of confirmation email.
+            tab: vojtasvoboda.reservations::lang.settings.tabs.admin
+            label: vojtasvoboda.reservations::lang.settings.admin_confirmation_locale.label
+            comment: vojtasvoboda.reservations::lang.settings.admin_confirmation_locale.comment
             default: en

@@ -20,6 +20,14 @@ use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
  */
 class ReservationForm extends ComponentBase
 {
+    const PATH_PICKADATE_COMPRESSED = '/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/';
+
+    protected $pickerLang = [
+        'cs' => 'cs_CZ',
+        'es' => 'es_ES',
+        'ru' => 'ru_RU',
+    ];
+
     public function componentDetails()
 	{
 		return [
@@ -34,8 +42,8 @@ class ReservationForm extends ComponentBase
     public function onSubmit()
     {
         // check CSRF token
-        if (Session::token() != Input::get('_token')) {
-            throw new ApplicationException('Form session expired! Please refresh the page.');
+        if (Session::token() !== Input::get('_token')) {
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.session_expired'));
         }
 
         $data = Input::all();
@@ -53,11 +61,10 @@ class ReservationForm extends ComponentBase
 		if (Input::get($this->alias . '-submit')) {
 
             // check CSRF token
-            if (Session::token() != Input::get('_token')) {
-                $error = 'Form session expired! Please refresh the page.';
+            if (Session::token() !== Input::get('_token')) {
+                $error = Lang::get('vojtasvoboda.reservations::lang.errors.session_expired');
 
             } else {
-
                 try {
                     $data = Input::all();
                     $facade->storeReservation($data);
@@ -74,7 +81,7 @@ class ReservationForm extends ComponentBase
 
                 } catch(Exception $e) {
                     Log::error($e->getMessage());
-                    $error = 'We\'re sorry, but something went wrong and the form cannot be sent.';
+                    $error = Lang::get('vojtasvoboda.reservations::lang.errors.exception');
                 }
             }
 		}
@@ -117,12 +124,19 @@ class ReservationForm extends ComponentBase
      */
     protected function injectAssets()
     {
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.css');
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.date.css');
-        $this->addCss('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/themes/classic.time.css');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.date.js');
-        $this->addJs('/plugins/vojtasvoboda/reservations/assets/vendor/pickadate/lib/compressed/picker.time.js');
+        $this->addCss(self::PATH_PICKADATE_COMPRESSED.'themes/classic.css');
+        $this->addCss(self::PATH_PICKADATE_COMPRESSED.'themes/classic.date.css');
+        $this->addCss(self::PATH_PICKADATE_COMPRESSED.'themes/classic.time.css');
+        $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.js');
+        $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.date.js');
+        $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.time.js');
+
+        $locale = Lang::getLocale();
+        $translation = isset($this->pickerLang[$locale]) ? $this->pickerLang[$locale] : null;
+        if ($translation !== null) {
+            $this->addJs(self::PATH_PICKADATE_COMPRESSED.'translations/'.$translation.'.js');
+        }
+
         $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
     }
 }
