@@ -55,10 +55,10 @@ class ReservationsFacadeTest extends PluginTestCase
     {
         $model = $this->getModel();
 
-        $data = $this->getTestingReservationData();
-        $data['date'] = Carbon::createFromFormat('Y-m-d H:i', (new \DateTime('next sunday'))->format('Y-m-d 13:00'));
-
         $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $data = $this->getTestingReservationData();
+        $data['date'] = (new \DateTime('next sunday'))->format('d/m/Y');
+
         $model->storeReservation($data);
     }
 
@@ -67,7 +67,7 @@ class ReservationsFacadeTest extends PluginTestCase
         $model = $this->getModel();
 
         $data = $this->getTestingReservationData();
-        $data['date'] = Carbon::createFromFormat('Y-m-d H:i', (new \DateTime('next monday'))->format('Y-m-d 19:00'));
+        $data['time'] = '19:00';
 
         $this->setExpectedException('October\Rain\Exception\ApplicationException');
         $model->storeReservation($data);
@@ -110,7 +110,7 @@ class ReservationsFacadeTest extends PluginTestCase
         $dateTime = new \DateTime('next monday');
         $data = [
             'date' => $dateTime->format('d/m/Y'),
-            'time' => $dateTime->format('15:45'),
+            'time' => '15:45',
         ];
         $date = $model->transformDateTime($data);
 
@@ -171,11 +171,9 @@ class ReservationsFacadeTest extends PluginTestCase
 
     private function getTestingReservationData()
     {
-        $dateTime = new \DateTime('next monday');
-
         return [
-            'date' => $dateTime->format('d/m/Y'),
-            'time' => $dateTime->format('11:00'),
+            'date' => (new \DateTime('next monday'))->format('d/m/Y'),
+            'time' => '11:00',
             'email' => 'test@test.cz',
             'phone' => '777111222',
             'street' => 'ABCDE',
