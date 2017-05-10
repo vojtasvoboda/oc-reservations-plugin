@@ -88,7 +88,7 @@ class Plugin extends PluginBase
     {
         return [
             'settings' => [
-                'category' => 'Reservations',
+                'category' => 'vojtasvoboda.reservations::lang.plugin.category',
                 'label' => 'vojtasvoboda.reservations::lang.plugin.name',
                 'description' => 'vojtasvoboda.reservations::lang.settings.description',
                 'icon' => 'icon-calendar-o',

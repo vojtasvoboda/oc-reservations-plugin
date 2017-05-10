@@ -4,6 +4,7 @@ return [
 
     'plugin' => [
         'name' => 'Reservations',
+        'category' => 'Rezervace',
         'description' => 'Quick reservations plugin.',
         'menu_label' => 'Reservations',
     ],
