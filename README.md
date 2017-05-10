@@ -120,6 +120,7 @@ Receiving "Class 'PluginTestCase' not found" error? Just type `composer dumpauto
 - [ ] Assets concatenation.
 - [ ] Log history of reservation changes.
 - [ ] Make bulk reservation status change in one SQL query.
+- [ ] Order by returning flag without SQL exception.
 
 ## Contributing
 

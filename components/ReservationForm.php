@@ -42,7 +42,7 @@ class ReservationForm extends ComponentBase
     public function onSubmit()
     {
         // check CSRF token
-        if (Session::token() != Input::get('_token')) {
+        if (Session::token() !== Input::get('_token')) {
             throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.session_expired'));
         }
 
@@ -61,8 +61,9 @@ class ReservationForm extends ComponentBase
 		if (Input::get($this->alias . '-submit')) {
 
             // check CSRF token
-            if (Session::token() != Input::get('_token')) {
+            if (Session::token() !== Input::get('_token')) {
                 $error = Lang::get('vojtasvoboda.reservations::lang.errors.session_expired');
+
             } else {
                 try {
                     $data = Input::all();
@@ -130,8 +131,10 @@ class ReservationForm extends ComponentBase
         $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.date.js');
         $this->addJs(self::PATH_PICKADATE_COMPRESSED.'picker.time.js');
 
-        if (isset($this->pickerLang[Lang::getLocale()])) {
-            $this->addJs(self::PATH_PICKADATE_COMPRESSED.'translations/'.$this->pickerLang[Lang::getLocale()].'.js');
+        $locale = Lang::getLocale();
+        $translation = isset($this->pickerLang[$locale]) ? $this->pickerLang[$locale] : null;
+        if ($translation !== null) {
+            $this->addJs(self::PATH_PICKADATE_COMPRESSED.'translations/'.$translation.'.js');
         }
 
         $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
