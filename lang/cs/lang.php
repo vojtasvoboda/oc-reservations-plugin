@@ -4,6 +4,7 @@ return [
 
     'plugin' => [
         'name' => 'Rezervace',
+        'category' => 'Rezervace',
         'description' => 'Plugin pro rychlé rezervace.',
         'menu_label' => 'Rezervace',
     ],
@@ -96,7 +97,7 @@ return [
     ],
 
     'settings' => [
-        'description' => 'Správa nastavení rezervací.',
+        'description' => 'Správa a nastavení rezervací.',
         'tabs' => [
             'plugin'  => 'Nastavení rezervací',
             'admin'   => 'Potvrzení správci',
@@ -104,10 +105,10 @@ return [
 
         'returning_mark' => [
             'label'   => 'Označit vracející se zákazníky',
-            'comment' => 'Označit vracející se zákazníky s daným počtem rezervací, nebo více. Pro vypnutí zadejte nulu.',
+            'comment' => 'Označí zákazníky kteří koupili daný počet rezervací, nebo více. Pro vypnutí označení zadejte 0.',
         ],
         'admin_confirmation_enable' => [
-            'label'   => 'Aktivovat potrvzení správci',
+            'label'   => 'Posílat e-mailové potvrzení správci stránek',
         ],
         'admin_confirmation_email' => [
             'label'   => 'E-mail správce',
@@ -119,7 +120,7 @@ return [
         ],
         'admin_confirmation_locale' => [
             'label'   => 'Jazyk e-mailového potvrzení spráci',
-            'comment' => 'Jazyk e-mailu který je zasílán správci.',
+            'comment' => 'Jazyková mutace e-mailu který je zasílán správci (cs, en, es, ru).',
         ],
     ],
 ];
