@@ -44,7 +44,8 @@ class DatesResolver
             // save each booked interval
             while ($startDate < $endDate) {
                 $time = $startDate->format($timeFormat);
-                $dates[$startDate->format($dateFormat)][$time] = $time;
+                $date = $startDate->format($dateFormat);
+                $dates[$date][$time] = $time;
                 $startDate->modify('+' . $interval . ' minutes');
             }
         }
