@@ -34,6 +34,7 @@ return [
 
     'reservation' => [
         'date' => 'Datum',
+        'time' => 'Čas',
         'date_format' => 'd.m.Y H:i:s',
         'name' => 'Jméno',
         'email' => 'E-mail',
@@ -45,6 +46,7 @@ return [
         'message' => 'Zpráva',
         'number' => 'Číslo',
         'returning' => 'Opakovaný',
+        'submit' => 'Odeslat',
     ],
 
     'statuses' => [
@@ -82,5 +84,42 @@ return [
         'en_label' => 'Potvrzení rezervace EN',
         'es_label' => 'Potvrzení rezervace ES',
         'ru_label' => 'Potvrzení rezervace RU',
+    ],
+
+    'errors' => [
+        'empty_date' => 'Musíte vybrat datum!',
+        'empty_hour' => 'Musíte vybrat čas!',
+        'please_wait' => 'Můžete odeslat rezervaci pouze jednou za 30 sekund. Prosím počkejte chvilku.',
+        'session_expired' => 'Platnost formuláře vypršela, prosíme obnovte stránku.',
+        'exception' => 'Omlouváme se, ale něco se pokazilo a rezervační formulář nelze odeslat.',
+        'already_booked' => 'Datum :reservation je již zarezervováno.',
+    ],
+
+    'settings' => [
+        'description' => 'Správa nastavení rezervací.',
+        'tabs' => [
+            'plugin'  => 'Nastavení rezervací',
+            'admin'   => 'Potvrzení správci',
+        ],
+
+        'returning_mark' => [
+            'label'   => 'Označit vracející se zákazníky',
+            'comment' => 'Označit vracející se zákazníky s daným počtem rezervací, nebo více. Pro vypnutí zadejte nulu.',
+        ],
+        'admin_confirmation_enable' => [
+            'label'   => 'Aktivovat potrvzení správci',
+        ],
+        'admin_confirmation_email' => [
+            'label'   => 'E-mail správce',
+            'comment' => 'E-mail správce pro zasílání potvrzení.',
+        ],
+        'admin_confirmation_name' => [
+            'label'   => 'Jméno správce',
+            'comment' => 'Jméno správce pro potvrzující e-mail.',
+        ],
+        'admin_confirmation_locale' => [
+            'label'   => 'Jazyk e-mailového potvrzení spráci',
+            'comment' => 'Jazyk e-mailu který je zasílán správci.',
+        ],
     ],
 ];
