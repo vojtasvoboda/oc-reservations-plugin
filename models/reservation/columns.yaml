@@ -38,7 +38,7 @@ columns:
         label: vojtasvoboda.reservations::lang.reservation.returning
         type: text
         invisible: true
-        sortable: true
+        sortable: false
     created_at:
         label: vojtasvoboda.reservations::lang.reservation.created_at
         type: datetime

@@ -18,7 +18,7 @@ return [
     'reservations' => [
         'menu_label' => 'Бронирование',
         'widget_label' => 'Бронирование',
-        'bulk_actions' => 'Bulk actions',
+        'bulk_actions' => 'Массовые действия',
         'approved' => 'Подтвердить',
         'approved_question' => 'Вы уверены, что хотите подтвердить брони?',
         'closed' => 'Закрыть',
@@ -28,12 +28,13 @@ return [
         'cancelled' => 'Отменить',
         'cancelled_question' => 'Вы уверены, что хотите отменить брони?',
         'delete' => 'Удалить',
-        'delete_question' => 'Are you sure to delete selected reservations?',
-        'change_status_success' => 'Reservation states has been successfully changed.',
+        'delete_question' => 'Вы действительно хотите удалить выбранные брони?',
+        'change_status_success' => 'Статус брони успешно изменён.',
     ],
 
     'reservation' => [
         'date' => 'Дата',
+        'time' => 'Время',
         'date_format' => 'd.m.Y H:i:s',
         'name' => 'Имя',
         'email' => 'Email',
@@ -44,7 +45,8 @@ return [
         'street' => 'Адрес / улица',
         'message' => 'Комментарий',
         'number' => 'Номер',
-        'returning' => 'Returning',
+        'returning' => 'Постоянный клиент',
+        'submit' => 'Отправить',
     ],
 
     'statuses' => [
@@ -82,5 +84,42 @@ return [
         'en_label' => 'Подтверждение резервирования EN',
         'es_label' => 'Подтверждение резервирования ES',
         'ru_label' => 'Подтверждение резервирования RU',
+    ],
+
+    'errors' => [
+        'empty_date' => 'Вы должны выбрать дату бронирования!',
+        'empty_hour' => 'Вы должны выбрать время бронирования!',
+        'please_wait' => 'Вы можете отправить только одно бронирование за 30 секунд, пожалуйста, подождите.',
+        'session_expired' => 'Сессия формы истекла! Пожалуйства, обновите страницу.',
+        'exception' => 'Сожалеем, но что-то пошло не так, и форма не может быть отправлена.',
+        'already_booked' => 'Данное время :reservation уже занято.',
+    ],
+
+    'settings' => [
+        'description' => 'Управление настройками бронирования',
+        'tabs' => [
+            'plugin'  => 'Настройки',
+            'admin'   => 'Оповещение',
+        ],
+
+        'returning_mark' => [
+            'label'   => 'Отметка постоянного клиента',
+            'comment' => 'Отмечать клиента постоянным, если у него броней больше или равно указанному. Отключено при 0',
+        ],
+        'admin_confirmation_enable' => [
+            'label'   => 'Включить оповещение администратора',
+        ],
+        'admin_confirmation_email' => [
+            'label'   => 'Email администратора',
+            'comment' => 'Email администратора для отправки оповещений.',
+        ],
+        'admin_confirmation_name' => [
+            'label'   => 'Имя администратора',
+            'comment' => 'Имя name администратора для отправки оповещений.',
+        ],
+        'admin_confirmation_locale' => [
+            'label'   => 'Локаль для оповещения администратора',
+            'comment' => 'Локаль шаблона для оповещения администратора.',
+        ],
     ],
 ];
