@@ -36,16 +36,14 @@ class DatesResolver
         // sort reservations by date and count time slots before reservation and during the reservation
         $dates = [];
         foreach ($reservations as $reservation) {
-
             // init dates
             $startDate = $this->getStartDate($reservation, $length, $interval);
             $endDate = $this->getEndDate($reservation, $length);
-            $reservationDay = $reservation->date->format($dateFormat);
 
             // save each booked interval
             while ($startDate < $endDate) {
                 $time = $startDate->format($timeFormat);
-                $dates[$reservationDay][$time] = $time;
+                $dates[$startDate->format($dateFormat)][$time] = $time;
                 $startDate->modify('+' . $interval . ' minutes');
             }
         }
