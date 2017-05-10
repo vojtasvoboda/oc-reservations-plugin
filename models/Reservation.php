@@ -30,7 +30,7 @@ class Reservation extends Model
         'locale' => 'max:20',
         'email' => 'required|email',
         'name' => 'required|max:300',
-        'street' => 'required|max:300',
+        'street' => 'max:300',
         'town' => 'max:300',
         'zip' => 'numeric',
         'phone' => 'required|max:300',

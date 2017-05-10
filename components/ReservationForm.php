@@ -12,6 +12,8 @@ use October\Rain\Exception\ValidationException;
 use Redirect;
 use Session;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
+use Config;
+use VojtaSvoboda\Reservations\Models\Settings;
 
 /**
  * Reservation Form component.
@@ -96,6 +98,24 @@ class ReservationForm extends ComponentBase
 		$this->page['post'] = post();
 		$this->page['error'] = $error;
         $this->page['dates'] = json_encode($dates);
+        $this->page['settings'] = [
+            'formats_date'         => Settings::get(
+                'formats_date',
+                Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y')
+            ),
+            'formats_time'         => Settings::get(
+                'formats_time',
+                Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i')
+            ),
+            'reservation_interval' => (int)Settings::get(
+                'reservation_interval',
+                Config::get('vojtasvoboda.reservations::config.reservation.interval', 15)
+            ),
+            'first_weekday'        => (int)Settings::get('first_weekday', false),
+            'work_time_from'       => Settings::get('work_time_from', '10:00'),
+            'work_time_to'         => Settings::get('work_time_to', '18:00'),
+            'work_days'            => Settings::get('work_days', ['monday','tuesday','wednesday','thursday','friday']),
+        ];
 	}
 
     /**

@@ -47,8 +47,30 @@ class ReservationsFacadeTest extends PluginTestCase
 
         $this->setExpectedException('October\Rain\Exception\ApplicationException');
         $model->storeReservation([
-            'date' => '18/08/2016',
+            'date' => (new \DateTime('next monday'))->format('d/m/Y'),
         ]);
+    }
+
+    public function testStoreReservationDaysOff()
+    {
+        $model = $this->getModel();
+
+        $data = $this->getTestingReservationData();
+        $data['date'] = Carbon::createFromFormat('Y-m-d H:i', (new \DateTime('next sunday'))->format('Y-m-d 13:00'));
+
+        $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $model->storeReservation($data);
+    }
+
+    public function testStoreReservationOutOfHours()
+    {
+        $model = $this->getModel();
+
+        $data = $this->getTestingReservationData();
+        $data['date'] = Carbon::createFromFormat('Y-m-d H:i', (new \DateTime('next monday'))->format('Y-m-d 19:00'));
+
+        $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $model->storeReservation($data);
     }
 
     public function testStoreReservation()
@@ -85,14 +107,15 @@ class ReservationsFacadeTest extends PluginTestCase
     {
         $model = $this->getModel();
 
+        $dateTime = new \DateTime('next monday');
         $data = [
-            'date' => '08/10/2016',
-            'time' => '15:45',
+            'date' => $dateTime->format('d/m/Y'),
+            'time' => $dateTime->format('15:45'),
         ];
         $date = $model->transformDateTime($data);
 
         $this->assertInstanceOf('Carbon\Carbon', $date);
-        $this->assertEquals('2016-10-08 15:45:00', $date->format('Y-m-d H:i:s'));
+        $this->assertEquals($dateTime->format('Y-m-d').' 15:45:00', $date->format('Y-m-d H:i:s'));
     }
 
     public function testGetReservationsCountByMail()
@@ -148,9 +171,11 @@ class ReservationsFacadeTest extends PluginTestCase
 
     private function getTestingReservationData()
     {
+        $dateTime = new \DateTime('next monday');
+
         return [
-            'date' => '18/08/2016',
-            'time' => '20:00',
+            'date' => $dateTime->format('d/m/Y'),
+            'time' => $dateTime->format('11:00'),
             'email' => 'test@test.cz',
             'phone' => '777111222',
             'street' => 'ABCDE',

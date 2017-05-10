@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Config;
 use Illuminate\Database\Eloquent\Collection;
+use VojtaSvoboda\Reservations\Models\Settings;
 
 /**
  * Class DatesResolver transform reservations to booked time slots, grouped by date.
@@ -30,8 +31,8 @@ class DatesResolver
         // init
         $interval = $this->getInterval();
         $length = $this->getLength();
-        $dateFormat = $this->getDateFormat();
-        $timeFormat = $this->getTimeFormat();
+        $dateFormat = 'd/m/Y';
+        $timeFormat = 'H:i';
 
         // sort reservations by date and count time slots before reservation and during the reservation
         $dates = [];
@@ -140,21 +141,33 @@ class DatesResolver
 
     protected function getDateFormat()
     {
-        return Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y');
+        return Settings::get(
+            'formats_date',
+            Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y')
+        );
     }
 
     protected function getTimeFormat()
     {
-        return Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i');
+        return Settings::get(
+            'formats_time',
+            Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i')
+        );
     }
 
     protected function getInterval()
     {
-        return Config::get('vojtasvoboda.reservations::config.reservation.interval', 15);
+        return Settings::get(
+            'reservation_interval',
+            Config::get('vojtasvoboda.reservations::config.reservation.interval', 15)
+        );
     }
 
     protected function getLength()
     {
-        return Config::get('vojtasvoboda.reservations::config.reservation.length', '2 hours');
+        return Settings::get(
+            'reservation_length',
+            (int)Config::get('vojtasvoboda.reservations::config.reservation.length', 2)
+        ).' hours';
     }
 }
