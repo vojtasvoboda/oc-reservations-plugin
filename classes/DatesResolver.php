@@ -1,9 +1,7 @@
 <?php namespace VojtaSvoboda\Reservations\Classes;
 
 use Carbon\Carbon;
-use Config;
 use Illuminate\Database\Eloquent\Collection;
-use VojtaSvoboda\Reservations\Models\Settings;
 
 /**
  * Class DatesResolver transform reservations to booked time slots, grouped by date.
@@ -29,8 +27,8 @@ class DatesResolver
     public function getDatesFromReservations(Collection $reservations)
     {
         // init
-        $interval = $this->getInterval();
-        $length = $this->getLength();
+        $interval = Variables::getReservationInterval();
+        $length = Variables::getReservationLength();
         $dateFormat = 'd/m/Y';
         $timeFormat = 'H:i';
 
@@ -63,7 +61,7 @@ class DatesResolver
     public function getBoundaryDates(Carbon $date)
     {
         // reservation length
-        $length = $this->getLength();
+        $length = Variables::getReservationLength();
 
         // boundary dates before and after
         $startDatetime = $this->getBoundaryBefore($date, $length);
@@ -138,49 +136,5 @@ class DatesResolver
         $endDate->modify('+' . $length);
 
         return $endDate;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getDateFormat()
-    {
-        return Settings::get(
-            'formats_date',
-            Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y')
-        );
-    }
-
-    /**
-     * @return string
-     */
-    protected function getTimeFormat()
-    {
-        return Settings::get(
-            'formats_time',
-            Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i')
-        );
-    }
-
-    /**
-     * @return int
-     */
-    protected function getInterval()
-    {
-        return Settings::get(
-            'reservation_interval',
-            Config::get('vojtasvoboda.reservations::config.reservation.interval', 15)
-        );
-    }
-
-    /**
-     * @return string
-     */
-    protected function getLength()
-    {
-        return Settings::get(
-            'reservation_length',
-            (int)Config::get('vojtasvoboda.reservations::config.reservation.length', 2)
-        ).' hours';
     }
 }

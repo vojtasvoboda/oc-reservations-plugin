@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
 use VojtaSvoboda\Reservations\Classes\DatesResolver;
+use VojtaSvoboda\Reservations\Classes\Variables;
 use VojtaSvoboda\Reservations\Mailers\ReservationAdminMailer;
 use VojtaSvoboda\Reservations\Mailers\ReservationMailer;
 use VojtaSvoboda\Reservations\Models\Reservation;
@@ -268,11 +269,8 @@ class ReservationsFacade
             throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.empty_hour'));
         }
 
-        $format = Settings::get(
-            'formats_datetime',
-            Config::get('vojtasvoboda.reservations::config.formats.datetime', 'd/m/Y H:i')
-        );
-
+        // convert input to datetime format
+        $format = Variables::getDateTimeFormat();
         $dateTime = Carbon::createFromFormat($format, trim($data['date'] . ' ' . $data['time']));
 
         // validate date + time > current
@@ -287,7 +285,8 @@ class ReservationsFacade
 
         // validate out of hours
         $workTime = $this->getWorkTime();
-        //convert hour and minutes to minutes
+
+        // convert hour and minutes to minutes
         $timeToMinute = $dateTime->hour * 60 + $dateTime->minute;
         $workTimeFrom = $workTime['from']['hour'] * 60 + $workTime['from']['minute'];
         $workTimeTo   = $workTime['to']['hour'] * 60 + $workTime['to']['minute'];
@@ -306,10 +305,11 @@ class ReservationsFacade
      */
     public function getWorkDays()
     {
-        $daysWorkInput = Settings::get('work_days', ['monday','tuesday','wednesday','thursday','friday']);
+        $daysWorkInput = Variables::getWorkingDays();
         $daysWork = [];
+        $allDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-        foreach (['monday','tuesday','wednesday','thursday','friday','saturday','sunday'] as $index => $day) {
+        foreach ($allDays as $index => $day) {
             if (in_array($day, $daysWorkInput)) {
                 $daysWork[] = $index + 1;
             }
@@ -327,13 +327,13 @@ class ReservationsFacade
     {
         $workTime = [];
 
-        $work_time_from = explode(':', Settings::get('work_time_from', '10:00'));
-        $workTime['from']['hour'] = (int)$work_time_from[0];
-        $workTime['from']['minute'] = (isset($work_time_from[1]))?(int)$work_time_from[1]:0;
+        $work_time_from = explode(':', Variables::getWorkTimeFrom());
+        $workTime['from']['hour'] = (int) $work_time_from[0];
+        $workTime['from']['minute'] = isset($work_time_from[1]) ? (int) $work_time_from[1] : 0;
 
-        $work_time_to = explode(':', Settings::get('work_time_to', '18:00'));
-        $workTime['to']['hour'] = (int)$work_time_to[0];
-        $workTime['to']['minute'] = (isset($work_time_to[1]))?(int)$work_time_to[1]:0;
+        $work_time_to = explode(':', Variables::getWorkTimeTo());
+        $workTime['to']['hour'] = (int) $work_time_to[0];
+        $workTime['to']['minute'] = isset($work_time_to[1]) ? (int) $work_time_to[1] : 0;
 
         return $workTime;
     }

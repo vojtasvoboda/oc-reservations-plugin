@@ -11,9 +11,8 @@ use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
 use Redirect;
 use Session;
+use VojtaSvoboda\Reservations\Classes\Variables;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
-use Config;
-use VojtaSvoboda\Reservations\Models\Settings;
 
 /**
  * Reservation Form component.
@@ -117,19 +116,14 @@ class ReservationForm extends ComponentBase
      */
     protected function getCalendarSetting()
     {
-        $dateFormat = Settings::get('formats_date', Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y'));
-        $timeFormat = Settings::get('formats_time', Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i'));
-        $reservationInterval = Settings::get('reservation_interval', Config::get('vojtasvoboda.reservations::config.reservation.interval', 15));
-        $defaultWorkingDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
-
         return [
-            'formats_date' => $dateFormat,
-            'formats_time' => $timeFormat,
-            'reservation_interval' => (int) $reservationInterval,
-            'first_weekday' => (int) Settings::get('first_weekday', false),
-            'work_time_from' => Settings::get('work_time_from', '10:00'),
-            'work_time_to' => Settings::get('work_time_to', '18:00'),
-            'work_days' => Settings::get('work_days', $defaultWorkingDays),
+            'formats_date' => Variables::getDateFormat(),
+            'formats_time' => Variables::getTimeFormat(),
+            'reservation_interval' => Variables::getReservationInterval(),
+            'first_weekday' => Variables::getFirstWeekday(),
+            'work_time_from' => Variables::getWorkTimeFrom(),
+            'work_time_to' => Variables::getWorkTimeTo(),
+            'work_days' => Variables::getWorkingDays(),
         ];
     }
 
