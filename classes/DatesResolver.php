@@ -140,6 +140,9 @@ class DatesResolver
         return $endDate;
     }
 
+    /**
+     * @return string
+     */
     protected function getDateFormat()
     {
         return Settings::get(
@@ -148,6 +151,9 @@ class DatesResolver
         );
     }
 
+    /**
+     * @return string
+     */
     protected function getTimeFormat()
     {
         return Settings::get(
@@ -156,6 +162,9 @@ class DatesResolver
         );
     }
 
+    /**
+     * @return int
+     */
     protected function getInterval()
     {
         return Settings::get(
@@ -164,6 +173,9 @@ class DatesResolver
         );
     }
 
+    /**
+     * @return string
+     */
     protected function getLength()
     {
         return Settings::get(

@@ -1,5 +1,4 @@
-function datepicker_format(format)
-{
+function datepicker_format(format) {
     var assoc = {
         'Y': 'yyyy',
         'y': 'yy',
