@@ -8,17 +8,15 @@
     {% endif %}
 </div>
 
-<script type="text/javascript" src="/plugins/vojtasvoboda/reservations/assets/js/convert.js"></script>
-
 <script type="text/javascript">
     var booked = JSON.parse('{{ dates | raw }}');
-    var dateFormat = datepicker_format("{{ settings.formats_date }}");
-    var timeFormat = datepicker_format("{{ settings.formats_time }}");
+    var dateFormat = '{{ settings.formats_date }}';
+    var timeFormat = '{{ settings.formats_time }}';
     var timeInterval = {{ settings.reservation_interval }};
     var firstDay = {{ settings.first_weekday }};
-    var disableDays = get_work_days("{{ settings.work_days|join(',') }}", firstDay);
-    var startWork = convertTimeToArray("{{ settings.work_time_from }}");
-    var finishWork = convertTimeToArray("{{ settings.work_time_to }}");
+    var disableDays = "{{ settings.work_days|join(',') }}";
+    var startWork = '{{ settings.work_time_from }}';
+    var finishWork = '{{ settings.work_time_to }}';
 </script>
 
 <form

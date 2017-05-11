@@ -7,9 +7,9 @@ var reservationform = function($) {
 
     if ($("#date").length > 0) {
         $("#date").pickadate({
-            format: dateFormat,
+            format: datepicker_format(dateFormat),
             min: "0",
-            disable: disableDays,
+            disable: get_work_days(disableDays, firstDay),
             firstDay: firstDay,
             onSet: function (context) {
                 loadBookedTimes(new Date(context.select));
@@ -19,9 +19,9 @@ var reservationform = function($) {
 
     if ($("#time").length > 0) {
         $("#time").pickatime({
-            format: timeFormat,
-            min: startWork,
-            max: finishWork,
+            format: datepicker_format(timeFormat),
+            min: convertTimeToArray(startWork),
+            max: convertTimeToArray(finishWork),
             interval: timeInterval
         });
 

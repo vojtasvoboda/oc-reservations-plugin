@@ -151,6 +151,7 @@ class ReservationForm extends ComponentBase
             $this->addJs(self::PATH_PICKADATE_COMPRESSED.'translations/'.$translation.'.js');
         }
 
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/convert.js');
         $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
     }
 
