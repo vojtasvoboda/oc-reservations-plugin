@@ -47,32 +47,39 @@ function disableAllTimes() {
  * @param date
  */
 function loadBookedTimes(date) {
+
+    // convert date to dd/mm/yyyy format
     var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
     var month = date.getMonth() + 1;
     month = (month < 10 ? '0' : '') + month;
     var selectedDate = day + '/' + month + '/' + date.getFullYear();
 
+    // get today date
     var dateNow = new Date();
     var dateNowFormat = (dateNow.getDate() < 10 ? '0' : '') + dateNow.getDate();
     dateNowFormat += '/' + (dateNow.getMonth() < 9 ? '0' : '') + (dateNow.getMonth() + 1);
-    dateNowFormat += '/' + date.getFullYear();
+    dateNowFormat += '/' + dateNow.getFullYear();
 
+    // get selected date
     var $input = $('#time').pickatime();
     var picker = $input.pickatime('picker');
 
     picker.set('disable', false);
     var dates = [];
 
-    if (dateNowFormat == selectedDate) {
+    // hide pass timeslots when is today
+    var isToday = dateNowFormat === selectedDate;
+    if (isToday) {
         dates.push({
             from: [0, 0],
             to: [dateNow.getHours(), Math.floor(dateNow.getMinutes() / timeInterval) * timeInterval]
         });
     }
 
+    // convert taken time slots to array
     if (selectedDate in booked) {
         $.each(booked[selectedDate], function() {
-            dates.push(this.split(':'));
+            dates.push(convertTimeToArray(this));
         });
     }
 
