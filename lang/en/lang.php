@@ -105,6 +105,8 @@ return [
             'plugin'  => 'Reservations settings',
             'admin'   => 'Admin confirmation',
             'datetime' => 'Date, time settings',
+            'returning' => 'Returning customers',
+            'working_days' => 'Working days',
         ],
 
         'returning_mark' => [

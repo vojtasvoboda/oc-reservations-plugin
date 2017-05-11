@@ -105,6 +105,8 @@ return [
             'plugin'  => 'Nastavení rezervací',
             'admin'   => 'Potvrzení správci',
             'datetime' => 'Nastavení kalendáře',
+            'returning' => 'Opakovaný nákup',
+            'working_days' => 'Pracovní dny',
         ],
 
         'returning_mark' => [
