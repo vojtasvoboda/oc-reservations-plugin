@@ -94,6 +94,9 @@ return [
         'session_expired' => 'Platnost formuláře vypršela, prosíme obnovte stránku.',
         'exception' => 'Omlouváme se, ale něco se pokazilo a rezervační formulář nelze odeslat.',
         'already_booked' => 'Datum :reservation je již zarezervováno.',
+        'days_off' => 'Vybraný den není pracovní. Vyberte prosím některý z pracovních dní.',
+        'out_of_hours' => 'Vybraná hodina není v pracovních hodinách. Vyberte prosím některou z pracovních hodin.',
+        'past_date' => 'Vyberte prosím datum a čas z budoucnosti.',
     ],
 
     'settings' => [
@@ -101,6 +104,7 @@ return [
         'tabs' => [
             'plugin'  => 'Nastavení rezervací',
             'admin'   => 'Potvrzení správci',
+            'datetime' => 'Nastavení kalendáře',
         ],
 
         'returning_mark' => [
@@ -121,6 +125,44 @@ return [
         'admin_confirmation_locale' => [
             'label'   => 'Jazyk e-mailového potvrzení spráci',
             'comment' => 'Jazyková mutace e-mailu který je zasílán správci (cs, en, es, ru).',
+        ],
+        'reservation_interval' => [
+            'label'   => 'Časový slot pro rezervace (v minutách)',
+            'comment' => 'Nejmenší časová jednotka používaná pro výběr času. Typicky 15 minut.',
+        ],
+        'reservation_length' => [
+            'label'   => 'Délka jedné rezervace (v hodinách)',
+            'comment' => 'Jak dlouho zabere jedna rezervace.',
+        ],
+        'formats_date' => [
+            'label'   => 'Formát data',
+        ],
+        'formats_time' => [
+            'label'   => 'Formát času',
+        ],
+        'formats_datetime' => [
+            'label'   => 'Formát data i času',
+        ],
+        'first_weekday' => [
+            'label'   => 'Je první den v týdnu pondělí?',
+        ],
+        'work_time_from' => [
+            'label'   => 'Začátek pracovní doby',
+            'comment' => 'Zadávejte ve formátu HH:mm (24 hodinový formát)',
+        ],
+        'work_time_to' => [
+            'label'   => 'Konec pracovní doby',
+            'comment' => 'Zadávejte ve formátu HH:mm (24 hodinový formát)',
+        ],
+        'work_days' => [
+            'label'     => 'Pracovní dny',
+            'monday'    => 'Pondělí',
+            'tuesday'   => 'Úterý',
+            'wednesday' => 'Středa',
+            'thursday'  => 'Čtvrtek',
+            'friday'    => 'Pátek',
+            'saturday'  => 'Sobota',
+            'sunday'    => 'Neděle',
         ],
     ],
 ];
