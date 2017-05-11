@@ -74,6 +74,17 @@ class ReservationsFacadeTest extends PluginTestCase
         $model->storeReservation($data);
     }
 
+    public function testStoreReservationInThePast()
+    {
+        $model = $this->getModel();
+
+        $data = $this->getTestingReservationData();
+        $data['date'] = Carbon::now(-5)->format('d/m/Y');
+
+        $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $model->storeReservation($data);
+    }
+
     public function testStoreReservation()
     {
         $model = $this->getModel();
@@ -172,7 +183,7 @@ class ReservationsFacadeTest extends PluginTestCase
 
     private function getTestingReservationData()
     {
-        $nextMonday = Carbon::parse('next monday')->format('Y-m-d 11:00');
+        $nextMonday = Carbon::parse('next monday')->format('d/m/Y');
 
         return [
             'date' => $nextMonday,
