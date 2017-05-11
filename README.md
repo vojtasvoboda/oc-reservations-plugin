@@ -113,7 +113,6 @@ Receiving "Class 'PluginTestCase' not found" error? Just type `composer dumpauto
 
 **Feel free to send pull request!**
 
-- [ ] Complate all translations.
 - [ ] Put some config to backend Settings (mail BCC, etc).
 - [ ] Checkbox for disabling injecting assets with components.
 - [ ] Automatically load statuses for reservations listing/filtration.
@@ -121,6 +120,7 @@ Receiving "Class 'PluginTestCase' not found" error? Just type `composer dumpauto
 - [ ] Log history of reservation changes.
 - [ ] Make bulk reservation status change in one SQL query.
 - [ ] Order by returning flag without SQL exception.
+- [ ] Translate statuses at backend.
 
 ## Contributing
 
