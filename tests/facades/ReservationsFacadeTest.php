@@ -46,8 +46,9 @@ class ReservationsFacadeTest extends PluginTestCase
         $model = $this->getModel();
 
         $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $nextMonday = Carbon::parse('next monday')->format('d/m/Y');
         $model->storeReservation([
-            'date' => (new \DateTime('next monday'))->format('d/m/Y'),
+            'date' => $nextMonday,
         ]);
     }
 
@@ -57,7 +58,7 @@ class ReservationsFacadeTest extends PluginTestCase
 
         $this->setExpectedException('October\Rain\Exception\ApplicationException');
         $data = $this->getTestingReservationData();
-        $data['date'] = (new \DateTime('next sunday'))->format('d/m/Y');
+        $data['date'] = Carbon::parse('next sunday')->format('d/m/Y');
 
         $model->storeReservation($data);
     }
@@ -107,15 +108,15 @@ class ReservationsFacadeTest extends PluginTestCase
     {
         $model = $this->getModel();
 
-        $dateTime = new \DateTime('next monday');
+        $nextMonday = Carbon::parse('next monday');
         $data = [
-            'date' => $dateTime->format('d/m/Y'),
+            'date' => $nextMonday->format('d/m/Y'),
             'time' => '15:45',
         ];
         $date = $model->transformDateTime($data);
 
         $this->assertInstanceOf('Carbon\Carbon', $date);
-        $this->assertEquals($dateTime->format('Y-m-d').' 15:45:00', $date->format('Y-m-d H:i:s'));
+        $this->assertEquals($nextMonday->format('Y-m-d').' 15:45:00', $date->format('Y-m-d H:i:s'));
     }
 
     public function testGetReservationsCountByMail()
@@ -171,8 +172,10 @@ class ReservationsFacadeTest extends PluginTestCase
 
     private function getTestingReservationData()
     {
+        $nextMonday = Carbon::parse('next monday')->format('Y-m-d 11:00');
+
         return [
-            'date' => (new \DateTime('next monday'))->format('d/m/Y'),
+            'date' => $nextMonday,
             'time' => '11:00',
             'email' => 'test@test.cz',
             'phone' => '777111222',

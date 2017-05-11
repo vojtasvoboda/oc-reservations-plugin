@@ -279,12 +279,12 @@ class ReservationsFacade
         }
 
         // validate days off
-        if (!in_array($dateTime->dayOfWeek, $this->getWorkDays())) {
+        if (!in_array($dateTime->dayOfWeek, $this->getWorkingDays())) {
             throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.days_off'));
         }
 
         // validate out of hours
-        $workTime = $this->getWorkTime();
+        $workTime = $this->getWorkingTime();
 
         // convert hour and minutes to minutes
         $timeToMinute = $dateTime->hour * 60 + $dateTime->minute;
@@ -299,11 +299,11 @@ class ReservationsFacade
     }
 
     /**
-     * Get work days of week
+     * Get working days.
      *
      * @return array
      */
-    public function getWorkDays()
+    public function getWorkingDays()
     {
         $daysWorkInput = Variables::getWorkingDays();
         $daysWork = [];
@@ -319,11 +319,11 @@ class ReservationsFacade
     }
 
     /**
-     * Get work time of day
+     * Get working time.
      *
      * @return array
      */
-    public function getWorkTime()
+    public function getWorkingTime()
     {
         $workTime = [];
 
