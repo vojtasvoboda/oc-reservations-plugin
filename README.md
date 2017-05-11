@@ -64,7 +64,11 @@ $facade->getReservationsByInterval(\Carbon\Carbon $from, \Carbon\Carbon $to);
 $facade->isDateAvailable(\Carbon\Carbon $date);
 ```
 
-## Override configurations
+## Configuration
+
+You can find plugin configuration at the CMS backend. But you can also set some values at plugin's config file. Config values 
+are used when Settings value can not be found (and also because of backward compatibility with users using older 
+version of plugin).
 
 When you want to override default plugin's *config.php*, which is placed at plugin's folder */config*, just create file:
 
@@ -113,7 +117,6 @@ Receiving "Class 'PluginTestCase' not found" error? Just type `composer dumpauto
 
 **Feel free to send pull request!**
 
-- [ ] Put some config to backend Settings (mail BCC, etc).
 - [ ] Checkbox for disabling injecting assets with components.
 - [ ] Automatically load statuses for reservations listing/filtration.
 - [ ] Assets concatenation.

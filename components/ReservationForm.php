@@ -103,16 +103,6 @@ class ReservationForm extends ComponentBase
 	}
 
     /**
-     * Get reservation facade.
-     *
-     * @return ReservationsFacade
-     */
-	protected function getFacade()
-    {
-        return App::make(ReservationsFacade::class);
-    }
-
-    /**
      * Get reserved dates.
      *
      * @return array
@@ -162,5 +152,13 @@ class ReservationForm extends ComponentBase
         }
 
         $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
+    }
+
+    /**
+     * @return ReservationsFacade
+     */
+    protected function getFacade()
+    {
+        return App::make(ReservationsFacade::class);
     }
 }
