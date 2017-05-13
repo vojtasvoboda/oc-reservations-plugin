@@ -128,7 +128,7 @@ class ReservationsFacade
      */
     public function getActiveReservations()
     {
-        return $this->reservations->notCancelled()->get();
+        return $this->reservations->notCancelled()->currentDate()->get();
     }
 
     /**

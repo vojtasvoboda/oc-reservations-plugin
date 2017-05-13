@@ -105,6 +105,18 @@ class Reservation extends Model
     }
 
     /**
+     * Scope for getting current date reservations.
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeCurrentDate($query)
+    {
+        return $query->where('date', '>', Carbon::now()->format('Y-m-d H:i:s'));
+    }
+
+    /**
      * Set machine scope
      *
      * @param $query
