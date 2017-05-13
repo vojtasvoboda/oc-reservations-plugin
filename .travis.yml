@@ -23,5 +23,7 @@ before_script:
   - composer install
 
 script:
-  - ../../../vendor/bin/phpunit . --coverage-clover build/logs/clover.xml
+  - ls
+  - ../../../vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - ls
   - bash <(curl -s https://codecov.io/bash)
