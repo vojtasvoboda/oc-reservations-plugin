@@ -142,9 +142,6 @@ return [
         'formats_time' => [
             'label'   => 'Time format',
         ],
-        'formats_datetime' => [
-            'label'   => 'Datetime format',
-        ],
         'first_weekday' => [
             'label'   => 'The first day of the week is Monday?',
         ],

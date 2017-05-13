@@ -142,9 +142,6 @@ return [
         'formats_time' => [
             'label'   => 'Формат времени',
         ],
-        'formats_datetime' => [
-            'label'   => 'Формат дата + время',
-        ],
         'first_weekday' => [
             'label'   => 'Неделя начинается с Понедельника?',
         ],

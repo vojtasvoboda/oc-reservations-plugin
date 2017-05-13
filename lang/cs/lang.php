@@ -142,9 +142,6 @@ return [
         'formats_time' => [
             'label'   => 'Formát času',
         ],
-        'formats_datetime' => [
-            'label'   => 'Formát data i času',
-        ],
         'first_weekday' => [
             'label'   => 'Je první den v týdnu pondělí?',
         ],

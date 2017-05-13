@@ -12,10 +12,6 @@ tabs:
             comment: vojtasvoboda.reservations::lang.settings.reservation_length.comment
             default: 2
             span: right
-        formats_datetime:
-            tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
-            label: vojtasvoboda.reservations::lang.settings.formats_datetime.label
-            default: d/m/Y H:i
         formats_date:
             tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
             label: vojtasvoboda.reservations::lang.settings.formats_date.label

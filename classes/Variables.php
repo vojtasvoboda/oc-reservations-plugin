@@ -7,9 +7,7 @@ class Variables
 {
     public static function getDateTimeFormat()
     {
-        $default = Config::get('vojtasvoboda.reservations::config.formats.datetime', 'd/m/Y H:i');
-
-        return Settings::get('formats_datetime', $default);
+        return self::getDateFormat().' '.self::getTimeFormat();
     }
 
     public static function getDateFormat()
