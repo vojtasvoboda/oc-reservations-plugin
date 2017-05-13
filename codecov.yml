@@ -1,0 +1,8 @@
+ignore:
+  - "assets"
+  - "config"
+  - "controllers"
+  - "lang"
+  - "reportwidgets"
+  - "updates"
+  - "views"
