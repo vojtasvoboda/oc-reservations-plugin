@@ -138,9 +138,11 @@ return [
         ],
         'formats_date' => [
             'label'   => 'Formát data',
+            'comment' => 'Povolené znaky: d, dd, ddd, dddd, m, mm, mmm, mmmm, yy, yyyy, Y',
         ],
         'formats_time' => [
             'label'   => 'Formát času',
+            'comment' => 'Povolené znaky: h, hh, H, HH, i, a, A',
         ],
         'first_weekday' => [
             'label'   => 'Je první den v týdnu pondělí?',

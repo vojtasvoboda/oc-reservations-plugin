@@ -13,7 +13,7 @@ columns:
         label: vojtasvoboda.reservations::lang.reservation.date
         type: datetime
         sortable: true
-        format: d.m.Y H:i:s
+        format: d.m.Y H:i
     name:
         label: vojtasvoboda.reservations::lang.reservation.name
         type: text

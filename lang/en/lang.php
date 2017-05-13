@@ -138,9 +138,11 @@ return [
         ],
         'formats_date' => [
             'label'   => 'Date format',
+            'comment' => 'You can use: d, dd, ddd, dddd, m, mm, mmm, mmmm, yy, yyyy, Y',
         ],
         'formats_time' => [
             'label'   => 'Time format',
+            'comment' => 'You can use: h, hh, H, HH, i, a, A',
         ],
         'first_weekday' => [
             'label'   => 'The first day of the week is Monday?',

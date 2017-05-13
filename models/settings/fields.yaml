@@ -17,11 +17,13 @@ tabs:
             label: vojtasvoboda.reservations::lang.settings.formats_date.label
             default: d/m/Y
             span: left
+            comment: vojtasvoboda.reservations::lang.settings.formats_date.comment
         formats_time:
             tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
             label: vojtasvoboda.reservations::lang.settings.formats_time.label
             default: H:i
             span: right
+            comment: vojtasvoboda.reservations::lang.settings.formats_time.comment
 
         work_time_from:
             tab: vojtasvoboda.reservations::lang.settings.tabs.working_days
