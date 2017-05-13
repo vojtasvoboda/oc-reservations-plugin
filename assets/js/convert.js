@@ -38,7 +38,7 @@ function datepicker_format(format) {
         format = format.replace(new RegExp('\{\{' + index + '\}\}', "g"), assoc[index]);
     }
 
-    return format;
+    return format.replace(/(^:)|(:$)/g, "");
 }
 
 function get_work_days(days, weekStartMonday) {
