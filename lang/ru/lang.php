@@ -105,8 +105,8 @@ return [
             'plugin'  => 'Настройки',
             'admin'   => 'Оповещение',
             'datetime' => 'Настройки времени',
-            'returning' => 'постоянного клиента',
-            'working_days' => 'по будням',
+            'returning' => 'Постоянный клиент',
+            'working_days' => 'Время работы',
         ],
 
         'returning_mark' => [
