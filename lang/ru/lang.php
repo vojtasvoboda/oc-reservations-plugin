@@ -146,11 +146,11 @@ return [
         ],
         'formats_date' => [
             'label'   => 'Формат даты',
-            'comment' => 'Использование: d, dd, ddd, dddd, m, mm, mmm, mmmm, yy, yyyy, Y',
+            'comment' => 'Используйте: d, dd, ddd, dddd, m, mm, mmm, mmmm, yy, yyyy, Y',
         ],
         'formats_time' => [
             'label'   => 'Формат времени',
-            'comment' => 'Использование: h, hh, H, HH, i, a, A',
+            'comment' => 'Используйте: h, hh, H, HH, i, a, A',
         ],
         'first_weekday' => [
             'label'   => 'Неделя начинается с Понедельника?',
