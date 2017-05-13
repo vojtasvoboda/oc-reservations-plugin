@@ -33,9 +33,16 @@ class Variables
 
     public static function getReservationLength()
     {
-        $default = (int) Config::get('vojtasvoboda.reservations::config.reservation.length', 2);
+        $default = Config::get('vojtasvoboda.reservations::config.reservation.length', '2 hours');
 
-        return Settings::get('reservation_length', $default) . ' hours';
+        $length = Settings::get('reservation_length');
+        $unit = Settings::get('reservation_length_unit');
+
+        if (empty($length) || empty($unit)) {
+            return $default;
+        }
+
+        return $length . ' ' . $unit;
     }
 
     public static function getWorkingDays()

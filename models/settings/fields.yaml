@@ -5,13 +5,24 @@ tabs:
             label: vojtasvoboda.reservations::lang.settings.reservation_interval.label
             comment: vojtasvoboda.reservations::lang.settings.reservation_interval.comment
             default: 15
-            span: left
+            span: full
         reservation_length:
             tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
             label: vojtasvoboda.reservations::lang.settings.reservation_length.label
             comment: vojtasvoboda.reservations::lang.settings.reservation_length.comment
             default: 2
+            span: left
+        reservation_length_unit:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
+            label: '&nbsp;'
             span: right
+            type: dropdown
+            default: hours
+            options:
+                minutes: vojtasvoboda.reservations::lang.settings.reservation_length_unit.options.minutes
+                hours: vojtasvoboda.reservations::lang.settings.reservation_length_unit.options.hours
+                days: vojtasvoboda.reservations::lang.settings.reservation_length_unit.options.days
+                weeks: vojtasvoboda.reservations::lang.settings.reservation_length_unit.options.weeks
         formats_date:
             tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
             label: vojtasvoboda.reservations::lang.settings.formats_date.label

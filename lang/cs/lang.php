@@ -133,8 +133,16 @@ return [
             'comment' => 'Nejmenší časová jednotka používaná pro výběr času. Typicky 15 minut.',
         ],
         'reservation_length' => [
-            'label'   => 'Délka jedné rezervace (v hodinách)',
+            'label'   => 'Délka jedné rezervace',
             'comment' => 'Jak dlouho zabere jedna rezervace.',
+        ],
+        'reservation_length_unit' => [
+            'options' => [
+                'minutes' => 'minuty',
+                'hours' => 'hodiny',
+                'days' => 'dny',
+                'weeks' => 'týdny',
+            ],
         ],
         'formats_date' => [
             'label'   => 'Formát data',

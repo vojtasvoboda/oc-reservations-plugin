@@ -133,8 +133,16 @@ return [
             'comment' => 'Used for reservation form time picker.',
         ],
         'reservation_length' => [
-            'label'   => 'Length of one reservation (hour)',
+            'label'   => 'Length of one reservation',
             'comment' => 'How much time one reservation takes.',
+        ],
+        'reservation_length_unit' => [
+            'options' => [
+                'minutes' => 'minutes',
+                'hours' => 'hours',
+                'days' => 'days',
+                'weeks' => 'weeks',
+            ],
         ],
         'formats_date' => [
             'label'   => 'Date format',
