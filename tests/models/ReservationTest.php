@@ -156,6 +156,22 @@ class ReservationTest extends PluginTestCase
         $this->assertEmpty($reservations);
     }
 
+    public function testScopeCurrentDate()
+    {
+        $model = $this->getModel();
+
+        // create reservation
+        $reservation = $model->create($this->getTestingReservationData());
+        $reservations = $model->currentDate()->get();
+        $this->assertNotEmpty($reservations);
+
+        // change reservation to the past
+        $reservation->date = Carbon::parse('-1 month');
+        $reservation->save();
+        $reservations = $model->currentDate()->get();
+        $this->assertEmpty($reservations);
+    }
+
     /**
      * Get testing reservation data.
      *
