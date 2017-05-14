@@ -21,6 +21,7 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source
   - cd plugins/vojtasvoboda/reservations
   - composer install
+  - npm install
 
 script:
   - ../../../vendor/bin/phpunit --coverage-clover build/logs/clover.xml
