@@ -25,3 +25,4 @@ before_script:
 script:
   - ../../../vendor/bin/phpunit --coverage-clover build/logs/clover.xml
   - bash <(curl -s https://codecov.io/bash)
+  - npm test

@@ -69,3 +69,10 @@ function convertTimeToArray(time) {
 
     return timeArray;
 }
+
+// If we're running under the Node (Mocha testing)
+if (typeof exports !== 'undefined') {
+    exports.datepicker_format = datepicker_format;
+    exports.get_work_days = get_work_days;
+    exports.convertTimeToArray = convertTimeToArray;
+}
