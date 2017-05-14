@@ -66,9 +66,9 @@ $facade->isDateAvailable(\Carbon\Carbon $date);
 
 ## Configuration
 
-You can find plugin configuration at the CMS backend. But you can also set some values at plugin's config file. Config values 
-are used when Settings value can not be found (and also because of backward compatibility with users using older 
-version of plugin).
+You can find some plugin configuration at the CMS backend (datetime format, reservation length, time slot length, etc). 
+But you can also set some values at plugin's config file. Config values are used when Settings value can not be found 
+(and also because of backward compatibility with users using older version of plugin).
 
 When you want to override default plugin's *config.php*, which is placed at plugin's folder */config*, just create file:
 
