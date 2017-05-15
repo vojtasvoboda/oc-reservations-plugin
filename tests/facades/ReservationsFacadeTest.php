@@ -79,7 +79,7 @@ class ReservationsFacadeTest extends PluginTestCase
         $model = $this->getModel();
 
         $data = $this->getTestingReservationData();
-        $data['date'] = Carbon::now(-5)->format('d/m/Y');
+        $data['date'] = Carbon::parse("last monday - 7 days")->format('d/m/Y');
 
         $this->setExpectedException('October\Rain\Exception\ApplicationException');
         $model->storeReservation($data);
