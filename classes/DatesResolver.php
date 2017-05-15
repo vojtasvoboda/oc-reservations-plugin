@@ -1,7 +1,6 @@
 <?php namespace VojtaSvoboda\Reservations\Classes;
 
 use Carbon\Carbon;
-use Config;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -28,10 +27,10 @@ class DatesResolver
     public function getDatesFromReservations(Collection $reservations)
     {
         // init
-        $interval = $this->getInterval();
-        $length = $this->getLength();
-        $dateFormat = $this->getDateFormat();
-        $timeFormat = $this->getTimeFormat();
+        $interval = Variables::getReservationInterval();
+        $length = Variables::getReservationLength();
+        $dateFormat = 'd/m/Y';
+        $timeFormat = 'H:i';
 
         // sort reservations by date and count time slots before reservation and during the reservation
         $dates = [];
@@ -62,7 +61,7 @@ class DatesResolver
     public function getBoundaryDates(Carbon $date)
     {
         // reservation length
-        $length = $this->getLength();
+        $length = Variables::getReservationLength();
 
         // boundary dates before and after
         $startDatetime = $this->getBoundaryBefore($date, $length);
@@ -137,25 +136,5 @@ class DatesResolver
         $endDate->modify('+' . $length);
 
         return $endDate;
-    }
-
-    protected function getDateFormat()
-    {
-        return Config::get('vojtasvoboda.reservations::config.formats.date', 'd/m/Y');
-    }
-
-    protected function getTimeFormat()
-    {
-        return Config::get('vojtasvoboda.reservations::config.formats.time', 'H:i');
-    }
-
-    protected function getInterval()
-    {
-        return Config::get('vojtasvoboda.reservations::config.reservation.interval', 15);
-    }
-
-    protected function getLength()
-    {
-        return Config::get('vojtasvoboda.reservations::config.reservation.length', '2 hours');
     }
 }

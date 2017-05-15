@@ -72,7 +72,8 @@ class ReservationTest extends PluginTestCase
 
         // try to do second reservation with same date and time after 2 hours
         $data = $this->getTestingReservationData();
-        $data['date'] = Carbon::createFromFormat('Y-m-d H:i', '2016-08-18 22:00');
+        $nextMonday = Carbon::parse('next monday')->format('Y-m-d 13:00');
+        $data['date'] = Carbon::createFromFormat('Y-m-d H:i', $nextMonday);
         $model->create($data);
     }
 
@@ -155,6 +156,22 @@ class ReservationTest extends PluginTestCase
         $this->assertEmpty($reservations);
     }
 
+    public function testScopeCurrentDate()
+    {
+        $model = $this->getModel();
+
+        // create reservation
+        $reservation = $model->create($this->getTestingReservationData());
+        $reservations = $model->currentDate()->get();
+        $this->assertNotEmpty($reservations);
+
+        // change reservation to the past
+        $reservation->date = Carbon::parse('-1 month');
+        $reservation->save();
+        $reservations = $model->currentDate()->get();
+        $this->assertEmpty($reservations);
+    }
+
     /**
      * Get testing reservation data.
      *
@@ -162,8 +179,10 @@ class ReservationTest extends PluginTestCase
      */
     private function getTestingReservationData()
     {
+        $nextMonday = Carbon::parse('next monday')->format('Y-m-d 11:00');
+
         return [
-            'date' => Carbon::createFromFormat('Y-m-d H:i', '2016-08-18 20:00'),
+            'date' => Carbon::createFromFormat('Y-m-d H:i', $nextMonday),
             'email' => 'test@test.cz',
             'phone' => '777111222',
             'street' => 'ABCDE',

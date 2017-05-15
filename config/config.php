@@ -42,8 +42,6 @@ return [
      */
     'formats' => [
 
-        'datetime' => 'd/m/Y H:i',
-
         'date' => 'd/m/Y',
 
         'time' => 'H:i',

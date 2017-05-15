@@ -30,7 +30,7 @@ class Reservation extends Model
         'locale' => 'max:20',
         'email' => 'required|email',
         'name' => 'required|max:300',
-        'street' => 'required|max:300',
+        'street' => 'max:300',
         'town' => 'max:300',
         'zip' => 'numeric',
         'phone' => 'required|max:300',
@@ -102,6 +102,18 @@ class Reservation extends Model
         return $query->whereHas('status', function($query) use ($cancelledStatuses) {
             $query->whereNotIn('ident', $cancelledStatuses);
         });
+    }
+
+    /**
+     * Scope for getting current date reservations.
+     *
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeCurrentDate($query)
+    {
+        return $query->where('date', '>', Carbon::now()->format('Y-m-d H:i:s'));
     }
 
     /**

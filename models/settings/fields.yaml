@@ -1,10 +1,77 @@
 tabs:
     fields:
-        returning_mark:
-            tab: vojtasvoboda.reservations::lang.settings.tabs.plugin
-            label: vojtasvoboda.reservations::lang.settings.returning_mark.label
-            default: 0
-            comment: vojtasvoboda.reservations::lang.settings.returning_mark.comment
+        reservation_interval:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
+            label: vojtasvoboda.reservations::lang.settings.reservation_interval.label
+            comment: vojtasvoboda.reservations::lang.settings.reservation_interval.comment
+            default: 15
+            span: full
+        reservation_length:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
+            label: vojtasvoboda.reservations::lang.settings.reservation_length.label
+            comment: vojtasvoboda.reservations::lang.settings.reservation_length.comment
+            default: 2
+            span: left
+        reservation_length_unit:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
+            label: '&nbsp;'
+            span: right
+            type: dropdown
+            default: hours
+            options:
+                minutes: vojtasvoboda.reservations::lang.settings.reservation_length_unit.options.minutes
+                hours: vojtasvoboda.reservations::lang.settings.reservation_length_unit.options.hours
+                days: vojtasvoboda.reservations::lang.settings.reservation_length_unit.options.days
+                weeks: vojtasvoboda.reservations::lang.settings.reservation_length_unit.options.weeks
+        formats_date:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
+            label: vojtasvoboda.reservations::lang.settings.formats_date.label
+            default: d/m/Y
+            span: left
+            comment: vojtasvoboda.reservations::lang.settings.formats_date.comment
+        formats_time:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.datetime
+            label: vojtasvoboda.reservations::lang.settings.formats_time.label
+            default: H:i
+            span: right
+            comment: vojtasvoboda.reservations::lang.settings.formats_time.comment
+
+        work_time_from:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.working_days
+            label: vojtasvoboda.reservations::lang.settings.work_time_from.label
+            comment: vojtasvoboda.reservations::lang.settings.work_time_from.comment
+            default: '10:00'
+            span: left
+        work_time_to:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.working_days
+            label: vojtasvoboda.reservations::lang.settings.work_time_to.label
+            comment: vojtasvoboda.reservations::lang.settings.work_time_to.comment
+            default: '18:00'
+            span: right
+        work_days:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.working_days
+            label: vojtasvoboda.reservations::lang.settings.work_days.label
+            type: checkboxlist
+            default:
+                - monday
+                - tuesday
+                - wednesday
+                - thursday
+                - friday
+            options:
+                sunday: vojtasvoboda.reservations::lang.settings.work_days.sunday
+                monday: vojtasvoboda.reservations::lang.settings.work_days.monday
+                tuesday: vojtasvoboda.reservations::lang.settings.work_days.tuesday
+                wednesday: vojtasvoboda.reservations::lang.settings.work_days.wednesday
+                thursday: vojtasvoboda.reservations::lang.settings.work_days.thursday
+                friday: vojtasvoboda.reservations::lang.settings.work_days.friday
+                saturday: vojtasvoboda.reservations::lang.settings.work_days.saturday
+        first_weekday:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.working_days
+            label: vojtasvoboda.reservations::lang.settings.first_weekday.label
+            type: checkbox
+            default: false
+
         admin_confirmation_enable:
             tab: vojtasvoboda.reservations::lang.settings.tabs.admin
             label: vojtasvoboda.reservations::lang.settings.admin_confirmation_enable.label
@@ -23,3 +90,9 @@ tabs:
             label: vojtasvoboda.reservations::lang.settings.admin_confirmation_locale.label
             comment: vojtasvoboda.reservations::lang.settings.admin_confirmation_locale.comment
             default: en
+
+        returning_mark:
+            tab: vojtasvoboda.reservations::lang.settings.tabs.returning
+            label: vojtasvoboda.reservations::lang.settings.returning_mark.label
+            default: 0
+            comment: vojtasvoboda.reservations::lang.settings.returning_mark.comment

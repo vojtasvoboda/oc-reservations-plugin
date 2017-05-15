@@ -11,6 +11,7 @@ use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
 use Redirect;
 use Session;
+use VojtaSvoboda\Reservations\Classes\Variables;
 use VojtaSvoboda\Reservations\Facades\ReservationsFacade;
 
 /**
@@ -97,17 +98,8 @@ class ReservationForm extends ComponentBase
 		$this->page['post'] = post();
 		$this->page['error'] = $error;
         $this->page['dates'] = json_encode($dates);
+        $this->page['settings'] = $this->getCalendarSetting();
 	}
-
-    /**
-     * Get reservation facade.
-     *
-     * @return ReservationsFacade
-     */
-	protected function getFacade()
-    {
-        return App::make(ReservationsFacade::class);
-    }
 
     /**
      * Get reserved dates.
@@ -117,6 +109,22 @@ class ReservationForm extends ComponentBase
     protected function getReservedDates()
     {
         return $this->getFacade()->getReservedDates();
+    }
+
+    /**
+     * @return array
+     */
+    protected function getCalendarSetting()
+    {
+        return [
+            'formats_date' => Variables::getDateFormat(),
+            'formats_time' => Variables::getTimeFormat(),
+            'reservation_interval' => Variables::getReservationInterval(),
+            'first_weekday' => Variables::getFirstWeekday(),
+            'work_time_from' => Variables::getWorkTimeFrom(),
+            'work_time_to' => Variables::getWorkTimeTo(),
+            'work_days' => Variables::getWorkingDays(),
+        ];
     }
 
     /**
@@ -137,6 +145,15 @@ class ReservationForm extends ComponentBase
             $this->addJs(self::PATH_PICKADATE_COMPRESSED.'translations/'.$translation.'.js');
         }
 
+        $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/convert.js');
         $this->addJs('/plugins/vojtasvoboda/reservations/assets/js/reservationform.js');
+    }
+
+    /**
+     * @return ReservationsFacade
+     */
+    protected function getFacade()
+    {
+        return App::make(ReservationsFacade::class);
     }
 }

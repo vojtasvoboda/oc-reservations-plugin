@@ -46,9 +46,43 @@ class ReservationsFacadeTest extends PluginTestCase
         $model = $this->getModel();
 
         $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $nextMonday = Carbon::parse('next monday')->format('d/m/Y');
         $model->storeReservation([
-            'date' => '18/08/2016',
+            'date' => $nextMonday,
         ]);
+    }
+
+    public function testStoreReservationDaysOff()
+    {
+        $model = $this->getModel();
+
+        $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $data = $this->getTestingReservationData();
+        $data['date'] = Carbon::parse('next sunday')->format('d/m/Y');
+
+        $model->storeReservation($data);
+    }
+
+    public function testStoreReservationOutOfHours()
+    {
+        $model = $this->getModel();
+
+        $data = $this->getTestingReservationData();
+        $data['time'] = '19:00';
+
+        $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $model->storeReservation($data);
+    }
+
+    public function testStoreReservationInThePast()
+    {
+        $model = $this->getModel();
+
+        $data = $this->getTestingReservationData();
+        $data['date'] = Carbon::parse("last monday - 7 days")->format('d/m/Y');
+
+        $this->setExpectedException('October\Rain\Exception\ApplicationException');
+        $model->storeReservation($data);
     }
 
     public function testStoreReservation()
@@ -85,14 +119,15 @@ class ReservationsFacadeTest extends PluginTestCase
     {
         $model = $this->getModel();
 
+        $nextMonday = Carbon::parse('next monday');
         $data = [
-            'date' => '08/10/2016',
+            'date' => $nextMonday->format('d/m/Y'),
             'time' => '15:45',
         ];
         $date = $model->transformDateTime($data);
 
         $this->assertInstanceOf('Carbon\Carbon', $date);
-        $this->assertEquals('2016-10-08 15:45:00', $date->format('Y-m-d H:i:s'));
+        $this->assertEquals($nextMonday->format('Y-m-d').' 15:45:00', $date->format('Y-m-d H:i:s'));
     }
 
     public function testGetReservationsCountByMail()
@@ -148,9 +183,11 @@ class ReservationsFacadeTest extends PluginTestCase
 
     private function getTestingReservationData()
     {
+        $nextMonday = Carbon::parse('next monday')->format('d/m/Y');
+
         return [
-            'date' => '18/08/2016',
-            'time' => '20:00',
+            'date' => $nextMonday,
+            'time' => '11:00',
             'email' => 'test@test.cz',
             'phone' => '777111222',
             'street' => 'ABCDE',
