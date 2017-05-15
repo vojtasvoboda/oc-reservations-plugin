@@ -137,4 +137,52 @@ class DatesResolver
 
         return $endDate;
     }
+
+    /**
+     * Get date format.
+     *
+     * @return string
+     *
+     * @deprecated Use Variables::getDateFormat() instead.
+     */
+    protected function getDateFormat()
+    {
+        return Variables::getDateFormat();
+    }
+
+    /**
+     * Get time format.
+     *
+     * @return string
+     *
+     * @deprecated Use Variables::getTimeFormat() instead.
+     */
+    protected function getTimeFormat()
+    {
+        return Variables::getTimeFormat();
+    }
+
+    /**
+     * Get reservation interval length.
+     *
+     * @return string
+     *
+     * @deprecated Use Variables::getReservationInterval() instead.
+     */
+    protected function getInterval()
+    {
+        return Variables::getReservationInterval();
+    }
+
+    /**
+     * Get reservation length.
+     *
+     * @return string
+     *
+     * @deprecated Use Variables::getReservationLength() instead.
+     */
+    protected function getLength()
+    {
+        return Variables::getReservationLength();
+    }
 }
