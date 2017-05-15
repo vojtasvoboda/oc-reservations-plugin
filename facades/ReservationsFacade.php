@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
 use VojtaSvoboda\Reservations\Classes\DatesResolver;
+use VojtaSvoboda\Reservations\Classes\Variables;
 use VojtaSvoboda\Reservations\Mailers\ReservationAdminMailer;
 use VojtaSvoboda\Reservations\Mailers\ReservationMailer;
 use VojtaSvoboda\Reservations\Models\Reservation;
@@ -127,7 +128,7 @@ class ReservationsFacade
      */
     public function getActiveReservations()
     {
-        return $this->reservations->notCancelled()->get();
+        return $this->reservations->notCancelled()->currentDate()->get();
     }
 
     /**
@@ -268,9 +269,73 @@ class ReservationsFacade
             throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.empty_hour'));
         }
 
-        $format = Config::get('vojtasvoboda.reservations::config.formats.datetime', 'd/m/Y H:i');
+        // convert input to datetime format
+        $format = Variables::getDateTimeFormat();
+        $dateTime = Carbon::createFromFormat($format, trim($data['date'] . ' ' . $data['time']));
 
-        return Carbon::createFromFormat($format, trim($data['date'] . ' ' . $data['time']));
+        // validate date + time > current
+        if ($dateTime->timestamp < Carbon::now()->timestamp) {
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.past_date'));
+        }
+
+        // validate days off
+        if (!in_array($dateTime->dayOfWeek, $this->getWorkingDays())) {
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.days_off'));
+        }
+
+        // validate out of hours
+        $workTime = $this->getWorkingTime();
+
+        // convert hour and minutes to minutes
+        $timeToMinute = $dateTime->hour * 60 + $dateTime->minute;
+        $workTimeFrom = $workTime['from']['hour'] * 60 + $workTime['from']['minute'];
+        $workTimeTo   = $workTime['to']['hour'] * 60 + $workTime['to']['minute'];
+
+        if ($timeToMinute < $workTimeFrom || $timeToMinute > $workTimeTo) {
+            throw new ApplicationException(Lang::get('vojtasvoboda.reservations::lang.errors.out_of_hours'));
+        }
+
+        return $dateTime;
+    }
+
+    /**
+     * Get working days.
+     *
+     * @return array
+     */
+    public function getWorkingDays()
+    {
+        $daysWorkInput = Variables::getWorkingDays();
+        $daysWork = [];
+        $allDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+        foreach ($allDays as $index => $day) {
+            if (in_array($day, $daysWorkInput)) {
+                $daysWork[] = $index + 1;
+            }
+        }
+
+        return $daysWork;
+    }
+
+    /**
+     * Get working time.
+     *
+     * @return array
+     */
+    public function getWorkingTime()
+    {
+        $workTime = [];
+
+        $work_time_from = explode(':', Variables::getWorkTimeFrom());
+        $workTime['from']['hour'] = (int) $work_time_from[0];
+        $workTime['from']['minute'] = isset($work_time_from[1]) ? (int) $work_time_from[1] : 0;
+
+        $work_time_to = explode(':', Variables::getWorkTimeTo());
+        $workTime['to']['hour'] = (int) $work_time_to[0];
+        $workTime['to']['minute'] = isset($work_time_to[1]) ? (int) $work_time_to[1] : 0;
+
+        return $workTime;
     }
 
     /**

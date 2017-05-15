@@ -10,6 +10,13 @@
 
 <script type="text/javascript">
     var booked = JSON.parse('{{ dates | raw }}');
+    var dateFormat = '{{ settings.formats_date }}';
+    var timeFormat = '{{ settings.formats_time }}';
+    var timeInterval = {{ settings.reservation_interval }};
+    var firstDay = {{ settings.first_weekday }};
+    var disableDays = "{{ settings.work_days|join(',') }}";
+    var startWork = '{{ settings.work_time_from }}';
+    var finishWork = '{{ settings.work_time_to }}';
 </script>
 
 <form
