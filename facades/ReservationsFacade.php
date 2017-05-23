@@ -307,11 +307,11 @@ class ReservationsFacade
     {
         $daysWorkInput = Variables::getWorkingDays();
         $daysWork = [];
-        $allDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $allDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',];
 
         foreach ($allDays as $index => $day) {
             if (in_array($day, $daysWorkInput)) {
-                $daysWork[] = $index + 1;
+                $daysWork[] = $index;
             }
         }
 
