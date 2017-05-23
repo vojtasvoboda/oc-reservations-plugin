@@ -17,3 +17,4 @@
 1.0.13: Add translate settings, add translate front, fix error
 1.1.0: Move configs to settings, add working days and opening hours, better validation of selected date.
 1.1.1: Put old method back for backward compatibility.
+1.1.2: Fix working days
