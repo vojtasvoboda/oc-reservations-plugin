@@ -55,12 +55,39 @@ class ReservationsFacadeTest extends PluginTestCase
     public function testStoreReservationDaysOff()
     {
         $model = $this->getModel();
+        $default = Settings::get('work_days', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']);
+        Settings::set('work_days', []);
 
-        $this->setExpectedException('October\Rain\Exception\ApplicationException');
         $data = $this->getTestingReservationData();
-        $data['date'] = Carbon::parse('next sunday')->format('d/m/Y');
+        foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as $dayOfWeek) {
+            $exceptionTest = null;
+            try {
+                $data['date'] = Carbon::parse('next '.$dayOfWeek)->format('d/m/Y');
+                $model->storeReservation($data);
+            } catch (\Exception $exception) {
+                $exceptionTest = $exception;
+            }
+            $this->assertEquals('October\Rain\Exception\ApplicationException', get_class($exceptionTest));
+            $this->assertEquals('vojtasvoboda.reservations::lang.errors.days_off', $exceptionTest->getMessage());
+        }
 
-        $model->storeReservation($data);
+        Settings::set('work_days', $default);
+    }
+
+    public function testStoreReservationWorkingDays()
+    {
+        $default = Config::get('vojtasvoboda.reservations::config.protection_time', '-30 seconds');
+        Config::set('vojtasvoboda.reservations::config.protection_time', '0 seconds');
+        $model = $this->getModel();
+        Settings::set('work_days', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
+
+        $data = $this->getTestingReservationData();
+        foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as $dayOfWeek) {
+            $data['date'] = Carbon::parse('next '.$dayOfWeek)->format('d/m/Y');
+            $model->storeReservation($data);
+        }
+
+        Config::set('vojtasvoboda.reservations::config.protection_time', $default);
     }
 
     public function testStoreReservationOutOfHours()
