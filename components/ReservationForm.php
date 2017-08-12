@@ -27,6 +27,7 @@ class ReservationForm extends ComponentBase
         'cs' => 'cs_CZ',
         'es' => 'es_ES',
         'ru' => 'ru_RU',
+        'fr' => 'fr_FR',
     ];
 
     public function componentDetails()
