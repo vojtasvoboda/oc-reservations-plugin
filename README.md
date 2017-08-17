@@ -22,7 +22,7 @@ Technical features:
 - reservation form has **AJAX sending** and also non-JS fallback
 - overloadable **data seeding** for statuses
 
-No other plugin dependencies.
+No other plugin dependencies. Tested with the latest stable OctoberCMS build 420 (with Laravel 5.5).
 
 ## Installation
 
