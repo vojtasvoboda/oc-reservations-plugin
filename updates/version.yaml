@@ -18,3 +18,4 @@
 1.1.0: Move configs to settings, add working days and opening hours, better validation of selected date.
 1.1.1: Put old method back for backward compatibility.
 1.1.2: Make date picker translatable to french.
+1.1.3: Fix working days
