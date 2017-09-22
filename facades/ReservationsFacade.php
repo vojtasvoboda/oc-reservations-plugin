@@ -299,7 +299,7 @@ class ReservationsFacade
     }
 
     /**
-     * Get working days.
+     * Get working days. We are starting with sunday, because Carbon dayOfWeek for Sunday is 0.
      *
      * @return array
      */
@@ -307,7 +307,7 @@ class ReservationsFacade
     {
         $daysWorkInput = Variables::getWorkingDays();
         $daysWork = [];
-        $allDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',];
+        $allDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
         foreach ($allDays as $index => $day) {
             if (in_array($day, $daysWorkInput)) {
