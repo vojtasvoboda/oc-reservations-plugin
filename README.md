@@ -115,15 +115,23 @@ Receiving "Class 'PluginTestCase' not found" error? Just type `composer dumpauto
 
 ## TODO
 
-**Feel free to send pull request!**
-
-- [ ] Checkbox for disabling injecting assets with components.
+- [ ] Checkbox for disabling injecting assets to the components.
+- [ ] Move date validation from facade to the model (it should works also when creating reservation from backend)
 - [ ] Automatically load statuses for reservations listing/filtration.
 - [ ] Assets concatenation.
 - [ ] Log history of reservation changes.
 - [ ] Make bulk reservation status change in one SQL query.
 - [ ] Order by returning flag without SQL exception.
 - [ ] Translate statuses at backend.
+- [ ] Translations with Translate trait.
+- [ ] Can send iCal link in the e-mail.
+- [ ] Show only future dates in datepicker.
+- [ ] Load only future reservations to the datepicker to show reserved slots.
+- [ ] Reservations reminder by email/SMS, before reservation
+- [ ] Own function (callback) for generating next reservation number.
+- [ ] Sends confirmation email when admin [confirms the reservation](https://github.com/vojtasvoboda/oc-reservations-plugin/issues/2).
+
+**Feel free to send pull request!**
 
 ## Contributing
 
