@@ -84,6 +84,7 @@ return [
         'cs_label' => 'Potvrzení rezervace CS',
         'en_label' => 'Potvrzení rezervace EN',
         'es_label' => 'Potvrzení rezervace ES',
+        'fr_label' => 'Potvrzení rezervace FR',
         'ru_label' => 'Potvrzení rezervace RU',
     ],
 
