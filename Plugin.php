@@ -77,9 +77,12 @@ class Plugin extends PluginBase
             'vojtasvoboda.reservations::mail.reservation-cs' => 'Reservation confirmation CS',
             'vojtasvoboda.reservations::mail.reservation-en' => 'Reservation confirmation EN',
             'vojtasvoboda.reservations::mail.reservation-es' => 'Reservation confirmation ES',
+            'vojtasvoboda.reservations::mail.reservation-fr' => 'Reservation confirmation FR',
             'vojtasvoboda.reservations::mail.reservation-ru' => 'Reservation confirmation RU',
             'vojtasvoboda.reservations::mail.reservation-admin-cs' => 'Reservation confirmation for admin CS',
             'vojtasvoboda.reservations::mail.reservation-admin-en' => 'Reservation confirmation for admin EN',
+            'vojtasvoboda.reservations::mail.reservation-admin-es' => 'Reservation confirmation for admin ES',
+            'vojtasvoboda.reservations::mail.reservation-admin-fr' => 'Reservation confirmation for admin FR',
             'vojtasvoboda.reservations::mail.reservation-admin-ru' => 'Reservation confirmation for admin RU',
         ];
     }
