@@ -1,0 +1,19 @@
+subject = "New reservation"
+layout = "default"
+==
+<p>
+    Nueva reserva en el sistema:<br />
+    <br />
+    Fecha y hora: {{ reservation.date | date("d.m.Y H:i") }}<br />
+    <br />
+    Dirección: {{ reservation.street }}<br />
+    Nombre: {{ reservation.name }} {{ reservation.lastname }}<br />
+    Email: {{ reservation.email }}<br />
+    Teléfono: {{ reservation.phone }}<br />
+    <br />
+    Su mensaje: {{ reservation.message }}<br />
+    <br />
+    Registrada el: {{ reservation.created_at | date("d.m.Y H:i") }}<br />
+    <br />
+    Número de reservas con este email: {{ reservationsCount }}<br />
+</p>
