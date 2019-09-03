@@ -4,12 +4,12 @@ layout = "default"
 <p>
     Bonjour,<br />
     <br />
-    merci pour votre réservation. Ci-dessous vous trouverez les réservations estivales :<br />
+    merci pour votre réservation. Ci-dessous, vous trouverez le récapitulatif de la réservation :<br />
     <br />
     Date et heure : {{ reservation.date | date("d.m.Y H:i") }}<br />
     <br />
-    Adresse : {{ reservation.street }}<br />
     Nom : {{ reservation.name }} {{ reservation.lastname }}<br />
+    Adresse : {{ reservation.street }}<br />
     Email : {{ reservation.email }}<br />
     Téléphone : {{ reservation.phone }}<br />
     <br />
