@@ -1,0 +1,26 @@
+subject = "Rezervarea ta"
+layout = "default"
+==
+<p>
+    Salutare,<br />
+    <br />
+    multumim pentru rezervarea ta. Mai jos este un sumar:<br />
+    <br />
+    Data si ora : {{ reservation.date | date("d.m.Y H:i") }}<br />
+    <br />
+    Adresa: {{ reservation.street }}<br />
+    Nume: {{ reservation.name }} {{ reservation.lastname }}<br />
+    Email: {{ reservation.email }}<br />
+    Telefon: {{ reservation.phone }}<br />
+    <br />
+    Message: {{ reservation.message }}<br />
+    <br />
+    Am primit rezervarea ta pentru {{ reservation.created_at | date("d.m.Y H:i") }} si va vom trimite confirmarea cat de curand.<br />
+    <br />
+    {% if reservationsCount == 1 %}
+    Speram sa fii multumit de serviciile noastre
+    <br />
+    {% endif %}
+    <br />
+    Multumim pentre ca ati ales serviciile noastre
+</p>
