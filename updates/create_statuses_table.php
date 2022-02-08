@@ -17,7 +17,7 @@ class CreateStatusesTable extends Migration
             $table->string('ident', 300);
             $table->char('color', 7)->nullable();
             $table->boolean('enabled')->default(true);
-            $table->boolean('sort_order')->nullable();
+            $table->smallInteger('sort_order')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
