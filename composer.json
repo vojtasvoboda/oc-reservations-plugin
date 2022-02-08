@@ -1,5 +1,5 @@
 {
-    "name": "vojtasvoboda/oc-reservations-plugin",
+    "name": "vojtasvoboda/reservations-plugin",
     "type": "october-plugin",
     "extra": {
         "installer-name": "reservations"
