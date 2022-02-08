@@ -25,3 +25,6 @@
 1.1.7: Translations fixes
 1.1.8: Romanian locale (thanks to Bogdan Barbalata)
 1.1.9: Dutch (Nederlands) translation (thanks to Albert van Osch)
+1.1.10:
+    - Update statuses sort order column from boolean to smallInt
+    - update_statuses_sort_order_column.php
